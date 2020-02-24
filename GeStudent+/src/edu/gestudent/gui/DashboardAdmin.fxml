@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.image.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="600.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashboardAdminController">
+   <children>
+      <AnchorPane id="AnchorPane">
+         <children>
+            <BorderPane fx:id="DashbordPane" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <center>
+                  <AnchorPane fx:id="PaneAdmin" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <tabs>
+                              <Tab text="Untitled Tab">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="625.0" />
+                                </content>
+                              </Tab>
+                              <Tab text="new">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0" />
+                                </content>
+                              </Tab>
+                           </tabs>
+                        </JFXTabPane>
+                     </children>
+                  </AnchorPane>
+               </center>
+               <right>
+                  <VBox prefHeight="382.0" prefWidth="154.0" styleClass="toolbar-container" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#UsersAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Users" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="BOOK" size="25" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#ClassAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Class" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="TABLE" size="25" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#ExamsAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Exams" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="TABLE" size="25" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#LibraryAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Library" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false" onAction="#ClubAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Club" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="COG" size="25" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="286.0" mnemonicParsing="false" onAction="#RestaurentAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Restaurants" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#logoutAction" prefHeight="42.0" prefWidth="154.0" styleClass="toolbar-button" text="Logout" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </right>
+               <top>
+                  <AnchorPane prefHeight="0.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="BOTTOM_RIGHT" prefHeight="126.0" prefWidth="203.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-50.0">
+                           <children>
+                              <Label prefHeight="77.0" prefWidth="39.0" text="Ge" textFill="#d8514e">
+                                 <font>
+                                    <Font name="Agency FB" size="48.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="77.0" prefWidth="125.0" text="Student" textFill="WHITE">
+                                 <font>
+                                    <Font name="Agency FB" size="48.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_LEFT" prefHeight="82.0" prefWidth="0.0" text="+" textFill="#2ea8d9">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="61.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <ImageView fx:id="profileimage" fitHeight="144.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" />
+                        <VBox alignment="CENTER_LEFT" layoutX="163.0" layoutY="-1.0" prefHeight="145.0" prefWidth="138.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="-1.0">
+                           <children>
+                              <Label fx:id="txtFirstname" text="FirstName" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="txtlastname" text="LastName" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <JFXButton contentDisplay="TOP" layoutX="951.0" layoutY="95.0" mnemonicParsing="false" onAction="#profileAction" prefHeight="55.0" prefWidth="154.0" styleClass="toolbar-button" text="Profile" textAlignment="CENTER" AnchorPane.rightAnchor="0.0">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="USER" size="25" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+               </top>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

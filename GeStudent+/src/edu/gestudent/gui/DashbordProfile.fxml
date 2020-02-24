@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.validation.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordProfileController">
+   <children>
+      <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Profile">
+               <content>
+                  <AnchorPane minHeight="0.0" prefHeight="180.0" prefWidth="625.0">
+                     <children>
+                        <ImageView fx:id="newimage" fitHeight="142.0" fitWidth="164.0" layoutX="356.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="356.0" AnchorPane.rightAnchor="434.0" />
+                        <VBox layoutX="258.0" layoutY="148.0" prefHeight="285.0" prefWidth="434.0" spacing="25.0" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.0">
+                           <children>
+                              <JFXTextField fx:id="txtusername" prefHeight="3.0" prefWidth="450.0" promptText="username" />
+                              <JFXTextField fx:id="txtfirstname" promptText="First Name" />
+                              <JFXTextField fx:id="txtlastname" promptText="LastName" />
+                              <JFXTextField fx:id="txtphone" promptText="Phone" />
+                              <DatePicker fx:id="txtdate" prefHeight="37.0" prefWidth="448.0" styleClass="menu-bar" />
+                           </children>
+                        </VBox>
+                        <JFXButton layoutX="566.0" layoutY="105.0" onAction="#upload" prefHeight="39.0" prefWidth="62.0" text=". . ." />
+                        <JFXTextField fx:id="txtimage" layoutX="94.0" layoutY="310.0" opacity="0.0" prefHeight="37.0" prefWidth="131.0" />
+                        <Button layoutX="731.0" layoutY="387.0" mnemonicParsing="false" onAction="#updateInformation" prefHeight="38.0" prefWidth="118.0" text="Update">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Label fx:id="txtstatus" layoutX="555.0" layoutY="37.0" prefHeight="46.0" prefWidth="96.0" text="Status" textFill="#ffff8d">
+                           <font>
+                              <Font size="31.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Change password">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0">
+                     <children>
+                        <VBox layoutX="192.0" layoutY="84.0" spacing="40.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="248.0">
+                           <children>
+                              <JFXTextField fx:id="currentpassword" promptText="Current password" />
+                              <JFXTextField fx:id="newpassword" promptText="New password" />
+                              <JFXTextField fx:id="confirmepassword" promptText="Confirme password" />
+                              <JFXButton onAction="#ApplyChanepassword" prefHeight="54.0" prefWidth="562.0" text="Apply" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>
