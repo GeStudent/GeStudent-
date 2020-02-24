@@ -157,8 +157,6 @@ public class DashbordRestaurantController implements Initializable {
     private Button AjoutMealButton5;
     @FXML
     private TableView<meal> tabmeal;
-    @FXML
-    private Button ReturnButton;
 
     private TextField filterField;
     @FXML
@@ -184,8 +182,6 @@ public class DashbordRestaurantController implements Initializable {
     @FXML
     private TextField txtdescription;
     @FXML
-    private Button ReturnButton11;
-    @FXML
     private TextField filterField11;
     @FXML
     private Button AjoutMealButton511;
@@ -201,9 +197,6 @@ public class DashbordRestaurantController implements Initializable {
     private TextField searhTF;
     @FXML
     private TextField searchTF;
-    @FXML
-//    PieChart piechart;
-//    ObservableList< PieChart.Data> piechartdata;
     ArrayList< String> p = new ArrayList< String>();
     ArrayList< Integer> c = new ArrayList< Integer>();
     @FXML
@@ -650,6 +643,7 @@ public class DashbordRestaurantController implements Initializable {
         ).collect(Collectors.toList()));
     }
 
+    @FXML
     private void filter2(ActionEvent event) {
 
         data2.clear();

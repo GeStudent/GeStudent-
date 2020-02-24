@@ -123,4 +123,32 @@ public class tccCRUD {
 
     }
 
+    public List<classe> Listclassteacher(int idteacher) {
+
+        List<classe> arr = new ArrayList<>();
+
+        try {
+
+            PreparedStatement pre = con.prepareStatement("SELECT C.name , C.duration, Cl.nameC, cl.idclass , u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and u.id= ? ");
+
+            pre.setInt(1, idteacher);
+
+            ResultSet rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                String nameC = rs.getString("nameC");
+                int idclass = rs.getInt("idclass");
+
+                classe c = new classe(nameC, idclass);
+                arr.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(tccCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return arr;
+
+    }
+
 }
