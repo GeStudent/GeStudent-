@@ -187,14 +187,6 @@ public class DashbordClassController implements Initializable {
         });
         this.tc.setItems(dataAffectation);
 
-        //for students
-        Studentdata.addAll(ss.readAllStudentRegistrated());
-
-        this.firstname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-        this.lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-        this.email.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        this.StudentTv.setItems(Studentdata);
 
         this.etudiant.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         this.classe.setCellValueFactory(new PropertyValueFactory<>("namecl"));

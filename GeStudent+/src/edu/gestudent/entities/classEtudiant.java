@@ -29,6 +29,13 @@ public class classEtudiant {
 
     }
 
+    public classEtudiant(int idetudiant, String namecl, String firstname) {
+        this.idetudiant = idetudiant;
+        this.namecl = namecl;
+        this.firstname = firstname;
+
+    }
+
     public classEtudiant(int idetudiant) {
         this.idetudiant = idetudiant;
 
@@ -41,7 +48,6 @@ public class classEtudiant {
     public void setNamecl(String namecl) {
         this.namecl = namecl;
     }
-
 
     public int getidetudiant() {
         return idetudiant;
@@ -65,7 +71,6 @@ public class classEtudiant {
         return hash;
     }
 
-    
     public String getFirstname() {
         return firstname;
 
@@ -92,13 +97,13 @@ public class classEtudiant {
     final classe other = (classe) obj;
     return this.idetudiant == other.idetudiant;
     }*/
-    public void setIdetudiant(int idetudiant) {    
+    public void setIdetudiant(int idetudiant) {
         this.idetudiant = idetudiant;
     }
 
     @Override
     public String toString() {
-        return "classEtudiant{" + "namecl=" + namecl + ", firstname=" + firstname + '}';
+        return "" + idetudiant;
     }
 
 }

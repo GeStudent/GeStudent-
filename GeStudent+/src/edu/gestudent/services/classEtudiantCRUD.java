@@ -40,14 +40,15 @@ public class classEtudiantCRUD {
     public List<classEtudiant> rechercheclassetudiant(int idclass) throws SQLException {
         {
             List<classEtudiant> arr = new ArrayList<>();
-            PreparedStatement pre = con.prepareStatement("SELECT  Cl.nameC, u.firstname  FROM  class cl ,user u, classEtudiant ce WHERE ce.idclass = cl.idclass AND ce.idEtudiant = u.id and ce.idclass=? ");
+            PreparedStatement pre = con.prepareStatement("SELECT  u.id,Cl.nameC, u.firstname  FROM  class cl ,user u, classEtudiant ce WHERE ce.idclass = cl.idclass AND ce.idEtudiant = u.id and ce.idclass=? ");
             pre.setInt(1, idclass);
             ResultSet rs = pre.executeQuery();
 
             while (rs.next()) {
                 String namecl = rs.getString("nameC");
                 String firstname = rs.getString("firstname");
-                classEtudiant ce = new classEtudiant(namecl, firstname);
+                int idstudent=rs.getInt(1);
+                classEtudiant ce = new classEtudiant(idstudent,namecl, firstname);
                 arr.add(ce);
             }
 

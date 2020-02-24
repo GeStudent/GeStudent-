@@ -6,15 +6,27 @@
 package edu.gestudent.gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.mysql.jdbc.StringUtils;
 import edu.gestudent.entities.Behaviour;
+import edu.gestudent.entities.Session;
+import edu.gestudent.entities.Student;
+import edu.gestudent.entities.classEtudiant;
+import edu.gestudent.entities.classe;
 
 import edu.gestudent.entities.exams;
+import edu.gestudent.entities.tcc;
+import edu.gestudent.entities.teacher;
+import edu.gestudent.entities.tsa;
+import edu.gestudent.services.ServiceStudent;
 import edu.gestudent.services.behaviourCRUD;
+import edu.gestudent.services.classEtudiantCRUD;
 import edu.gestudent.services.examsCRUD;
+import edu.gestudent.services.tccCRUD;
+import edu.gestudent.services.tsaCRUD;
 import edu.gestudent.utils.DataBase;
 import edu.gestudent.utils.gestudentAssistantUtil;
 import java.io.IOException;
@@ -49,6 +61,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -67,9 +80,15 @@ import javax.swing.JFrame;
  * @author Asus
  */
 public class DashbordExamsController implements Initializable {
-   ArrayList< String> p = new ArrayList< String>();
+
+    ArrayList< String> p = new ArrayList< String>();
     ArrayList< Integer> c = new ArrayList< Integer>();
+
     examsCRUD exc = new examsCRUD();
+    ServiceStudent ss = new ServiceStudent();
+    public ObservableList<classEtudiant> dataClassStudent = FXCollections.observableArrayList();
+    classEtudiantCRUD cE = new classEtudiantCRUD();
+
     private StackPane rootPane;
     @FXML
     private TextField txtnom;
@@ -97,22 +116,20 @@ public class DashbordExamsController implements Initializable {
     PieChart piechart;
     Connection con;
     Statement ste;
-  ObservableList < PieChart.Data > piechartdata;
-  behaviourCRUD behc = new behaviourCRUD();
-  @FXML
+    ObservableList< PieChart.Data> piechartdata;
+    behaviourCRUD behc = new behaviourCRUD();
+    @FXML
     private TextField txtnameaward;
     /**
      * Initializes the controller class.
      */
-     static JFrame f;
+    static JFrame f;
     behaviourCRUD bhcr = new behaviourCRUD();
-        public ObservableList<Behaviour> dataa = FXCollections.observableArrayList();
+    public ObservableList<Behaviour> dataa = FXCollections.observableArrayList();
     @FXML
     private ComboBox<Integer> comboaward;
 
-    public ObservableList<Integer> awards = FXCollections.observableArrayList(-2,-1,1,2);
-    @FXML
-    private TableView<Behaviour> sttv;
+    public ObservableList<Integer> awards = FXCollections.observableArrayList(-2, -1, 1, 2);
     @FXML
     private TableView<Behaviour> awardtv;
     @FXML
@@ -122,12 +139,23 @@ public class DashbordExamsController implements Initializable {
     @FXML
     private Button Timer;
     @FXML
-    private TableView<?> sttv1;
+    private TableView<Behaviour> sttv1;
+    tccCRUD tcc = new tccCRUD();
+    @FXML
+    private JFXComboBox<classe> comboteacher;
 
+    int iduser = Session.getCurrentSession();
 
- 
-    
+    public ObservableList<classe> listeClass = FXCollections.observableArrayList(tcc.Listclassteacher(iduser));
+    @FXML
+    private Button select;
 
+    @FXML
+    private TableView<classEtudiant> StudentClassTv;
+    @FXML
+    private TableColumn<classEtudiant, String> classe;
+    @FXML
+    private TableColumn<classEtudiant, String> etudiant;
 //     public ObservableList<PieChart.Data> getExamGraphStatistics() {
 //        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
 //                con = DataBase.getInstance().getConnection();
@@ -158,7 +186,18 @@ public class DashbordExamsController implements Initializable {
 //        }
 //        return data;
 //    }
- 
+    @FXML
+    private Button affecter;
+    @FXML
+    private JFXComboBox<Behaviour> awardscombo;
+    public ObservableList<Behaviour> listbeh = FXCollections.observableArrayList(bhcr.afficherBehaviour());
+    @FXML
+    private TableColumn<Behaviour, String> databeh;
+    @FXML
+    private TableColumn<Behaviour, Integer> dataaward;
+    tsaCRUD ts = new tsaCRUD();
+    public ObservableList<Behaviour> listaward = FXCollections.observableArrayList(ts.afficherBehaviourstu(iduser, 31));
+    String idstudent;
 
     /**
      * Initializes the controller class.
@@ -166,10 +205,11 @@ public class DashbordExamsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadData();
-      //  initGraphs();
+        //  initGraphs();
         initDrawer();
-
+        comboteacher.setItems(listeClass);
         piechart.setData(piechartdata);
+        awardscombo.setItems(listbeh);
 
         data.addAll(exc.afficherex());
 
@@ -184,29 +224,52 @@ public class DashbordExamsController implements Initializable {
         this.dateex.setCellFactory(TextFieldTableCell.forTableColumn());
 //        this.duree.setCellFactory(TextFieldTableCell.forTableColumn());
 //behavior
-   // TODO
-      //  data.addAll(bhcr.afficherBehaviour());
-        comboaward.setItems(awards);
-          dataa.addAll(behc.afficherBehaviour());
-    
-      
         // TODO
-       this.nombeh.setCellValueFactory(new PropertyValueFactory<>("nombeh"));
-       this.award.setCellValueFactory(new PropertyValueFactory<>("award"));
-      
+        //  data.addAll(bhcr.afficherBehaviour());
+        comboaward.setItems(awards);
+        dataa.addAll(behc.afficherBehaviour());
+
+        //for student
+        //for students
+        this.etudiant.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+        this.classe.setCellValueFactory(new PropertyValueFactory<>("namecl"));
+        this.StudentClassTv.setItems(dataClassStudent);
+        StudentClassTv.setRowFactory(tv -> {
+            TableRow<classEtudiant> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+
+                Object selectedItems = StudentClassTv.getSelectionModel().getSelectedItems().get(0);
+                idstudent = selectedItems.toString().split(",")[0].substring(0);
+                System.out.println("id sutdent:" + idstudent);
+                listaward.clear();
+                listaward.addAll(ts.afficherBehaviourstu(iduser, Integer.parseInt(idstudent)));
+                this.sttv1.setItems(listaward);
+            });
+            return row;
+        });
+//        this.tc.setItems(dataAffectation);
+        //award
+        this.dataaward.setCellValueFactory(new PropertyValueFactory<>("award"));
+        this.databeh.setCellValueFactory(new PropertyValueFactory<>("nombeh"));
+        this.sttv1.setItems(listaward);
+        // TODO
+        this.nombeh.setCellValueFactory(new PropertyValueFactory<>("nombeh"));
+        this.award.setCellValueFactory(new PropertyValueFactory<>("award"));
+
         this.awardtv.setItems(dataa);
     }
-       @FXML
+
+    @FXML
     private void Timer(ActionEvent event) throws IOException {
-  
-             gestudentAssistantUtil.loadWindow(getClass().getResource("Timer.fxml"), "Timer", null);
+
+        gestudentAssistantUtil.loadWindow(getClass().getResource("Timer.fxml"), "Timer", null);
 
     }
 
     @FXML
     private void addaward(ActionEvent event) {
-                Behaviour b;
-                        b = new Behaviour(comboaward.getValue(),txtnameaward.getText());
+        Behaviour b;
+        b = new Behaviour(comboaward.getValue(), txtnameaward.getText());
         behc.ajouterbeh(b);
         Alert succAddBehAlert = new Alert(Alert.AlertType.INFORMATION);
         succAddBehAlert.setTitle("Add Award");
@@ -216,11 +279,12 @@ public class DashbordExamsController implements Initializable {
 
         dataa.clear();
         dataa.addAll(behc.afficherBehaviour());
+        refreshCombobox();
     }
 
     @FXML
     private void deleteaward(ActionEvent event) {
-           if (awardtv.getSelectionModel().getSelectedItem() != null) {
+        if (awardtv.getSelectionModel().getSelectedItem() != null) {
             Alert deletebehAlert = new Alert(Alert.AlertType.CONFIRMATION);
             deletebehAlert.setTitle("Delete Partner");
             deletebehAlert.setHeaderText(null);
@@ -259,15 +323,16 @@ public class DashbordExamsController implements Initializable {
             //Alert Select Exam !
 
         }
+        refreshCombobox();
     }
 
     @FXML
     private void Msg(ActionEvent event) {
-        chat_server cs= new chat_server();
-         cs.setVisible(true);
+        chat_server cs = new chat_server();
+        cs.setVisible(true);
 
-        
     }
+
     private void initDrawer() {
 //        try {
 //            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/gestudent/toolbar/Toolbar.fxml"));
@@ -320,7 +385,6 @@ public class DashbordExamsController implements Initializable {
 //        }
 //     //   return count;
 //    }
-
     public void loadData() {
 
         String query = "select COUNT(*) as count ,nomex from exams GROUP BY nomex"; //ORDER BY P asc
@@ -335,7 +399,7 @@ public class DashbordExamsController implements Initializable {
             while (rs.next()) {
                 exams e = new exams();
                 //	int result = Integer.parseInt(e.getDuree());
-                piechartdata.add(new PieChart.Data(rs.getString("nomex"),rs.getInt("count") ));
+                piechartdata.add(new PieChart.Data(rs.getString("nomex"), rs.getInt("count")));
                 p.add(rs.getString("nomex"));
                 c.add(rs.getInt("count"));
 
@@ -402,8 +466,7 @@ public class DashbordExamsController implements Initializable {
 //            ExamAlert.setHeaderText(null);
 //            ExamAlert.setContentText("Exam was succfuly edit");
 //            ExamAlert.showAndWait();
-        AlertMaker.showSimpleAlert("edit", "Exam was succfuly edit!");
-
+            AlertMaker.showSimpleAlert("edit", "Exam was succfuly edit!");
 
         } else {
             //Alert Select exam :
@@ -412,7 +475,7 @@ public class DashbordExamsController implements Initializable {
 //            selectExamAlert.setHeaderText(null);
 //            selectExamAlert.setContentText("You need to select Exam first!");
 //            selectExamAlert.showAndWait();
-        AlertMaker.showwarningMessage("Select a Exam", "You need to select Exam first!");
+            AlertMaker.showwarningMessage("Select a Exam", "You need to select Exam first!");
 
             //Alert Select Exam !
         }
@@ -444,7 +507,7 @@ public class DashbordExamsController implements Initializable {
 //                succDeleteExamAlert.setContentText("Exam deleted successfully!");
 //
 //                succDeleteExamAlert.showAndWait();
-        AlertMaker.showSimpleAlert("Delete Exam", "Exam deleted successfully!");
+                AlertMaker.showSimpleAlert("Delete Exam", "Exam deleted successfully!");
 
             } else if (optionDeleteExamAlert.get() == ButtonType.CANCEL) {
 
@@ -458,10 +521,9 @@ public class DashbordExamsController implements Initializable {
 //            selectExamAlert.setHeaderText(null);
 //            selectExamAlert.setContentText("You need to select Exam first!");
 //            selectExamAlert.showAndWait();
-        AlertMaker.showwarningMessage("Select a Exam", "You need to select Exam first!");
+            AlertMaker.showwarningMessage("Select a Exam", "You need to select Exam first!");
 
             //Alert Select Exam !
-
         }
     }
 
@@ -516,7 +578,35 @@ public class DashbordExamsController implements Initializable {
     }
 
     private void handleAboutMenu(ActionEvent event) {
-                gestudentAssistantUtil.loadWindow(getClass().getResource("/edu/gestudent/about/about.fxml"), "About Us", null);
+        gestudentAssistantUtil.loadWindow(getClass().getResource("/edu/gestudent/about/about.fxml"), "About Us", null);
+    }
+
+    @FXML
+    private void select(ActionEvent event) {
+        int idclass = comboteacher.getValue().getIdclass();
+
+        try {
+            dataClassStudent.clear();
+            dataClassStudent.addAll(cE.rechercheclassetudiant((idclass)));
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+    }
+
+    @FXML
+    private void affecter(ActionEvent event) {
+//             System.out.println("idd" + idteacher);
+//        System.out.println("comboboc: " + Classcombobox.getValue().getIdclass());
+        tsa te = new tsa(awardscombo.getValue().getIdbeh(), Integer.parseInt(idstudent), iduser);
+        ts.ajouter(te);
+        listaward.clear();
+        listaward.addAll(ts.afficherBehaviourstu(iduser, Integer.parseInt(idstudent)));
+        this.sttv1.setItems(listaward);
+    }
+
+    public void refreshCombobox() {
+        listbeh = FXCollections.observableArrayList(bhcr.afficherBehaviour());
+        awardscombo.setItems(listbeh);
     }
 
 }

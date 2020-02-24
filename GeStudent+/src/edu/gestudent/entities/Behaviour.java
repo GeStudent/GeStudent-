@@ -75,8 +75,9 @@ public class Behaviour {
 
     @Override
     public String toString() {
-        return "Behaviour{" + "idbeh=" + idbeh + ", attendance=" + attendance + ", award=" + award + '}';
+        return   nombeh ;
     }
+
 
     @Override
     public int hashCode() {
