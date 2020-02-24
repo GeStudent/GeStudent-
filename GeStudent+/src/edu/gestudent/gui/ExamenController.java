@@ -10,10 +10,8 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.mysql.jdbc.StringUtils;
-import edu.gestudent.entities.Behaviour;
 
 import edu.gestudent.entities.exams;
-import edu.gestudent.services.behaviourCRUD;
 import edu.gestudent.services.examsCRUD;
 import edu.gestudent.utils.DataBase;
 import edu.gestudent.utils.gestudentAssistantUtil;
@@ -43,9 +41,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -59,74 +55,19 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-import javax.swing.JFrame;
 
 /**
  * FXML Controller class
  *
  * @author Asus
  */
-public class DashbordExamsController implements Initializable {
-   ArrayList< String> p = new ArrayList< String>();
-    ArrayList< Integer> c = new ArrayList< Integer>();
-    examsCRUD exc = new examsCRUD();
-    private StackPane rootPane;
-    @FXML
-    private TextField txtnom;
-    @FXML
-    private AnchorPane hamburger;
-    private JFXDrawer drawer;
-    @FXML
-    private DatePicker datetxt;
-    @FXML
-    private TextField txtduree;
-    @FXML
-    private TableColumn<exams, String> nomex;
-    @FXML
-    private TableColumn<exams, String> dateex;
-    @FXML
-    private TableColumn<exams, String> duree;
+public class ExamenController implements Initializable {
 
-    public ObservableList<exams> data = FXCollections.observableArrayList();
-
-    @FXML
-    private TableView<exams> examtv;
-    @FXML
-    private TextField txtduree1;
     @FXML
     PieChart piechart;
     Connection con;
     Statement ste;
   ObservableList < PieChart.Data > piechartdata;
-  behaviourCRUD behc = new behaviourCRUD();
-  @FXML
-    private TextField txtnameaward;
-    /**
-     * Initializes the controller class.
-     */
-     static JFrame f;
-    behaviourCRUD bhcr = new behaviourCRUD();
-        public ObservableList<Behaviour> dataa = FXCollections.observableArrayList();
-    @FXML
-    private ComboBox<Integer> comboaward;
-
-    public ObservableList<Integer> awards = FXCollections.observableArrayList(-2,-1,1,2);
-    @FXML
-    private TableView<Behaviour> sttv;
-    @FXML
-    private TableView<Behaviour> awardtv;
-    @FXML
-    private TableColumn<Behaviour, String> nombeh;
-    @FXML
-    private TableColumn<Behaviour, Integer> award;
-    @FXML
-    private Button Timer;
-    @FXML
-    private TableView<?> sttv1;
-
-
- 
-    
 
 //     public ObservableList<PieChart.Data> getExamGraphStatistics() {
 //        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
@@ -158,7 +99,32 @@ public class DashbordExamsController implements Initializable {
 //        }
 //        return data;
 //    }
- 
+    ArrayList< String> p = new ArrayList< String>();
+    ArrayList< Integer> c = new ArrayList< Integer>();
+    examsCRUD exc = new examsCRUD();
+    private StackPane rootPane;
+    @FXML
+    private TextField txtnom;
+    @FXML
+    private AnchorPane hamburger;
+    private JFXDrawer drawer;
+    @FXML
+    private DatePicker datetxt;
+    @FXML
+    private TextField txtduree;
+    @FXML
+    private TableColumn<exams, String> nomex;
+    @FXML
+    private TableColumn<exams, String> dateex;
+    @FXML
+    private TableColumn<exams, String> duree;
+
+    public ObservableList<exams> data = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<exams> examtv;
+    @FXML
+    private TextField txtduree1;
 
     /**
      * Initializes the controller class.
@@ -183,90 +149,7 @@ public class DashbordExamsController implements Initializable {
 //        this.nomex.setCellFactory(TextFieldTableCell.forTableColumn());
         this.dateex.setCellFactory(TextFieldTableCell.forTableColumn());
 //        this.duree.setCellFactory(TextFieldTableCell.forTableColumn());
-//behavior
-   // TODO
-      //  data.addAll(bhcr.afficherBehaviour());
-        comboaward.setItems(awards);
-          dataa.addAll(behc.afficherBehaviour());
-    
-      
-        // TODO
-       this.nombeh.setCellValueFactory(new PropertyValueFactory<>("nombeh"));
-       this.award.setCellValueFactory(new PropertyValueFactory<>("award"));
-      
-        this.awardtv.setItems(dataa);
-    }
-       @FXML
-    private void Timer(ActionEvent event) throws IOException {
-  
-             gestudentAssistantUtil.loadWindow(getClass().getResource("Timer.fxml"), "Timer", null);
 
-    }
-
-    @FXML
-    private void addaward(ActionEvent event) {
-                Behaviour b;
-                        b = new Behaviour(comboaward.getValue(),txtnameaward.getText());
-        behc.ajouterbeh(b);
-        Alert succAddBehAlert = new Alert(Alert.AlertType.INFORMATION);
-        succAddBehAlert.setTitle("Add Award");
-        succAddBehAlert.setHeaderText("Results:");
-        succAddBehAlert.setContentText("Award added successfully!");
-        succAddBehAlert.showAndWait();
-
-        dataa.clear();
-        dataa.addAll(behc.afficherBehaviour());
-    }
-
-    @FXML
-    private void deleteaward(ActionEvent event) {
-           if (awardtv.getSelectionModel().getSelectedItem() != null) {
-            Alert deletebehAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            deletebehAlert.setTitle("Delete Partner");
-            deletebehAlert.setHeaderText(null);
-            deletebehAlert.setContentText("Are you sure want to delete this Award ?");
-            Optional<ButtonType> optionDeletebehAlert = deletebehAlert.showAndWait();
-            if (optionDeletebehAlert.get() == ButtonType.OK) {
-                Behaviour b = awardtv.getSelectionModel().getSelectedItem();
-                try {
-                    behc.delete(b);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ExamenController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                dataa.clear();
-                dataa.addAll(behc.afficherBehaviour());
-
-                //Alert Delete Blog :
-                Alert succDeleteExamAlert = new Alert(Alert.AlertType.INFORMATION);
-                succDeleteExamAlert.setTitle("Delete Exam");
-                succDeleteExamAlert.setHeaderText("Results:");
-                succDeleteExamAlert.setContentText("Exam deleted successfully!");
-
-                succDeleteExamAlert.showAndWait();
-            } else if (optionDeletebehAlert.get() == ButtonType.CANCEL) {
-
-            }
-
-        } else {
-
-            //Alert Select Exam :
-            Alert selectBehAlert = new Alert(Alert.AlertType.WARNING);
-            selectBehAlert.setTitle("Select a Award");
-            selectBehAlert.setHeaderText(null);
-            selectBehAlert.setContentText("You need to select Award first!");
-            selectBehAlert.showAndWait();
-            //Alert Select Exam !
-
-        }
-    }
-
-    @FXML
-    private void Msg(ActionEvent event) {
-        chat_server cs= new chat_server();
-         cs.setVisible(true);
-
-        
     }
     private void initDrawer() {
 //        try {
@@ -510,11 +393,13 @@ public class DashbordExamsController implements Initializable {
         return (Stage) rootPane.getScene().getWindow();
     }
 
+    @FXML
     private void handleMenuFullScreen(ActionEvent event) {
         Stage stage = getStage();
         stage.setFullScreen(!stage.isFullScreen());
     }
 
+    @FXML
     private void handleAboutMenu(ActionEvent event) {
                 gestudentAssistantUtil.loadWindow(getClass().getResource("/edu/gestudent/about/about.fxml"), "About Us", null);
     }

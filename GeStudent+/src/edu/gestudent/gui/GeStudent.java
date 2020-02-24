@@ -5,6 +5,7 @@
  */
 package edu.gestudent.gui;
 
+import edu.gestudent.utils.gestudentAssistantUtil;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ public class GeStudent   extends Application {
                     
                     primaryStage.setTitle("GeStudent+");
                     primaryStage.setScene(scene);
+                       gestudentAssistantUtil.setStageIcon(primaryStage);
                     primaryStage.show();
         } catch (IOException ex) {
             Logger.getLogger(GeStudent.class.getName()).log(Level.SEVERE, null, ex);

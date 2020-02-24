@@ -66,7 +66,7 @@ import javax.swing.JFrame;
  *
  * @author Asus
  */
-public class DashbordExamsController implements Initializable {
+public class DashboardExamsController implements Initializable {
    ArrayList< String> p = new ArrayList< String>();
     ArrayList< Integer> c = new ArrayList< Integer>();
     examsCRUD exc = new examsCRUD();
@@ -510,11 +510,13 @@ public class DashbordExamsController implements Initializable {
         return (Stage) rootPane.getScene().getWindow();
     }
 
+    @FXML
     private void handleMenuFullScreen(ActionEvent event) {
         Stage stage = getStage();
         stage.setFullScreen(!stage.isFullScreen());
     }
 
+    @FXML
     private void handleAboutMenu(ActionEvent event) {
                 gestudentAssistantUtil.loadWindow(getClass().getResource("/edu/gestudent/about/about.fxml"), "About Us", null);
     }
