@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -8,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="448.0" prefWidth="679.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordLibraryController">
+<AnchorPane prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordLibraryController">
    <children>
       <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
@@ -16,24 +19,100 @@
                <content>
                   <AnchorPane minHeight="0.0" prefHeight="180.0" prefWidth="625.0">
                      <children>
-                        <Label layoutX="216.0" layoutY="146.0" prefHeight="102.0" prefWidth="170.0" text="U5.1" textFill="WHITE">
-                           <font>
-                              <Font size="53.0" />
-                           </font>
-                        </Label>
+                        <HBox layoutX="47.0" layoutY="46.0" spacing="50.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="46.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <VBox prefHeight="312.0" prefWidth="246.0" spacing="20.0">
+                                       <children>
+                                          <JFXTextField fx:id="txtname" promptText="name" />
+                                          <HBox>
+                                             <children>
+                                                <JFXTextField fx:id="txtimage" promptText="Image" />
+                                                <Button mnemonicParsing="false" onAction="#upload" prefHeight="39.0" prefWidth="26.0" text="upload" />
+                                             </children>
+                                          </HBox>
+                                          <JFXTextField fx:id="txtauthor" promptText="Author" />
+                                          <JFXTextField fx:id="txturl" promptText="Url" />
+                                          <JFXComboBox fx:id="combocategorie" blendMode="ADD" prefHeight="16.0" prefWidth="181.0" promptText="Categorie" />
+                                          <JFXTextField fx:id="txtquantity" promptText="Quantity" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="librarytv" prefHeight="312.0" prefWidth="524.0">
+                                 <columns>
+                                    <TableColumn fx:id="name" minWidth="4.0" prefWidth="71.0" text="Name" />
+                                    <TableColumn fx:id="author" onEditCommit="#changeAuthorCellEvent" text="Author" />
+                                    <TableColumn fx:id="url" onEditCommit="#changeUrlCellEvent" prefWidth="75.0" text="Url" />
+                                    <TableColumn fx:id="categiries" onEditCommit="#changeCategoriesCellEvent" prefWidth="109.0" text="Categories" />
+                                    <TableColumn fx:id="quantity" onEditCommit="#changeQuantityCellEvent" prefWidth="63.0" text="Quantity" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <ImageView fx:id="bookImage" fitHeight="150.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets right="20.0" top="50.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="223.0" layoutY="384.0" spacing="30.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="233.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#addBook" prefHeight="30.0" prefWidth="100.0" text="Add">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#EditAction" prefHeight="30.0" prefWidth="100.0" text="Edit">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#DeleteAction" prefHeight="30.0" prefWidth="100.0" text="Delete">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#select" prefHeight="30.0" prefWidth="100.0" text="select">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <JFXTextField fx:id="searchTF" layoutX="737.0" layoutY="22.0" onAction="#filter" promptText="Search" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Club">
+            <Tab text="Borrow">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0">
                      <children>
-                        <Label layoutX="263.0" layoutY="186.0" text="U5.2" textFill="WHITE">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </Label>
+                        <TableView fx:id="empruntadmin" layoutX="246.0" layoutY="83.0" prefHeight="200.0" prefWidth="425.0">
+                           <columns>
+                              <TableColumn fx:id="firstnameE" prefWidth="101.0" text="First Name" />
+                              <TableColumn fx:id="lastnameE" prefWidth="91.0" text="Last Name" />
+                              <TableColumn fx:id="booknameE" prefWidth="119.0" text="Book Name" />
+                              <TableColumn fx:id="dateretourE" prefWidth="113.0" text="Return Date" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Button layoutX="426.0" layoutY="344.0" mnemonicParsing="false" onAction="#selectemprunt" text="Select" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Sta">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0">
+                     <children>
+                        <PieChart fx:id="piechart" layoutX="209.0" layoutY="28.0" />
                      </children>
                   </AnchorPane>
                </content>
