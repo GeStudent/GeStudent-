@@ -25,16 +25,16 @@
                               <JFXTextField fx:id="txtfirstname" promptText="First Name" />
                               <JFXTextField fx:id="txtlastname" promptText="LastName" />
                               <JFXTextField fx:id="txtphone" promptText="Phone" />
-                              <DatePicker fx:id="txtdate" prefHeight="37.0" prefWidth="448.0" styleClass="menu-bar" />
+                              <DatePicker fx:id="txtdate" prefHeight="37.0" prefWidth="511.0" styleClass="menu-bar" />
                            </children>
                         </VBox>
                         <JFXButton layoutX="566.0" layoutY="105.0" onAction="#upload" prefHeight="39.0" prefWidth="62.0" text=". . ." />
                         <JFXTextField fx:id="txtimage" layoutX="94.0" layoutY="310.0" opacity="0.0" prefHeight="37.0" prefWidth="131.0" />
-                        <Button layoutX="731.0" layoutY="387.0" mnemonicParsing="false" onAction="#updateInformation" prefHeight="38.0" prefWidth="118.0" text="Update">
+                        <Button layoutX="755.0" layoutY="387.0" mnemonicParsing="false" onAction="#updateInformation" prefHeight="30.0" prefWidth="130.0" text="Update">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic></Button>
-                        <Label fx:id="txtstatus" layoutX="555.0" layoutY="37.0" prefHeight="46.0" prefWidth="96.0" text="Status" textFill="#ffff8d">
+                        <Label fx:id="txtstatus" layoutX="555.0" layoutY="37.0" prefHeight="46.0" prefWidth="188.0" text="Status" textFill="#ffff8d">
                            <font>
                               <Font size="31.0" />
                            </font>

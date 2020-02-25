@@ -203,6 +203,24 @@ public class ServicesUsers {
         return false;
 
     }
+     
+     public int changePwd(user u) {
+        int usrExec = 0;
+
+
+        PreparedStatement usrPs;
+        try {
+
+            String usrQry = "update user set password = ? where username = ?";
+            usrPs = con.prepareStatement(usrQry);
+            usrPs.setString(1, u.getPassword());
+            usrPs.setString(2, u.getUsername());
+            usrExec = usrPs.executeUpdate();
+        } catch (SQLException ex) {
+           ex.getMessage();
+        }
+        return usrExec;
+    }
 
     public boolean updateimage(int id, String image) {
 
@@ -374,6 +392,46 @@ public class ServicesUsers {
         }
 
         return count;
+    }
+    
+    
+    public int findUser(user u) {
+        int count = 0;
+
+        PreparedStatement loginPs;
+        try {
+        
+            String loginQry = "select * from user where username = ?";
+            loginPs = con.prepareStatement(loginQry);
+            loginPs.setString(1, u.getUsername());
+            ResultSet rs = loginPs.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+        } catch (SQLException ex) {
+           ex.getMessage();
+        }
+        return count;
+    }
+    
+        public String getPhoneByUser(String user) {
+        String phone = "";
+        try {
+            String query = "select phone from user where username = ?";
+         
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, user);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                phone = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+           ex.getMessage();
+        }
+                //System.out.println(phone);
+
+        return phone;
     }
 
 }

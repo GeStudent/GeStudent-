@@ -12,6 +12,7 @@ package edu.gestudent.entities;
 public class Session {
 
     private static int idUser;
+    private static String pin = "";
 
     public static void start(int currentUserID) {
         idUser = currentUserID;
@@ -31,6 +32,15 @@ public class Session {
         } else {
             throw new Exception("Session has not started yet!");
         }
+    }
+
+    public static void generatePIN() {
+        int randomPIN = (int) (Math.random() * 9000) + 1000;
+        pin = "" + randomPIN;
+    }
+
+    public static String getPin() {
+        return pin;
     }
 
 }

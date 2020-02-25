@@ -5,6 +5,7 @@
  */
 package edu.gestudent.gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import edu.gestudent.entities.Session;
@@ -37,6 +38,10 @@ public class LoginpageController implements Initializable {
     private JFXTextField txtusername;
     @FXML
     private JFXPasswordField txtpassword;
+    @FXML
+    private JFXButton Singup;
+    @FXML
+    private JFXButton forgotBtn;
 
     /**
      * Initializes the controller class.
@@ -126,6 +131,34 @@ public class LoginpageController implements Initializable {
 
         }
 
+    }
+
+    @FXML
+    private void Singup(ActionEvent event) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+            Scene scene = new Scene(root, 800, 500);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+    }
+
+    @FXML
+    private void Forgot(ActionEvent event) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("forgotpassword.fxml"));
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        Scene scene = new Scene(root, 1000, 600);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
     }
 
 }
