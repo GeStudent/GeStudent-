@@ -49,9 +49,9 @@
                      <children>
                         <VBox layoutX="192.0" layoutY="84.0" spacing="40.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="248.0">
                            <children>
-                              <JFXTextField fx:id="currentpassword" promptText="Current password" />
-                              <JFXTextField fx:id="newpassword" promptText="New password" />
-                              <JFXTextField fx:id="confirmepassword" promptText="Confirme password" />
+                              <JFXPasswordField fx:id="currentpassword" promptText="Current password" />
+                              <JFXPasswordField fx:id="newpassword" promptText="New password" />
+                              <JFXPasswordField fx:id="confirmepassword" promptText="Confirme password" />
                               <JFXButton onAction="#ApplyChanepassword" prefHeight="54.0" prefWidth="562.0" text="Apply" />
                            </children>
                         </VBox>

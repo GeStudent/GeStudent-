@@ -22,15 +22,15 @@ import java.util.logging.Logger;
  * @author Ayadi
  */
 public class ServicesUsers {
-    
+
     protected Connection con;
     protected Statement ste;
-    
+
     public ServicesUsers() {
         con = DataBase.getInstance().getConnection();
-        
+
     }
-    
+
     public String getRole(String username) {
         String role = "";
         try {
@@ -45,7 +45,7 @@ public class ServicesUsers {
         }
         return role;
     }
-    
+
     public String getQRcode(String email) {
         String Qrcode = "";
         try {
@@ -60,7 +60,8 @@ public class ServicesUsers {
         }
         return Qrcode;
     }
-        public String getImage(int id) {
+
+    public String getImage(int id) {
         String image = "";
         try {
             PreparedStatement pre = con.prepareStatement("select image from user where id=?");
@@ -75,7 +76,23 @@ public class ServicesUsers {
         return image;
     }
     
+       public String getUsername(int id) {
+        String username = "";
+        try {
+            PreparedStatement pre = con.prepareStatement("select username from user where id=?");
+            pre.setInt(1, id);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                username = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return username;
+    }
     
+    
+
     public int QrcodeisUsed(String Qr) {
         int enabled = 0;
         try {
@@ -90,7 +107,7 @@ public class ServicesUsers {
         }
         return enabled;
     }
-    
+
     String idCode(user u) {
         int random = (int) (Math.random() * (199 - 100 + 1) + 100);
         String code = String.valueOf(random) + "GE";
@@ -112,9 +129,9 @@ public class ServicesUsers {
         code = code + String.valueOf(value);
         return code;
     }
-    
+
     public void ajouter(user u) {
-        
+
         try {
             PreparedStatement pre = con.prepareStatement("INSERT INTO user (firstname,lastname,email,birthDay,phone,pays,adress,gender,idCode)VALUES (?,?,?,?,?,?,?,?,?);");
             pre.setString(1, u.getFirstname());
@@ -127,13 +144,13 @@ public class ServicesUsers {
             pre.setString(7, u.getAdress());
             pre.setString(8, u.getGender());
             pre.setString(9, idCode(u));
-            
+
             pre.executeUpdate();
         } catch (SQLException ex) {
             ex.getMessage();
         }
     }
-    
+
     public boolean ajouterAccount(String username, String image, String password, String idcode) {
         try {
             PreparedStatement pre = con.prepareStatement("update user set username=?,image=?,password=? , enabled=1 where idcode=?;");
@@ -149,9 +166,9 @@ public class ServicesUsers {
             return false;
         }
     }
-    
+
     public boolean delete(String idcode) {
-        
+
         try {
             PreparedStatement pre = con.prepareStatement("Delete from user where idcode=? ;");
             pre.setString(1, idcode);
@@ -159,22 +176,22 @@ public class ServicesUsers {
                 System.out.println("user Deleted");
                 return true;
             }
-            
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
         System.out.println("id user not found!!!");
         return false;
-        
+
     }
     
-    public boolean updateimage(int id, String image)   {
-        
+     public boolean updatepassword(int id, String password) {
+
         try {
-            PreparedStatement pre = con.prepareStatement("update user set image =? where id=? ;");
-            pre.setString(1, image);
+            PreparedStatement pre = con.prepareStatement("update user set password =? where id=? ;");
+            pre.setString(1, password);
             pre.setInt(2, id);
-            
+
             if (pre.executeUpdate() != 0) {
                 System.out.println("user's image is up to date");
                 return true;
@@ -183,14 +200,54 @@ public class ServicesUsers {
         } catch (SQLException ex) {
             Logger.getLogger(ServicesUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    return false;
-        
+        return false;
+
     }
-    
-    
-    
+
+    public boolean updateimage(int id, String image) {
+
+        try {
+            PreparedStatement pre = con.prepareStatement("update user set image =? where id=? ;");
+            pre.setString(1, image);
+            pre.setInt(2, id);
+
+            if (pre.executeUpdate() != 0) {
+                System.out.println("user's image is up to date");
+                return true;
+            }
+            System.out.println("id user not found!!!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicesUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
+    public boolean updateInfo(int id, String username, String firstname, String lastname, int phone, String date) {
+
+        try {
+            PreparedStatement pre = con.prepareStatement("update user set username =?,firstname=?,lastname=?,phone=?,birthDay=? where id=? ;");
+            pre.setString(1, username);
+            pre.setString(2, firstname);
+            pre.setString(3, lastname);
+            pre.setInt(4, phone);
+            pre.setString(5, date);
+            pre.setInt(6, id);
+
+            if (pre.executeUpdate() != 0) {
+                System.out.println("user is up to date");
+                return true;
+            }
+            System.out.println("id user not found!!!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicesUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
     public List<user> readAll() throws SQLException {
-        
+
         List<user> lu = new ArrayList<>();
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select firstname,lastname,email,roles,birthDay,phone,pays,adress,gender from user");
@@ -209,9 +266,10 @@ public class ServicesUsers {
         }
         return lu;
     }
-    
-    public void checkUser(String username, String password) {
-        int verif = 0;
+
+    public boolean checkUser(String username, String password) {
+        boolean verif = false;
+        
         try {
             PreparedStatement pt = con.prepareStatement("SELECT password FROM user where username=?");
             pt.setString(1, username);
@@ -220,30 +278,28 @@ public class ServicesUsers {
                 if (rs.getString("password").equals(password)) {
                     if (getRole(username).equals("student")) {
                         System.out.println("you are a student");
-                        verif = 1;
+                        return true;
                     } else if (getRole(username).equals("teacher")) {
                         System.out.println("you are a teacher");
-                        verif = 1;
-                        
+                        return true;
+
                     } else {
                         System.out.println("you are an adminstrator");
-                        verif = 1;
+                        return true;
                     }
                 }
             }
-            
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
-        if (verif == 0) {
-            System.out.println("invalide password or username");
-        }
+     return false;
     }
-    
+
     public user findbyidcode(String idcode) {
         user u = null;
         try {
-            
+
             PreparedStatement pre = con.prepareStatement("Select * from user  WHERE idcode=? ");
             pre.setString(1, idcode);
             ResultSet rs = pre.executeQuery();
@@ -262,21 +318,21 @@ public class ServicesUsers {
         } catch (SQLException ex) {
             ex.getMessage();
         }
-        
+
         return u;
     }
-    
-        public user findbyid(int id) {
+
+    public user findbyid(int id) {
         user u = null;
         try {
-            
+
             PreparedStatement pre = con.prepareStatement("Select * from user  WHERE id=? ");
             pre.setInt(1, id);
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 String firstname = rs.getString("firstname");
                 String lastname = rs.getString("lastname");
-                String username= rs.getString("username");
+                String username = rs.getString("username");
                 String email = rs.getString("email");
                 String roles = rs.getString("roles");
                 String birthDay = rs.getString("birthDay");
@@ -284,18 +340,18 @@ public class ServicesUsers {
                 String pays = rs.getString("pays");
                 String adress = rs.getString("adress");
                 String gender = rs.getString("gender");
-                u = new user(username,firstname,lastname, email, roles, birthDay, phone, pays, adress, gender);
+                u = new user(username, firstname, lastname, email, roles, birthDay, phone, pays, adress, gender);
             }
         } catch (SQLException ex) {
             ex.getMessage();
         }
-        
+
         return u;
     }
-    
+
     public int login(user u) {
         int count = 0;
-        
+
         PreparedStatement preparedStatement;
         try {
             PreparedStatement pre = con.prepareStatement("SELECT id,username,password FROM user WHERE username = ?");
@@ -303,7 +359,7 @@ public class ServicesUsers {
             ResultSet rs = pre.executeQuery();
             System.out.println("0");
             String cryptedString = CryptServices.encrypt(u.getPassword(), CryptServices.getSecretKey());
-            
+
             while (rs.next()) {
                 String password = rs.getString(3);
                 if (password.equals(cryptedString)) {
@@ -311,13 +367,13 @@ public class ServicesUsers {
                     u.setId(rs.getInt(1));
                     System.out.println("11111111111111111");
                 }
-                
+
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         return count;
     }
-    
+
 }
