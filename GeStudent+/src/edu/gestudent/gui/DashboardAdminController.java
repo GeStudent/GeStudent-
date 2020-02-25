@@ -169,7 +169,7 @@ public class DashboardAdminController implements Initializable {
     }
 
     private Stage getStage() {
-        return (Stage) rootPane.getScene().getWindow();
+        return (Stage) DashbordPane.getScene().getWindow();
     }
     @FXML
     private void FullScreen(ActionEvent event) {
