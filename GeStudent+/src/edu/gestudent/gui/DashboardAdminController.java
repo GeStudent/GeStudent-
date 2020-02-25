@@ -12,6 +12,7 @@ import edu.gestudent.entities.Session;
 import edu.gestudent.entities.user;
 import edu.gestudent.services.ServicesUsers;
 import edu.gestudent.services.UploadServices;
+import edu.gestudent.utils.gestudentAssistantUtil;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +34,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -42,6 +44,7 @@ import javafx.stage.Stage;
  * @author Ayadi
  */
 public class DashboardAdminController implements Initializable {
+    private StackPane rootPane;
 
     @FXML
     private BorderPane DashbordPane;
@@ -165,12 +168,18 @@ public class DashboardAdminController implements Initializable {
         DashbordPane.getScene().setRoot(root);
     }
 
+    private Stage getStage() {
+        return (Stage) rootPane.getScene().getWindow();
+    }
     @FXML
     private void FullScreen(ActionEvent event) {
+            Stage stage = getStage();
+        stage.setFullScreen(!stage.isFullScreen());
     }
 
     @FXML
     private void AboutUsAction(ActionEvent event) {
+                gestudentAssistantUtil.loadWindow(getClass().getResource("/edu/gestudent/about/about.fxml"), "About Us", null);
     }
 
 }

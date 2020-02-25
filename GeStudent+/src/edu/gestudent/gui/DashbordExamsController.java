@@ -143,7 +143,9 @@ public class DashbordExamsController implements Initializable {
     tccCRUD tcc = new tccCRUD();
     @FXML
     private JFXComboBox<classe> comboteacher;
-
+    @FXML
+    private JFXComboBox<classe> comboteacher1;
+    
     int iduser = Session.getCurrentSession();
 
     public ObservableList<classe> listeClass = FXCollections.observableArrayList(tcc.Listclassteacher(iduser));
@@ -196,8 +198,12 @@ public class DashbordExamsController implements Initializable {
     @FXML
     private TableColumn<Behaviour, Integer> dataaward;
     tsaCRUD ts = new tsaCRUD();
-    public ObservableList<Behaviour> listaward = FXCollections.observableArrayList(ts.afficherBehaviourstu(iduser, 31));
-    String idstudent;
+        String idstudent="0";
+         String idteacher="0";
+
+    public ObservableList<Behaviour> listaward = FXCollections.observableArrayList(ts.afficherBehaviourstu(iduser, Integer.parseInt(idstudent)));
+
+
 
     /**
      * Initializes the controller class.
@@ -210,7 +216,7 @@ public class DashbordExamsController implements Initializable {
         comboteacher.setItems(listeClass);
         piechart.setData(piechartdata);
         awardscombo.setItems(listbeh);
-
+        comboteacher1.setItems(listeClass);
         data.addAll(exc.afficherex());
 
         // TODO
@@ -218,6 +224,19 @@ public class DashbordExamsController implements Initializable {
         this.dateex.setCellValueFactory(new PropertyValueFactory<>("dateex"));
         this.duree.setCellValueFactory(new PropertyValueFactory<>("duree"));
         this.examtv.setItems(data);
+//           examtv.setRowFactory(tv -> {
+//            TableRow<classEtudiant> row = new TableRow<>();
+//            row.setOnMouseClicked(e -> {
+//
+//                Object selectedItems = examtv.getSelectionModel().getSelectedItems().get(0);
+//                idteacher = selectedItems.toString().split(",")[0].substring(0);
+//                System.out.println("id sutdent:" + idteacher);
+//                listeClass.clear();
+//                listeClass.addAll(ts.afficherBehaviourstu(iduser, Integer.parseInt(idstudent)));
+//                this.sttv1.setItems(listaward);
+//            });
+//            return row;
+//        });
         //this for edit
         this.examtv.setEditable(true);
 //        this.nomex.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -607,6 +626,10 @@ public class DashbordExamsController implements Initializable {
     public void refreshCombobox() {
         listbeh = FXCollections.observableArrayList(bhcr.afficherBehaviour());
         awardscombo.setItems(listbeh);
+    }
+
+    @FXML
+    private void addto(ActionEvent event) {
     }
 
 }
