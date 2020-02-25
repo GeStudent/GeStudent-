@@ -165,4 +165,12 @@ public class DashboardAdminController implements Initializable {
         DashbordPane.getScene().setRoot(root);
     }
 
+    @FXML
+    private void FullScreen(ActionEvent event) {
+    }
+
+    @FXML
+    private void AboutUsAction(ActionEvent event) {
+    }
+
 }

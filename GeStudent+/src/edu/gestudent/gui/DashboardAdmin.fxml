@@ -40,6 +40,11 @@
                <right>
                   <VBox prefHeight="382.0" prefWidth="154.0" styleClass="toolbar-container" stylesheets="@style.css" BorderPane.alignment="CENTER">
                      <children>
+                        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#profileAction" prefHeight="55.0" prefWidth="154.0" styleClass="toolbar-button" text="Profile" textAlignment="CENTER">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="USER" size="25" />
+                           </graphic>
+                        </JFXButton>
                         <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#UsersAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Users" textAlignment="CENTER">
                            <graphic>
                               <FontAwesomeIconView glyphName="BOOK" size="25" />
@@ -66,11 +71,6 @@
                            </graphic>
                         </JFXButton>
                         <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="286.0" mnemonicParsing="false" onAction="#RestaurentAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Restaurants" textAlignment="CENTER">
-                           <graphic>
-                              <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#logoutAction" prefHeight="42.0" prefWidth="154.0" styleClass="toolbar-button" text="Logout" textAlignment="CENTER">
                            <graphic>
                               <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
                            </graphic>
@@ -115,11 +115,30 @@
                               </Label>
                            </children>
                         </VBox>
-                        <JFXButton contentDisplay="TOP" layoutX="951.0" layoutY="95.0" mnemonicParsing="false" onAction="#profileAction" prefHeight="55.0" prefWidth="154.0" styleClass="toolbar-button" text="Profile" textAlignment="CENTER" AnchorPane.rightAnchor="0.0">
+                        <JFXButton contentDisplay="TOP" layoutX="959.0" layoutY="66.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="42.0" prefWidth="154.0" styleClass="toolbar-button" text="Logout" textAlignment="CENTER" AnchorPane.rightAnchor="0.0">
                            <graphic>
-                              <FontAwesomeIconView glyphName="USER" size="25" />
+                              <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
                            </graphic>
                         </JFXButton>
+                        <MenuBar>
+                          <menus>
+                            <Menu mnemonicParsing="false" text="File">
+                              <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Edit">
+                              <items>
+                                <MenuItem mnemonicParsing="false" onAction="#FullScreen" text="Full Screen" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Help">
+                              <items>
+                                <MenuItem mnemonicParsing="false" onAction="#AboutUsAction" text="About Us" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
                      </children>
                   </AnchorPane>
                </top>
