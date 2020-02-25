@@ -8,17 +8,58 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="448.0" prefWidth="679.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordClubController">
+<AnchorPane prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordClubController">
    <children>
       <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
-            <Tab text="Students">
+            <Tab text="Club">
                <content>
                   <AnchorPane minHeight="0.0" prefHeight="180.0" prefWidth="625.0">
                      <children>
-                        <Label layoutX="216.0" layoutY="146.0" prefHeight="102.0" prefWidth="170.0" text="U6.1" textFill="WHITE">
+                        <HBox layoutX="389.0" layoutY="350.0" spacing="20.0" AnchorPane.bottomAnchor="62.0" AnchorPane.rightAnchor="97.0">
+                           <children>
+                              <Button fx:id="AddButton" mnemonicParsing="false" onAction="#AddClub" prefHeight="30.0" prefWidth="100.0" text="Add" />
+                              <Button fx:id="EditButton" mnemonicParsing="false" onAction="#EditClub" prefHeight="30.0" prefWidth="100.0" text="Edit" />
+                              <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#DeleteClub" prefHeight="30.0" prefWidth="100.0" text="Delete" />
+                              <Button fx:id="EmailButton" mnemonicParsing="false" onAction="#EmailClub" prefHeight="30.0" prefWidth="100.0" text="Email" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="clubtv" layoutX="296.0" layoutY="16.0" prefHeight="279.0" prefWidth="642.0" AnchorPane.rightAnchor="20.0">
+                           <columns>
+                              <TableColumn fx:id="nom" prefWidth="57.0" text="Name" />
+                              <TableColumn fx:id="date" prefWidth="57.0" text="Date" />
+                              <TableColumn fx:id="email" prefWidth="57.0" text="Email" />
+                              <TableColumn fx:id="numero" prefWidth="57.0" text="Numero" />
+                              <TableColumn fx:id="description" prefWidth="107.0" text="Description" />
+                              <TableColumn fx:id="etat" onEditCommit="#changeEtatCellEvent" prefWidth="82.0" text="Etat" />
+                              <TableColumn fx:id="id_president" prefWidth="101.0" text="President ID" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <VBox layoutX="35.0" layoutY="36.0" prefHeight="349.0" prefWidth="233.0" spacing="15.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="20.0">
+                           <children>
+                              <JFXTextField fx:id="txtnumero" promptText="Number" />
+                              <JFXTextField fx:id="txtnom" promptText="Name" />
+                              <JFXTextField fx:id="txtdescription" promptText="Description" />
+                              <DatePicker fx:id="datetxt" blendMode="COLOR_BURN" prefHeight="37.0" prefWidth="286.0" />
+                              <JFXTextField fx:id="txtetat" promptText="state" />
+                              <JFXTextField fx:id="txtid_president" promptText="President id" />
+                              <JFXTextField fx:id="txtemail" promptText="Email" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Event">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0">
+                     <children>
+                        <Label layoutX="263.0" layoutY="186.0" text="U6.2" textFill="WHITE">
                            <font>
-                              <Font size="53.0" />
+                              <Font size="40.0" />
                            </font>
                         </Label>
                      </children>
