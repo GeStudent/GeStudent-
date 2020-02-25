@@ -83,7 +83,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <JFXTextField fx:id="searchTF" layoutX="737.0" layoutY="22.0" onAction="#filter" promptText="Search" />
+                        <JFXTextField fx:id="searchTF" layoutX="737.0" layoutY="22.0" onKeyTyped="#filter" promptText="Search" AnchorPane.rightAnchor="29.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -104,6 +104,7 @@
                            </columnResizePolicy>
                         </TableView>
                         <Button layoutX="426.0" layoutY="344.0" mnemonicParsing="false" onAction="#selectemprunt" text="Select" />
+                        <JFXTextField fx:id="searchTF2" layoutX="390.0" layoutY="32.0" onKeyTyped="#filter2" promptText="search" AnchorPane.rightAnchor="376.0" AnchorPane.topAnchor="32.0" />
                      </children>
                   </AnchorPane>
                </content>
