@@ -641,12 +641,9 @@ public class DashbordExamsController implements Initializable {
     private void select(ActionEvent event) {
         int idclass = comboteacher.getValue().getIdclass();
 
-        try {
             dataClassStudent.clear();
             dataClassStudent.addAll(cE.rechercheclassetudiant((idclass)));
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
+      
     }
 
     @FXML

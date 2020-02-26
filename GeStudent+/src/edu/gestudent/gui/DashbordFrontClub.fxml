@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="edu.gestudent.gui.DashbordFrontClubController">
+   <children>
+      <TabPane prefHeight="476.0" prefWidth="949.0">
+         <tabs>
+            <Tab text="Evenement">
+               <content>
+                  <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+                     <children>
+                        <HBox layoutX="118.0" layoutY="389.0" prefHeight="39.0" prefWidth="501.0">
+                           <children>
+                              <Button fx:id="AddButton" mnemonicParsing="false" onAction="#Add1" prefHeight="25.0" prefWidth="55.0" text="Add" />
+                              <Button fx:id="EditButton" mnemonicParsing="false" onAction="#Edit1" prefHeight="39.0" prefWidth="87.0" text="Edit" />
+                              <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#Delete1" prefHeight="39.0" prefWidth="98.0" text="Delete" />
+                              <Button fx:id="SearchButton" mnemonicParsing="false" onAction="#Search1" prefHeight="39.0" prefWidth="99.0" text="Search" />
+                              <Button fx:id="EmailButton" mnemonicParsing="false" onAction="#Email1" prefHeight="39.0" prefWidth="97.0" text="Email" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="ReturnButton" layoutX="775.0" layoutY="394.0" mnemonicParsing="false" onAction="#Return1" prefHeight="30.0" prefWidth="79.0" text="Return" />
+                        <TableView fx:id="evenementtv" layoutX="257.0" layoutY="3.0" prefHeight="145.0" prefWidth="679.0">
+                           <columns>
+                              <TableColumn fx:id="id_event" prefWidth="57.0" text="Id" />
+                              <TableColumn fx:id="nom" prefWidth="57.0" text="Name" />
+                              <TableColumn fx:id="description" prefWidth="114.0" text="Description" />
+                              <TableColumn fx:id="date" onEditCommit="#changeDateCellEvent" prefWidth="107.66668701171875" text="Date" />
+                              <TableColumn fx:id="place" prefWidth="78.33331298828125" text="Place" />
+                              <TableColumn fx:id="id_club" prefWidth="89.0" text="Id club" />
+                              <TableColumn fx:id="nb_place" prefWidth="174.0" text="Nombre place" />
+                           </columns>
+                        </TableView>
+                        <HBox layoutX="561.0" layoutY="309.0" spacing="100.0">
+                           <children>
+                              <Button fx:id="ReserverButton" mnemonicParsing="false" onAction="#Reserver" prefHeight="39.0" prefWidth="111.0" text="Reserver" />
+                              <Button fx:id="ReserverButton1" mnemonicParsing="false" onAction="#Annuler" prefHeight="39.0" prefWidth="101.0" text="Annuler" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="eventclienttv" layoutX="533.0" layoutY="153.0" prefHeight="139.0" prefWidth="382.0">
+                           <columns>
+                              <TableColumn fx:id="nameevent" prefWidth="157.66668701171875" text="Name" />
+                              <TableColumn fx:id="datereservationevent" prefWidth="222.33331298828125" text="Reservation Date" />
+                           </columns>
+                        </TableView>
+                        <VBox layoutX="30.0" layoutY="38.0" prefHeight="304.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <JFXTextField fx:id="txtid_event" prefHeight="37.0" prefWidth="75.0" promptText="id" />
+                              <JFXTextField fx:id="txtnom" prefHeight="37.0" prefWidth="75.0" promptText="Name" />
+                              <JFXTextField fx:id="txtdescription" prefHeight="37.0" prefWidth="118.0" promptText="Description" />
+                              <JFXTextField fx:id="txtplace" prefHeight="37.0" prefWidth="118.0" promptText="Place" />
+                              <JFXTextField fx:id="txtid_club" prefHeight="30.0" prefWidth="118.0" promptText="id_club" />
+                              <JFXTextField fx:id="txtnb_place" prefHeight="37.0" prefWidth="118.0" promptText="Nombre place" />
+                              <JFXDatePicker fx:id="datetxt" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Club">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="343.0" layoutY="389.0" prefHeight="32.0" prefWidth="579.0">
+                           <children>
+                              <Button fx:id="AddButton1" mnemonicParsing="false" onAction="#AddClub" prefHeight="39.0" prefWidth="108.0" text="Addclub" />
+                              <Button fx:id="EditButton1" mnemonicParsing="false" onAction="#EditClub" prefHeight="39.0" prefWidth="102.0" text="Editclub" />
+                              <Button fx:id="DeleteButton1" mnemonicParsing="false" onAction="#DeleteClub" prefHeight="40.0" prefWidth="108.0" text="Deleteclub" />
+                              <Button fx:id="SearchButton1" mnemonicParsing="false" onAction="#SearchClub" prefHeight="46.0" prefWidth="118.0" text="Searchclub" />
+                              <Button fx:id="EmailButton1" mnemonicParsing="false" onAction="#EmailClub" prefHeight="36.0" prefWidth="116.0" text="Emailclub" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="clubtv" layoutX="353.0" layoutY="39.0" prefHeight="267.0" prefWidth="577.0">
+                           <columns>
+                              <TableColumn fx:id="id_club1" prefWidth="57.0" text="Id" />
+                              <TableColumn fx:id="nom1" prefWidth="57.0" text="Name" />
+                              <TableColumn fx:id="date1" prefWidth="57.0" text="Date" />
+                              <TableColumn fx:id="email" prefWidth="57.0" text="Email" />
+                              <TableColumn fx:id="numero" prefWidth="77.0" text="Numero" />
+                              <TableColumn fx:id="description1" prefWidth="95.0" text="Description" />
+                              <TableColumn fx:id="etat" onEditCommit="#changeEtatCellEvent" prefWidth="55.0" text="Etat" />
+                              <TableColumn fx:id="id_president" prefWidth="120.0" text="President ID" />
+                           </columns>
+                        </TableView>
+                        <VBox layoutX="46.0" layoutY="32.0" prefHeight="389.0" prefWidth="272.0" spacing="15.0">
+                           <children>
+                              <JFXTextField fx:id="txtid_president" prefHeight="37.0" prefWidth="145.0" promptText="President ID" />
+                              <JFXTextField fx:id="txtnom1" prefHeight="37.0" prefWidth="145.0" promptText="Name" />
+                              <JFXTextField fx:id="txtemail" prefHeight="37.0" prefWidth="145.0" promptText="Email" />
+                              <JFXDatePicker fx:id="datetxt1" prefHeight="37.0" prefWidth="335.0" />
+                              <JFXComboBox fx:id="comboetat" prefHeight="25.0" prefWidth="296.0" promptText="Etat" />
+                              <JFXTextField fx:id="txtnumero" prefHeight="37.0" prefWidth="145.0" promptText="Numero" />
+                              <JFXTextField fx:id="txtdescription1" prefHeight="37.0" prefWidth="145.0" promptText="Description" />
+                              <JFXTextField fx:id="txtid_club1" prefHeight="37.0" prefWidth="145.0" promptText="id" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Statistique">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <PieChart fx:id="piechart" layoutX="99.0" layoutY="13.0" prefHeight="374.0" prefWidth="498.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

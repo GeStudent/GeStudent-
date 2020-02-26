@@ -122,14 +122,18 @@ public class FrontStudentController implements Initializable {
 
     @FXML
     private void ExamsAction(ActionEvent event) {
+        loadUi("DashbordExamsFront");
     }
 
     @FXML
     private void LibraryAction(ActionEvent event) {
+          loadUi("DashbordFronLibrary");
     }
+
 
     @FXML
     private void ClubAction(ActionEvent event) {
+         loadUi("DashbordFrontClub");
     }
 
     @FXML

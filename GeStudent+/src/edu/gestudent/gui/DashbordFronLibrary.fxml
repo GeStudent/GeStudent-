@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordFronLibraryController">
+   <children>
+      <TabPane prefHeight="483.0" prefWidth="945.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Borrow A Book">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="35.0" layoutY="231.0" text="Date de retour" textFill="WHITE" />
+                        <HBox layoutX="8.0" layoutY="14.0" prefHeight="200.0" prefWidth="933.0" spacing="150.0">
+                           <children>
+                              <TableView fx:id="librarytv" prefHeight="200.0" prefWidth="482.0">
+                                 <columns>
+                                    <TableColumn fx:id="name" prefWidth="55.0" text="Name" />
+                                    <TableColumn fx:id="image" prefWidth="67.0" text="Image" />
+                                    <TableColumn fx:id="author" prefWidth="68.0" text="Author" />
+                                    <TableColumn fx:id="url" prefWidth="62.0" text="Url" />
+                                    <TableColumn fx:id="categiries" prefWidth="117.33334350585938" text="Categorie" />
+                                    <TableColumn fx:id="quantity" prefWidth="110.66665649414062" text="Quantity" />
+                                 </columns>
+                              </TableView>
+                              <TableView fx:id="livreeemprunter" prefHeight="200.0" prefWidth="288.0">
+                                 <columns>
+                                    <TableColumn fx:id="name1" prefWidth="146.0" text="Name" />
+                                    <TableColumn fx:id="date" prefWidth="137.0" text="Date de retour" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="207.0" layoutY="326.0" spacing="50.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#retournerlivre" text="Return the book" />
+                              <Button mnemonicParsing="false" onAction="#emprunterlivre" text="Borrow the book" />
+                              <Button fx:id="ReturnB" mnemonicParsing="false" onAction="#ReturnAction" text="Return" />
+                           </children>
+                        </HBox>
+                        <JFXDatePicker fx:id="txtdateE" layoutX="169.0" layoutY="221.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

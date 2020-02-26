@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.FlowPane?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="edu.gestudent.gui.DashbordExamsFrontController">
    <children>
       <FlowPane alignment="BOTTOM_CENTER" columnHalignment="CENTER" prefHeight="400.0" prefWidth="600.0">
          <children>
