@@ -5,6 +5,7 @@
  */
 package edu.gestudent.gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import edu.gestudent.entities.Student;
 import edu.gestudent.entities.classEtudiant;
@@ -121,6 +122,11 @@ public class DashbordClassController implements Initializable {
     private TableColumn<classEtudiant, String> classe;
     @FXML
     private TableColumn<classEtudiant, String> etudiant;
+    String idstudentaffecter = "0";
+    @FXML
+    private JFXButton DeleteTcc;
+    @FXML
+    private JFXButton DelteClassEtudient;
 
     /**
      * Initializes the controller class.
@@ -160,11 +166,12 @@ public class DashbordClassController implements Initializable {
         Classcombobox1.setItems(dataa);
         Subjectcombobox.setItems(data);
 
-        Teacherdata.addAll(st.readAllTeachers());
+        Teacherdata.addAll(st.readAllRegistritedTeachers());
 
         this.firstnameT.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         this.lastnameT.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         this.emailT.setCellValueFactory(new PropertyValueFactory<>("email"));
+        //  this.StudentTv.
 
         this.teacherTv.setItems(Teacherdata);
 
@@ -187,35 +194,61 @@ public class DashbordClassController implements Initializable {
         });
         this.tc.setItems(dataAffectation);
 
-
-        this.etudiant.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-        this.classe.setCellValueFactory(new PropertyValueFactory<>("namecl"));
-        this.StudentClassTv.setItems(dataClassStudent);
-        //        try {
+//                try {
 //            dataClassStudent.addAll(cE.rechercheclassetudiant((0)));
 //        } catch (SQLException ex) {
 //            ex.getMessage();
 //        }
-        // System.out.println(cE.rechercheetudiant((4)));
-
+//         System.out.println(cE.rechercheetudiant((4)));
         StudentClassTv.setRowFactory(tv -> {
             TableRow<classEtudiant> row = new TableRow<>();
             row.setOnMouseClicked(e -> {
 
                 Object selectedItems = StudentClassTv.getSelectionModel().getSelectedItems().get(0);
                 String idstudent = selectedItems.toString().split(",")[0].substring(0);
+//                    dataClassStudent.clear();
+//                    dataClassStudent.addAll(cE.rechercheetudiant(Integer.parseInt(idstudent)));
+//                    System.out.println(idstudent);
 
-                try {
-                    dataClassStudent.clear();
-                    dataClassStudent.addAll(cE.rechercheetudiant(Integer.parseInt(idstudent)));
-                    System.out.println(idstudent);
-                } catch (SQLException ex) {
-                    ex.getMessage();
-                }
             });
             return row;
         });
         // TODO
+
+        Studentdata.addAll(ss.readAllStudentRegistrated());
+
+        this.firstname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+        this.lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        this.email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        this.StudentTv.setItems(Studentdata);
+
+        this.etudiant.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+        this.classe.setCellValueFactory(new PropertyValueFactory<>("namecl"));
+        this.StudentClassTv.setItems(dataClassStudent);
+
+        StudentTv.setRowFactory(tv -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+
+                Object selectedItems = StudentTv.getSelectionModel().getSelectedItems().get(0);
+                idstudentaffecter = selectedItems.toString().split(",")[0].substring(0);
+                String idclassaffecter = selectedItems.toString().split(",")[0].substring(1);
+
+                System.out.println(idstudentaffecter);
+                System.out.println("idclass:" + idclassaffecter);
+
+                try {
+                    dataClassStudent.clear();
+                    dataClassStudent.addAll(cE.rechercheetudiant(Integer.parseInt(idclassaffecter)));
+                    this.StudentClassTv.setItems(dataClassStudent);
+
+                } catch (SQLException ex) {
+                    ex.getMessage();
+                }
+
+            });
+            return row;
+        });
 
     }
 
@@ -358,13 +391,153 @@ public class DashbordClassController implements Initializable {
     @FXML
     private void selectClass(ActionEvent event) {
         int idclass = Classcombobox1.getValue().getIdclass();
-
-        try {
-            dataClassStudent.clear();
-            dataClassStudent.addAll(cE.rechercheclassetudiant((idclass)));
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
+        dataClassStudent.clear();
+        dataClassStudent.addAll(cE.rechercheclassetudiant((idclass)));
     }
 
+    @FXML
+    private void AffecterStudent(ActionEvent event) {
+
+        int idstudent = Integer.parseInt(idstudentaffecter);
+        classEtudiantCRUD cer = new classEtudiantCRUD();
+        classEtudiant ce = new classEtudiant(Classcombobox1.getValue().getIdclass(), idstudent);
+        cer.ajouter(ce);
+
+        dataClassStudent.clear();
+        dataClassStudent.addAll(cE.rechercheclassetudiant((Classcombobox1.getValue().getIdclass())));
+
+    }
+
+    @FXML
+    private void DeleteClass(ActionEvent event) throws SQLException {
+
+        if (tableviewclass.getSelectionModel().getSelectedItem() != null) {
+            Alert deleteBookAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            deleteBookAlert.setTitle("Delete a cours");
+            deleteBookAlert.setHeaderText(null);
+            deleteBookAlert.setContentText("Are you sure that you want to delete this cours?");
+            Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
+            if (optionDeleteBookAlert.get() == ButtonType.OK) {
+
+                classe cl = tableviewclass.getSelectionModel().getSelectedItem();
+                c.supprimerclass(cl.getIdclass());
+                dataa.clear();
+                dataa.addAll(c.readAll());
+
+                //Alert Delete Blog :
+                Alert succDeleteBookAlert = new Alert(Alert.AlertType.INFORMATION);
+                succDeleteBookAlert.setTitle("Delete Blog");
+                succDeleteBookAlert.setHeaderText("Results:");
+                succDeleteBookAlert.setContentText("cours deleted successfully!");
+
+                succDeleteBookAlert.showAndWait();
+            } else if (optionDeleteBookAlert.get() == ButtonType.CANCEL) {
+
+            }
+
+        } else {
+
+            //Alert Select BOOK :
+            Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
+            selectBookAlert.setTitle("Select a cours");
+            selectBookAlert.setHeaderText(null);
+            selectBookAlert.setContentText("You need to select a cours first!");
+            selectBookAlert.showAndWait();
+            //Alert Select Book !
+
+        }
+
+    }
+
+    @FXML
+    private void DeleteTcc(ActionEvent event) {
+        if (tc.getSelectionModel().getSelectedItem() != null) {
+            Alert deleteBookAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            deleteBookAlert.setTitle("Delete a cours");
+            deleteBookAlert.setHeaderText(null);
+            deleteBookAlert.setContentText("Are you sure that you want to delete this cours?");
+            Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
+            if (optionDeleteBookAlert.get() == ButtonType.OK) {
+
+                tcc tce = tc.getSelectionModel().getSelectedItem();
+                try {
+                    t.supprimertcc(tce.getIdcours(), tce.getIdclass(), tce.getidteacher());
+                    dataAffectation.clear();
+                    dataAffectation.addAll(t.rechercheprof(tce.getidteacher()));
+
+                } catch (SQLException ex) {
+                    ex.getMessage();
+                }
+
+                //Alert Delete Blog :
+                Alert succDeleteBookAlert = new Alert(Alert.AlertType.INFORMATION);
+                succDeleteBookAlert.setTitle("Delete Blog");
+                succDeleteBookAlert.setHeaderText("Results:");
+                succDeleteBookAlert.setContentText("cours deleted successfully!");
+
+                succDeleteBookAlert.showAndWait();
+            } else if (optionDeleteBookAlert.get() == ButtonType.CANCEL) {
+
+            }
+
+        } else {
+
+            //Alert Select BOOK :
+            Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
+            selectBookAlert.setTitle("Select a cours");
+            selectBookAlert.setHeaderText(null);
+            selectBookAlert.setContentText("You need to select a cours first!");
+            selectBookAlert.showAndWait();
+            //Alert Select Book !
+
+        }
+
+    }
+
+    @FXML
+    private void DeleteCLassetudient(ActionEvent event) {
+
+        if (StudentClassTv.getSelectionModel().getSelectedItem() != null) {
+            Alert deleteBookAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            deleteBookAlert.setTitle("Delete a cours");
+            deleteBookAlert.setHeaderText(null);
+            deleteBookAlert.setContentText("Are you sure that you want to delete this cours?");
+            Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
+            if (optionDeleteBookAlert.get() == ButtonType.OK) {
+
+                classEtudiant ce = StudentClassTv.getSelectionModel().getSelectedItem();
+                try {
+                    cE.supprimerclassEtudiant(ce.getIdetudiant(), ce.getidclass());
+                    dataClassStudent.clear();
+                    dataClassStudent.addAll(cE.rechercheclassetudiant(ce.getidclass()));
+                    this.StudentClassTv.setItems(dataClassStudent);
+
+                } catch (SQLException ex) {
+                    ex.getMessage();
+                }
+
+                //Alert Delete Blog :
+                Alert succDeleteBookAlert = new Alert(Alert.AlertType.INFORMATION);
+                succDeleteBookAlert.setTitle("Delete Blog");
+                succDeleteBookAlert.setHeaderText("Results:");
+                succDeleteBookAlert.setContentText("cours deleted successfully!");
+
+                succDeleteBookAlert.showAndWait();
+            } else if (optionDeleteBookAlert.get() == ButtonType.CANCEL) {
+
+            }
+
+        } else {
+
+            //Alert Select BOOK :
+            Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
+            selectBookAlert.setTitle("Select a cours");
+            selectBookAlert.setHeaderText(null);
+            selectBookAlert.setContentText("You need to select a cours first!");
+            selectBookAlert.showAndWait();
+            //Alert Select Book !
+
+        }
+
+    }
 }

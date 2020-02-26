@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -30,6 +31,12 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <VBox layoutX="757.0" layoutY="112.0" spacing="20.0">
+                           <children>
+                              <JFXButton fx:id="Registered" onAction="#RegisteredStudent" prefHeight="30.0" prefWidth="150.0" text="Registered" />
+                              <JFXButton fx:id="Unregistered" onAction="#UnRegisteredstudent" prefHeight="30.0" prefWidth="150.0" text="Unregistered" />
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                </content>
@@ -52,6 +59,20 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <VBox layoutX="772.0" layoutY="119.0" spacing="30.0">
+                           <children>
+                              <JFXButton onAction="#RegisteredTeacher" prefHeight="30.0" prefWidth="130.0" text="Registered">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton onAction="#UnRegisteredteacher" prefHeight="30.0" prefWidth="130.0" text="UnRegistered">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                </content>

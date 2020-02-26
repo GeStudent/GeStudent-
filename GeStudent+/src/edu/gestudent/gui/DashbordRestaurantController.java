@@ -7,13 +7,16 @@ package edu.gestudent.gui;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import edu.gestudent.entities.Livre;
 import edu.gestudent.entities.Menu;
 import edu.gestudent.entities.MenuMeal;
 import edu.gestudent.entities.meal;
 import edu.gestudent.services.Mealcrud;
 import edu.gestudent.services.MenuCrud;
 import edu.gestudent.services.MenuMealCrud;
+import edu.gestudent.services.UploadServices;
 import edu.gestudent.utils.DataBase;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -39,10 +42,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -125,12 +132,13 @@ public class DashbordRestaurantController implements Initializable {
     MenuCrud mn = new MenuCrud();
     MenuMealCrud mnc = new MenuMealCrud();
 
+    UploadServices uploadservices = new UploadServices();
+
     @FXML
     private TextField txtname;
     @FXML
     private TextField txtimage;
     @FXML
-    private TableColumn<meal, String> image;
     public ObservableList<meal> data = FXCollections.observableArrayList();
     public ObservableList<Menu> data1 = FXCollections.observableArrayList();
     public ObservableList<MenuMeal> data2 = FXCollections.observableArrayList();
@@ -207,6 +215,8 @@ public class DashbordRestaurantController implements Initializable {
     private TableColumn<MenuMeal, String> desriptionn;
     @FXML
     private TableColumn<MenuMeal, String> typee;
+    @FXML
+    private ImageView imageMeal;
 
     public int getTxtrating2() {
         return Integer.parseInt(searhTF.getText());
@@ -222,7 +232,6 @@ public class DashbordRestaurantController implements Initializable {
 
         //loadData();
         //listMenuMeal();
-
         //piechart.setData(piechartdata);
         refreshComboBoxMenu();
         refreshComboBoxMeal();
@@ -232,7 +241,6 @@ public class DashbordRestaurantController implements Initializable {
         //System.out.println(mnc.afficherMenuMeal("riz"));
         data2.addAll(mnc.afficherMenuMeal(""));
 
-        this.image.setCellValueFactory(new PropertyValueFactory<>("image"));
         this.nom.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.type.setCellValueFactory(new PropertyValueFactory<>("type"));
         this.rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -240,12 +248,26 @@ public class DashbordRestaurantController implements Initializable {
         this.description.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         this.tabmeal.setItems(data);
+        
+          tabmeal.setRowFactory(tv -> {
+            TableRow<meal> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+
+                Object selectedItems = tabmeal.getSelectionModel().getSelectedItems().get(0);
+                String Id_meal = selectedItems.toString().split(",")[0].substring(0);
+                System.out.println(Id_meal);
+                String imagename = mc.getImageMeal(Integer.parseInt(Id_meal));
+                Image image = new Image("http://localhost/images/uploads/" + imagename);
+                imageMeal.setImage(image);
+            });
+            return row;
+        });
+        
         this.tabmenu.setItems(data1);
 
         this.tabmenumeal.setItems(data2);
 
         this.tabmeal.setEditable(true);
-        this.image.setCellFactory(TextFieldTableCell.forTableColumn());
         this.nom.setCellFactory(TextFieldTableCell.forTableColumn());
         this.rating.setCellFactory(TextFieldTableCell.<meal, Integer>forTableColumn(new IntegerStringConverter()));
         this.type.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -276,8 +298,11 @@ public class DashbordRestaurantController implements Initializable {
 //    }
     @FXML
     private void addMeal(ActionEvent event) {
+
+        String FilenameInserver = uploadservices.upload(txtimage.getText());
+
         meal l;
-        l = new meal(txtimage.getText(), txtname.getText(), txttype.getValue(), txtrating.getValue());
+        l = new meal(FilenameInserver, txtname.getText(), txttype.getValue(), txtrating.getValue());
         mc.ajouterMeal(l);
         Alert succAddMealAlert = new Alert(Alert.AlertType.INFORMATION);
         succAddMealAlert.setTitle("Add meal");
@@ -293,6 +318,7 @@ public class DashbordRestaurantController implements Initializable {
 
     @FXML
     private void addMenu(ActionEvent event) {
+
         Menu m;
         m = new Menu(txtname1.getText(), txtdescription.getText());
         mn.ajouterMenu(m);
@@ -552,12 +578,7 @@ public class DashbordRestaurantController implements Initializable {
         this.tabmenu.setItems(data1);
     }
 
-    @FXML
-    public void changeImageCellEvent(TableColumn.CellEditEvent edittedCell
-    ) {
-        meal MealSelected = tabmeal.getSelectionModel().getSelectedItem();
-        MealSelected.setImage(edittedCell.getNewValue().toString());
-    }
+
 
     @FXML
     public void changeNomCellEvent(TableColumn.CellEditEvent edittedCell
@@ -680,7 +701,6 @@ public class DashbordRestaurantController implements Initializable {
 //        }
 //    }
 
-  
     private void select(ActionEvent event) {
         data2.clear();
         data2.addAll(mnc.afficherMenuMeal(cb_menu.getValue()));
@@ -707,6 +727,19 @@ public class DashbordRestaurantController implements Initializable {
             String me = cb_meal.getValue();
         } catch (SQLException ex) {
             ex.getMessage();
+        }
+    }
+
+    @FXML
+    private void uploadImagemenu(ActionEvent event) {
+
+        FileChooser fc = new FileChooser();
+        String imageFile = "";
+        File f = fc.showOpenDialog(null);
+
+        if (f != null) {
+            imageFile = f.getAbsolutePath();
+            txtimage.setText(imageFile);
         }
     }
 }

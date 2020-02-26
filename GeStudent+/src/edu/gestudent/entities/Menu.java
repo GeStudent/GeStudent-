@@ -88,7 +88,7 @@ public Menu() {
 
     @Override
     public String toString() {
-        return "Menu{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
+        return  id + ","+ name + ", description=" + description + '}';
     }
 
     public String setName() {

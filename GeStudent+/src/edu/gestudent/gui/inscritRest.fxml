@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="edu.gestudent.gui.InscritRestController">
+   <children>
+      <Label layoutX="227.0" layoutY="60.0" text="S'inscrire au restaurant" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="143.0" layoutY="141.0" text="Identidiant" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="identifiant" layoutX="244.0" layoutY="137.0" />
+      <ComboBox fx:id="duration" layoutX="244.0" layoutY="198.0" onAction="#calculAA" prefWidth="150.0" promptText="duration" />
+      <Label layoutX="154.0" layoutY="202.0" text="Duration" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="164.0" layoutY="264.0" text="Amount" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="amount" layoutX="245.0" layoutY="260.0" />
+      <Button fx:id="valider" layoutX="261.0" layoutY="324.0" mnemonicParsing="false" onAction="#addinscri" text="Valider" />
+   </children>
+</AnchorPane>

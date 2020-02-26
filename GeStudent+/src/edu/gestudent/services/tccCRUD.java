@@ -98,7 +98,7 @@ public class tccCRUD {
 
         try {
 
-            PreparedStatement pre = con.prepareStatement("SELECT C.name , C.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and u.id= ? ");
+            PreparedStatement pre = con.prepareStatement("SELECT  C.idcour,u.id,cl.idclass, C.name , C.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and u.id= ? ");
 
             pre.setInt(1, idteacher);
 
@@ -113,6 +113,10 @@ public class tccCRUD {
                 String firstname = rs.getString("firstname");
 
                 tcc r = new tcc(name, nameC, duration, firstname);
+                r.setIdclass(rs.getInt("idclass"));
+                r.setIdteacher(rs.getInt("id"));
+                r.setIdcours(rs.getInt("idcour"));
+                
                 arr.add(r);
             }
         } catch (SQLException ex) {
@@ -148,6 +152,26 @@ public class tccCRUD {
         }
 
         return arr;
+
+    }
+
+    public boolean supprimertcc(int idcours, int idclass, int idteacher) throws SQLException {
+
+        PreparedStatement pre = con.prepareStatement("Delete from tcc where idcours=? and  idclass=? and idteacher=? ");
+        try {
+            pre.setInt(1, idcours);
+            pre.setInt(2, idclass);
+            pre.setInt(3, idteacher);
+            if (pre.executeUpdate() != 0) {
+                System.out.println("Deleted");
+
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("id not found!!!");
+        return false;
 
     }
 

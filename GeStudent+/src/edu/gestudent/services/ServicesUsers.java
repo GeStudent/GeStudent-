@@ -5,6 +5,7 @@
  */
 package edu.gestudent.services;
 
+import edu.gestudent.entities.Student;
 import edu.gestudent.entities.user;
 import edu.gestudent.utils.DataBase;
 import java.sql.Connection;
@@ -75,8 +76,8 @@ public class ServicesUsers {
         }
         return image;
     }
-    
-       public String getUsername(int id) {
+
+    public String getUsername(int id) {
         String username = "";
         try {
             PreparedStatement pre = con.prepareStatement("select username from user where id=?");
@@ -90,8 +91,6 @@ public class ServicesUsers {
         }
         return username;
     }
-    
-    
 
     public int QrcodeisUsed(String Qr) {
         int enabled = 0;
@@ -184,8 +183,8 @@ public class ServicesUsers {
         return false;
 
     }
-    
-     public boolean updatepassword(int id, String password) {
+
+    public boolean updatepassword(int id, String password) {
 
         try {
             PreparedStatement pre = con.prepareStatement("update user set password =? where id=? ;");
@@ -203,10 +202,9 @@ public class ServicesUsers {
         return false;
 
     }
-     
-     public int changePwd(user u) {
-        int usrExec = 0;
 
+    public int changePwd(user u) {
+        int usrExec = 0;
 
         PreparedStatement usrPs;
         try {
@@ -217,7 +215,7 @@ public class ServicesUsers {
             usrPs.setString(2, u.getUsername());
             usrExec = usrPs.executeUpdate();
         } catch (SQLException ex) {
-           ex.getMessage();
+            ex.getMessage();
         }
         return usrExec;
     }
@@ -287,7 +285,7 @@ public class ServicesUsers {
 
     public boolean checkUser(String username, String password) {
         boolean verif = false;
-        
+
         try {
             PreparedStatement pt = con.prepareStatement("SELECT password FROM user where username=?");
             pt.setString(1, username);
@@ -311,7 +309,7 @@ public class ServicesUsers {
         } catch (SQLException ex) {
             ex.getMessage();
         }
-     return false;
+        return false;
     }
 
     public user findbyidcode(String idcode) {
@@ -393,14 +391,13 @@ public class ServicesUsers {
 
         return count;
     }
-    
-    
+
     public int findUser(user u) {
         int count = 0;
 
         PreparedStatement loginPs;
         try {
-        
+
             String loginQry = "select * from user where username = ?";
             loginPs = con.prepareStatement(loginQry);
             loginPs.setString(1, u.getUsername());
@@ -409,16 +406,15 @@ public class ServicesUsers {
                 count++;
             }
         } catch (SQLException ex) {
-           ex.getMessage();
+            ex.getMessage();
         }
         return count;
     }
-    
-        public String getPhoneByUser(String user) {
+
+    public String getPhoneByUser(String user) {
         String phone = "";
         try {
             String query = "select phone from user where username = ?";
-         
 
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, user);
@@ -427,11 +423,39 @@ public class ServicesUsers {
                 phone = rs.getString(1);
             }
         } catch (SQLException ex) {
-           ex.getMessage();
+            ex.getMessage();
         }
-                //System.out.println(phone);
+        //System.out.println(phone);
 
         return phone;
     }
 
+    public user findUsertbyid(int id) {
+        user u = null;
+        try {
+
+            PreparedStatement pre = con.prepareStatement("Select * from user  WHERE id=? ");
+            pre.setInt(1, id);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+                String roles = rs.getString("roles");
+                String birthDay = rs.getString("birthDay");
+                int phone = rs.getInt("phone");
+                String image = rs.getString("image");
+                String pays = rs.getString("pays");
+                String adress = rs.getString("adress");
+                String gender = rs.getString("gender");
+                u = new user(id, username, lastname, firstname, image, email, "", roles, birthDay, phone, pays, adress, gender);
+            }
+            return u;
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return u;
+    }
 }

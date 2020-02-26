@@ -35,12 +35,38 @@ public class ServicesTeacher extends ServicesUsers {
         }
     }
 
-    public List<teacher> readAllTeachers() {
+    public List<teacher> readAllRegistritedTeachers() {
 
         List<teacher> lu = new ArrayList<>();
         try {
             ste = con.createStatement();
-            ResultSet rs = ste.executeQuery("select id,firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='teacher'");
+            ResultSet rs = ste.executeQuery("select id,firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='teacher' and enabled=1");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                String email = rs.getString("email");
+                String birthDay = rs.getString("birthDay");
+                int phone = rs.getInt("phone");
+                String pays = rs.getString("pays");
+                String adress = rs.getString("adress");
+                String gender = rs.getString("gender");
+                teacher t = new teacher(id, lastname, firstname, email, birthDay, phone, pays, adress, gender);
+                lu.add(t);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lu;
+    }
+    
+    
+        public List<teacher> readAllNotRegistritedTeachers() {
+
+        List<teacher> lu = new ArrayList<>();
+        try {
+            ste = con.createStatement();
+            ResultSet rs = ste.executeQuery("select id,firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='teacher' and enabled=0 ");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String firstname = rs.getString("firstname");

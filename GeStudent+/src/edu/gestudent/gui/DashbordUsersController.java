@@ -5,6 +5,7 @@
  */
 package edu.gestudent.gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.gestudent.entities.Student;
 import edu.gestudent.entities.teacher;
@@ -80,6 +81,10 @@ public class DashbordUsersController implements Initializable {
     private TableColumn<teacher, String> paysT;
     @FXML
     private TableColumn<teacher, String> genderT;
+    @FXML
+    private JFXButton Registered;
+    @FXML
+    private JFXButton Unregistered;
 
     /**
      * Initializes the controller class.
@@ -110,8 +115,8 @@ public class DashbordUsersController implements Initializable {
                 holdId.value = data1;
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(DashbordUsersController.this.getClass().getResource("DashbordClub.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+                    fxmlLoader.setLocation(DashbordUsersController.this.getClass().getResource("UserDetaills.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 400, 550);
                     Stage stage = new Stage();
                     //stage.setTitle(data1);
                     stage.setScene(scene);
@@ -123,7 +128,7 @@ public class DashbordUsersController implements Initializable {
             });
             return row;
         });
-        Teacherdata.addAll(st.readAllTeachers());
+        Teacherdata.addAll(st.readAllRegistritedTeachers());
 
         this.firstnameT.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         this.lastnameT.setCellValueFactory(new PropertyValueFactory<>("lastname"));
@@ -146,8 +151,8 @@ public class DashbordUsersController implements Initializable {
                 holdId.value = data1;
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(DashbordUsersController.this.getClass().getResource("DashbordClub.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+                    fxmlLoader.setLocation(DashbordUsersController.this.getClass().getResource("UserDetaills.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 400, 550);
                     Stage stage = new Stage();
                     //stage.setTitle(data1);
                     stage.setScene(scene);
@@ -161,6 +166,38 @@ public class DashbordUsersController implements Initializable {
         });
 
         // TODO
+    }
+
+    @FXML
+    private void RegisteredStudent(ActionEvent event) {
+
+        Studentdata.clear();
+        Studentdata.addAll(ss.readAllStudentRegistrated());
+        this.StudentTv.setItems(Studentdata);
+    }
+
+    @FXML
+    private void UnRegisteredstudent(ActionEvent event) {
+
+        Studentdata.clear();
+        Studentdata.addAll(ss.readAllStudentNotRegistrated());
+        this.StudentTv.setItems(Studentdata);
+    }
+
+    @FXML
+    private void RegisteredTeacher(ActionEvent event) {
+
+        Teacherdata.clear();
+        Teacherdata.addAll(st.readAllRegistritedTeachers());
+        this.teacherTv.setItems(Teacherdata);
+
+    }
+
+    @FXML
+    private void UnRegisteredteacher(ActionEvent event) {
+        Teacherdata.clear();
+        Teacherdata.addAll(st.readAllNotRegistritedTeachers());
+        this.teacherTv.setItems(Teacherdata);
     }
 
 }

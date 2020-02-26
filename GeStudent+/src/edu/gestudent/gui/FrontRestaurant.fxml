@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.FrontRestaurantController">
+   <children>
+      <JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="946.0">
+         <tabs>
+            <Tab text="Home">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="24.0" layoutY="71.0" spacing="20.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="71.0">
+                           <children>
+                              <TableView fx:id="tabmenu" prefHeight="202.0" prefWidth="257.0">
+                                 <columns>
+                                    <TableColumn fx:id="nom1" onEditCommit="#changeNom1CellEvent" prefWidth="97.0" text="Nom" />
+                                    <TableColumn fx:id="description" onEditCommit="#changeDesciptionCellEvent" prefWidth="98.0" text="description" />
+                                 </columns>
+                              </TableView>
+                              <TableView fx:id="tabmenumeal" prefHeight="239.0" prefWidth="549.0">
+                                 <columns>
+                                    <TableColumn fx:id="namemenu" onEditCommit="#changeNom1CellEvent" prefWidth="119.0" text="Name Menu" />
+                                    <TableColumn fx:id="namemeal" onEditCommit="#changeDesciptionCellEvent" prefWidth="129.0" text="Name Meal" />
+                                    <TableColumn fx:id="desriptionn" onEditCommit="#changeDesciptionCellEvent" prefWidth="155.0" text="Description" />
+                                    <TableColumn fx:id="typee" onEditCommit="#changeDesciptionCellEvent" prefWidth="196.0" text="type" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <JFXTextField fx:id="searchTF" layoutX="39.0" layoutY="14.0" onKeyTyped="#filter1s" promptText="Search" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Statistical">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <PieChart fx:id="piechart" layoutX="240.0" layoutY="55.0" prefHeight="271.0" prefWidth="348.0" title="statistique" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>

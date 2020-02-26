@@ -118,7 +118,7 @@ public class meal {
 
     @Override
     public String toString() {
-        return "meal{" + "id_meal=" + id_meal + ", image=" + image + ", name=" + name + ", type=" + type + ", rating=" + rating + '}';
+        return id_meal + ", image=" + image + ", name=" + name + ", type=" + type + ", rating=" + rating + '}';
     }
 
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.UserDetaillsController">
+   <children>
+      <ImageView fx:id="DetailImage" fitHeight="150.0" fitWidth="150.0" layoutX="117.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="40.0" />
+      <HBox layoutX="28.0" layoutY="228.0" prefHeight="247.0" prefWidth="354.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="230.0">
+         <children>
+            <VBox spacing="5.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="133.0" text="First Name : " textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="133.0" text="Last Name :" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="133.0" text="Email :" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="133.0" text="Birth Day :" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="133.0" text="Phone :" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="102.0" prefHeight="17.0" prefWidth="133.0" text="Country:" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="125.0" prefHeight="17.0" prefWidth="133.0" text="State:" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="148.0" prefHeight="17.0" prefWidth="133.0" text="Gender:" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="79.0" prefHeight="17.0" prefWidth="133.0" text="Role :" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="247.0" prefWidth="262.0" spacing="5.0">
+               <children>
+                  <Label fx:id="firstnameLabel" prefHeight="23.0" prefWidth="340.0" text="First Name " textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="LastnameLabel" prefHeight="23.0" prefWidth="262.0" text="Last Name " textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="EmailLabel" prefHeight="23.0" prefWidth="251.0" text="Email " textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dateLabel" prefHeight="23.0" prefWidth="321.0" text="Birth Day " textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="phoneLabel" prefHeight="23.0" prefWidth="333.0" text="Phone " textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="CountryLabel" layoutX="10.0" layoutY="102.0" prefHeight="23.0" prefWidth="356.0" text="Country" textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="StateLabel" layoutX="10.0" layoutY="125.0" prefHeight="23.0" prefWidth="337.0" text="State" textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="GenderLabel" layoutX="10.0" layoutY="148.0" prefHeight="23.0" prefWidth="329.0" text="Gender" textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Rolelabel" layoutX="10.0" layoutY="79.0" prefHeight="23.0" prefWidth="408.0" text="Role" textFill="#ffff8d">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button fx:id="Delete" layoutX="142.0" layoutY="497.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="116.0" text="Delete" AnchorPane.bottomAnchor="14.0" />
+   </children>
+</AnchorPane>

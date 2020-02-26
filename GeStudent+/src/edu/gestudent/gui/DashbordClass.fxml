@@ -80,6 +80,7 @@
                         </TableView>
                         <Button layoutX="174.0" layoutY="227.0" mnemonicParsing="false" onAction="#addclass" prefHeight="39.0" prefWidth="176.0" text="add" />
                         <JFXTextField fx:id="namectxt" layoutX="179.0" layoutY="139.0" promptText="Class Name" />
+                        <JFXButton layoutX="227.0" layoutY="287.0" onAction="#DeleteClass" text="Delete" />
                      </children>
                   </AnchorPane>
                </content>
@@ -115,6 +116,7 @@
                         <JFXComboBox fx:id="Classcombobox" blendMode="ADD" layoutX="78.0" layoutY="41.0" prefHeight="41.0" prefWidth="217.0" promptText="class" stylesheets="@style.css" />
                         <JFXComboBox fx:id="Subjectcombobox" blendMode="ADD" layoutX="454.0" layoutY="40.0" prefHeight="43.0" prefWidth="220.0" promptText="Subject" />
                         <JFXButton layoutX="319.0" layoutY="407.0" onAction="#Affecter" prefHeight="39.0" prefWidth="128.0" text="Affect" />
+                        <JFXButton fx:id="DeleteTcc" layoutX="502.0" layoutY="398.0" onAction="#DeleteTcc" prefHeight="39.0" prefWidth="105.0" text="Delete" />
                      </children>
                   </AnchorPane>
                </content>
@@ -147,8 +149,9 @@
                               </TableView>
                            </children>
                         </HBox>
-                        <JFXButton layoutX="356.0" layoutY="384.0" prefHeight="46.0" prefWidth="154.0" text="Affect" />
+                        <JFXButton layoutX="356.0" layoutY="384.0" onAction="#AffecterStudent" prefHeight="46.0" prefWidth="154.0" text="Affect" />
                         <JFXButton layoutX="381.0" layoutY="36.0" onAction="#selectClass" text="select" />
+                        <JFXButton fx:id="DelteClassEtudient" layoutX="581.0" layoutY="395.0" onAction="#DeleteCLassetudient" text="Delelte" />
                      </children>
                   </AnchorPane>
                </content>

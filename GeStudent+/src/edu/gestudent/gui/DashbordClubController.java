@@ -87,8 +87,6 @@ public class DashbordClubController implements Initializable {
     ServiceClub Sc = new ServiceClub();
 
     @FXML
-    private TextField txtid_club;
-    @FXML
     private TextField txtnom;
     @FXML
     private TextField txtemail;
@@ -126,15 +124,11 @@ public class DashbordClubController implements Initializable {
     @FXML
     private TableView<Club> clubtv;
     @FXML
-    private Label club;
-    @FXML
     private Button AddButton;
     @FXML
     private Button EditButton;
     @FXML
     private Button DeleteButton;
-    @FXML
-    private Button SearchButton;
     @FXML
     private Button EmailButton;
     @FXML
@@ -258,9 +252,6 @@ public class DashbordClubController implements Initializable {
     ) {
         Club c = clubtv.getSelectionModel().getSelectedItem();
         c.setEtat(Integer.parseInt(edittedCell.getNewValue().toString()));
-    }
-    @FXML
-    private void SearchClub(ActionEvent event) {
     }
 
     @FXML

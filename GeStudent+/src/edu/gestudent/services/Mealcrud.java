@@ -196,6 +196,23 @@ public class Mealcrud {
         }
         return id;
     }
+   
+     public String getImageMeal(int idmeal) {
+        String q = "";
+
+        String requete4 = "select image from meal where id_meal=?;";
+        PreparedStatement pst;
+        try {
+            pst = con.prepareStatement(requete4);
+            pst.setInt(1, idmeal);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                q = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+        }
+        return q;
+    }
 
     
 }

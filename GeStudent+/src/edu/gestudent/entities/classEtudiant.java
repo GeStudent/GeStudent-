@@ -103,7 +103,9 @@ public class classEtudiant {
 
     @Override
     public String toString() {
-        return "" + idetudiant;
+        return idetudiant + "," + idclass ;
     }
+
+    
 
 }

@@ -75,7 +75,7 @@ public class LoginpageController implements Initializable {
 
                     System.out.println("Role from login! : student" + u.getId());
 
-                    Parent root = FXMLLoader.load(getClass().getResource("DashboardAdmin.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("FrontStudent.fxml"));
                     Scene scene = new Scene(root, 1100, 650);
                     Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     appStage.setScene(scene);

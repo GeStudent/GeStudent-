@@ -13,6 +13,7 @@ import edu.gestudent.services.ServiceStudent;
 import edu.gestudent.services.ServicesTeacher;
 import edu.gestudent.services.ServicesUsers;
 import edu.gestudent.services.UploadServices;
+import edu.gestudent.utils.DataBase;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -103,7 +104,6 @@ public class QrcodeController implements Initializable {
         }
 
         if (ServiceUsers.ajouterAccount(txtusername.getText(), FilenameInserver, CryptServices.encrypt(txtpassword.getText(), CryptServices.getSecretKey()), txtQrCode.getText())) {
-            Alert succDeleteBookAlert = new Alert(Alert.AlertType.INFORMATION);
 
             AlertMaker.showSimpleAlert("GeStudent", "Account created successfully!");
             try {
