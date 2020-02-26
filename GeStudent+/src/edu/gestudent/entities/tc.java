@@ -11,14 +11,16 @@ package edu.gestudent.entities;
  */
 public class tc {
         int idtea;
-        int idcla;
+        int idclas;
+        int idexa;
 
     public tc() {
     }
 
-    public tc(int idtea, int idcla) {
+    public tc(int idtea, int idclas,int idexa) {
         this.idtea = idtea;
-        this.idcla = idcla;
+        this.idclas = idclas;
+        this.idexa=idexa;
     }
 
     public int getIdtea() {
@@ -29,12 +31,22 @@ public class tc {
         this.idtea = idtea;
     }
 
-    public int getIdcla() {
-        return idcla;
+    public int getIdclas() {
+        return idclas;
     }
 
-    public void setIdcla(int idcla) {
-        this.idcla = idcla;
+    public void setIdclas(int idclas) {
+        this.idclas = idclas;
+    }
+
+ 
+
+    public int getIdexa() {
+        return idexa;
+    }
+
+    public void setIdexa(int idexa) {
+        this.idexa = idexa;
     }
         
 }

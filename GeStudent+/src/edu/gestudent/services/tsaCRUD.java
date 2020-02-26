@@ -44,6 +44,22 @@ public class tsaCRUD {
                 Logger.getLogger(tsaCRUD.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
+        public void remove(int idstu,int idtea,int idbeh)  {
+            try {
+                //zaama naamel jointure houni ? wala bch yajouti kol chay iwali ?
+                PreparedStatement pre = con.prepareStatement(" Delete FROM  tsa where idstu=? and idtea=? and idbeh=? ");
+                pre.setInt(1, idstu);
+                pre.setInt(2, idtea);
+                pre.setInt(3,idbeh);
+                System.out.println("dssssssssssssssssssssssss"
+                        + "d");
+                
+                
+                pre.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+    }
     
 
     public List<Behaviour> afficherBehaviourstu(int idtea,int idstu) {

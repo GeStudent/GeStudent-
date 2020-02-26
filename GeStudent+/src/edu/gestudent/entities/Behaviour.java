@@ -52,6 +52,8 @@ public class Behaviour {
     public int getIdbeh() {
         return idbeh;
     }
+      
+
 
     public void setIdbeh(int idbeh) {
         this.idbeh = idbeh;
@@ -75,9 +77,10 @@ public class Behaviour {
 
     @Override
     public String toString() {
-        return   nombeh ;
+        return idbeh +"," + nombeh;
     }
 
+ 
 
     @Override
     public int hashCode() {

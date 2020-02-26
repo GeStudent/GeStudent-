@@ -103,7 +103,7 @@ public class exams {
 
     @Override
     public String toString() {
-        return "exams{" + "idexa=" + idexa + ", nomex=" + nomex + ", dateex=" + dateex + ", duree=" + duree + '}';
+        return  idexa + ", nomex=" + nomex + ", dateex=" + dateex + ", duree=" + duree + '}';
     }
     
 

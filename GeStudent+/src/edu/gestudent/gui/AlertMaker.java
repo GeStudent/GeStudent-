@@ -27,7 +27,8 @@ import javax.imageio.ImageIO;
 import edu.gestudent.utils.gestudentAssistantUtil;
 
 public class AlertMaker {
-
+    
+    
     public static void showSimpleAlert(String title, String content) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(title);

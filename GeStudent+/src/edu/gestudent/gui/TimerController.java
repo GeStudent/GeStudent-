@@ -7,6 +7,7 @@ package edu.gestudent.gui;
 
 import com.jfoenix.controls.JFXSpinner;
 import static edu.gestudent.gui.Timer6.state;
+import java.io.File;
 import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +24,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 /**
@@ -66,7 +69,9 @@ public class TimerController implements Initializable {
         this.sminute.setValueFactory(minvalue);
 
     }
-
+        final File file = new File("C:\\Users\\Asus\\Desktop\\Gestudent+\\GeStudent-\\GeStudent+\\src\\resources\\Alarm Sound Effect.mp3"); 
+        final Media media = new Media(file.toURI().toString()); 
+        final MediaPlayer mediaPlayer = new MediaPlayer(media); 
     @FXML
     private void start(ActionEvent event) {
         state = true;
@@ -97,7 +102,10 @@ public class TimerController implements Initializable {
                             label.setText(Hours + " Hour(s), " + minutes + " Minute(s) and "
                                     + second + " Second(s)");
                             if (seconds == 0) {
-                         //       break;
+                            //break;
+                         
+        mediaPlayer.play();
+         state = false;
                             }
                     }
                              }),
