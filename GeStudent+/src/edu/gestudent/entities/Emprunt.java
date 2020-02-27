@@ -61,6 +61,13 @@ public class Emprunt {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getLastname() {
         return lastname;
@@ -96,14 +103,6 @@ public class Emprunt {
 
     public void setDate_retour(String date_retour) {
         this.date_retour = date_retour;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getId_livre() {

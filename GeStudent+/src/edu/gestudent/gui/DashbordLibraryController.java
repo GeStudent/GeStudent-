@@ -371,72 +371,32 @@ public class DashbordLibraryController implements Initializable {
             txtimage.setText(imageFile);
         }
     }
-//
-//    private void filter(ActionEvent event) {
-//        data.clear();
-//        // System.out.println("heyy yuuu");
-//        data.addAll(lcr.afficherlivre().stream().filter((art)
-//                -> art.getName().toLowerCase().contains(searchTF.getText().toLowerCase())
-//                || art.getAuthor().toLowerCase().contains(searchTF.getText().toLowerCase())
-//                || art.getCategorie().toLowerCase().contains(searchTF.getText().toLowerCase())
-//        //                || Integer.toString(art.getPrixAchat()).equals(searchTF.getText())
-//        //                || Integer.toString(art.getPrixVente()).equals(searchTF.getText())
-//
-//        ).collect(Collectors.toList()));
-//    }
 
     @FXML
     private void selectemprunt(ActionEvent event) {
         Emprunt E = empruntadmin.getSelectionModel().getSelectedItem();
         System.out.println(E.getId());
     }
-//
-//    private void filter2(ActionEvent event) {
-//                dataemp.clear();
-//        // System.out.println("heyy yuuu");
-//        dataemp.addAll(ecr.afficherempruntadmin().stream().filter((art)
-//                -> art.getName().toLowerCase().contains(searchTF2.getText().toLowerCase())
-//                || art.getFirstname().toLowerCase().contains(searchTF2.getText().toLowerCase())
-//                || art.getLastname().toLowerCase().contains(searchTF2.getText().toLowerCase())
-//        //                || Integer.toString(art.getPrixAchat()).equals(searchTF.getText())
-//        //                || Integer.toString(art.getPrixVente()).equals(searchTF.getText())
-//
-//        ).collect(Collectors.toList()));
-//    }
 
     @FXML
     private void filter(KeyEvent event) {
-              data.clear();
+        data.clear();
         // System.out.println("heyy yuuu");
         data.addAll(lcr.afficherlivre().stream().filter((art)
                 -> art.getName().toLowerCase().contains(searchTF.getText().toLowerCase())
                 || art.getAuthor().toLowerCase().contains(searchTF.getText().toLowerCase())
                 || art.getCategorie().toLowerCase().contains(searchTF.getText().toLowerCase())
-        //                || Integer.toString(art.getPrixAchat()).equals(searchTF.getText())
-        //                || Integer.toString(art.getPrixVente()).equals(searchTF.getText())
-
         ).collect(Collectors.toList()));
     }
 
     @FXML
     private void filter2(KeyEvent event) {
-                     dataemp.clear();
+        dataemp.clear();
         // System.out.println("heyy yuuu");
         dataemp.addAll(ecr.afficherempruntadmin().stream().filter((art)
                 -> art.getName().toLowerCase().contains(searchTF2.getText().toLowerCase())
                 || art.getFirstname().toLowerCase().contains(searchTF2.getText().toLowerCase())
                 || art.getLastname().toLowerCase().contains(searchTF2.getText().toLowerCase())
-        //                || Integer.toString(art.getPrixAchat()).equals(searchTF.getText())
-        //                || Integer.toString(art.getPrixVente()).equals(searchTF.getText())
-
         ).collect(Collectors.toList()));
     }
-
-
-    
-
-
-  
-
-
 }

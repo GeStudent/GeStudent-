@@ -13,6 +13,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,8 +25,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -35,52 +38,7 @@ import javafx.util.converter.IntegerStringConverter;
  */
 public class DashbordFronLibraryController implements Initializable {
 
-//    @FXML
-//    private DatePicker txtdateE;
-//    @FXML
-//    private TableView<?> librarytv;
-//    @FXML
-//    private TableColumn<?, ?> name;
-//    @FXML
-//    private TableColumn<?, ?> image;
-//    @FXML
-//    private TableColumn<?, ?> author;
-//    @FXML
-//    private TableColumn<?, ?> url;
-//    @FXML
-//    private TableColumn<?, ?> categiries;
-//    @FXML
-//    private TableColumn<?, ?> quantity;
-//    @FXML
-//    private TableView<?> livreeemprunter;
-//    @FXML
-//    private TableColumn<?, ?> name1;
-//    @FXML
-//    private TableColumn<?, ?> date;
-//    @FXML
-//    private Button ReturnB;
-//
-//    /**
-//     * Initializes the controller class.
-//     */
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        // TODO
-//    }    
-//
-//    @FXML
-//    private void retournerlivre(ActionEvent event) {
-//    }
-//
-//    @FXML
-//    private void emprunterlivre(ActionEvent event) {
-//    }
-//
-//    @FXML
-//    private void ReturnAction(ActionEvent event) {
-//    }
-//    
-      LivreCrud lcr = new LivreCrud();
+    LivreCrud lcr = new LivreCrud();
     EmpruntCrud ecr = new EmpruntCrud();
     public ObservableList<Livre> data = FXCollections.observableArrayList();
     public ObservableList<Emprunt> dataemp = FXCollections.observableArrayList();
@@ -103,6 +61,8 @@ public class DashbordFronLibraryController implements Initializable {
     private TableColumn<Livre, Integer> quantity;
     @FXML
     private TableView<Emprunt> livreeemprunter;
+//    @FXML
+//    private TextField searchTF;
     @FXML
     private Button ReturnB;
     @FXML
@@ -144,9 +104,13 @@ public class DashbordFronLibraryController implements Initializable {
     private void emprunterlivre(ActionEvent event) {
         Livre L = librarytv.getSelectionModel().getSelectedItem();
 
-        Emprunt E = new Emprunt(String.valueOf(txtdateE.getValue()),1, L.getId_livre());
-        if (txtdateE.getValue().isBefore(LocalDate.now())){
+        Emprunt E = new Emprunt(String.valueOf(txtdateE.getValue()), 1, L.getId_livre());
+        if (txtdateE.getValue().isBefore(LocalDate.now())) {
             AlertMaker.showErrorMessage("Date Failed !", "The Date can't be in the Past !");
+            return;
+        }
+        if (ecr.checkLivre(E.getId(), E.getId_livre())) {
+            AlertMaker.showErrorMessage("Sorry you can't borrow the book !", "You already have one ,please return it at time !");
             return;
         }
         Alert succemprunterlivreAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -220,5 +184,16 @@ public class DashbordFronLibraryController implements Initializable {
 
         }
     }
+
+//    @FXML
+//    private void filter(KeyEvent event) {
+//        data.clear();
+//        // System.out.println("heyy yuuu");
+//        data.addAll(lcr.afficherlivre().stream().filter((art)
+//                -> art.getName().toLowerCase().contains(searchTF.getText().toLowerCase())
+//                || art.getAuthor().toLowerCase().contains(searchTF.getText().toLowerCase())
+//                || art.getCategorie().toLowerCase().contains(searchTF.getText().toLowerCase())
+//        ).collect(Collectors.toList()));
+//    }
 
 }

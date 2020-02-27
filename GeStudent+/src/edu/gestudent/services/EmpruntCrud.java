@@ -234,4 +234,25 @@ public class EmpruntCrud {
         return livresemprunt;
 
     }
+        public boolean checkLivre(int id, int id_livre) {
+        boolean verif = false;
+
+        try {
+            PreparedStatement pt = cn2.prepareStatement("SELECT id_livre FROM emprunt where id=?");
+            pt.setInt(1, id);
+            ResultSet rs = pt.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt("id_livre")==(id_livre)) {
+                    
+                        System.out.println("andek kteb ye ga7aff");
+                        return true;
+                    
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return false;
+    }
 }
