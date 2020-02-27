@@ -413,9 +413,9 @@ public class DashbordClassController implements Initializable {
 
         if (tableviewclass.getSelectionModel().getSelectedItem() != null) {
             Alert deleteBookAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            deleteBookAlert.setTitle("Delete a cours");
+            deleteBookAlert.setTitle("Delete a class");
             deleteBookAlert.setHeaderText(null);
-            deleteBookAlert.setContentText("Are you sure that you want to delete this cours?");
+            deleteBookAlert.setContentText("Are you sure that you want to delete this class?");
             Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
             if (optionDeleteBookAlert.get() == ButtonType.OK) {
 
@@ -426,9 +426,9 @@ public class DashbordClassController implements Initializable {
 
                 //Alert Delete Blog :
                 Alert succDeleteBookAlert = new Alert(Alert.AlertType.INFORMATION);
-                succDeleteBookAlert.setTitle("Delete Blog");
+                succDeleteBookAlert.setTitle("Delete ");
                 succDeleteBookAlert.setHeaderText("Results:");
-                succDeleteBookAlert.setContentText("cours deleted successfully!");
+                succDeleteBookAlert.setContentText("class deleted successfully!");
 
                 succDeleteBookAlert.showAndWait();
             } else if (optionDeleteBookAlert.get() == ButtonType.CANCEL) {
@@ -439,9 +439,9 @@ public class DashbordClassController implements Initializable {
 
             //Alert Select BOOK :
             Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
-            selectBookAlert.setTitle("Select a cours");
+            selectBookAlert.setTitle("Select a class");
             selectBookAlert.setHeaderText(null);
-            selectBookAlert.setContentText("You need to select a cours first!");
+            selectBookAlert.setContentText("You need to select a class first!");
             selectBookAlert.showAndWait();
             //Alert Select Book !
 
@@ -453,9 +453,9 @@ public class DashbordClassController implements Initializable {
     private void DeleteTcc(ActionEvent event) {
         if (tc.getSelectionModel().getSelectedItem() != null) {
             Alert deleteBookAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            deleteBookAlert.setTitle("Delete a cours");
+            deleteBookAlert.setTitle("Delete ");
             deleteBookAlert.setHeaderText(null);
-            deleteBookAlert.setContentText("Are you sure that you want to delete this cours?");
+            deleteBookAlert.setContentText("Are you sure that you want to delete it?");
             Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
             if (optionDeleteBookAlert.get() == ButtonType.OK) {
 
@@ -471,9 +471,9 @@ public class DashbordClassController implements Initializable {
 
                 //Alert Delete Blog :
                 Alert succDeleteBookAlert = new Alert(Alert.AlertType.INFORMATION);
-                succDeleteBookAlert.setTitle("Delete Blog");
+                succDeleteBookAlert.setTitle("Delete ");
                 succDeleteBookAlert.setHeaderText("Results:");
-                succDeleteBookAlert.setContentText("cours deleted successfully!");
+                succDeleteBookAlert.setContentText(" deleted successfully!");
 
                 succDeleteBookAlert.showAndWait();
             } else if (optionDeleteBookAlert.get() == ButtonType.CANCEL) {
@@ -484,9 +484,9 @@ public class DashbordClassController implements Initializable {
 
             //Alert Select BOOK :
             Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
-            selectBookAlert.setTitle("Select a cours");
+            selectBookAlert.setTitle("Select ");
             selectBookAlert.setHeaderText(null);
-            selectBookAlert.setContentText("You need to select a cours first!");
+            selectBookAlert.setContentText("You need to select  first!");
             selectBookAlert.showAndWait();
             //Alert Select Book !
 
@@ -499,9 +499,9 @@ public class DashbordClassController implements Initializable {
 
         if (StudentClassTv.getSelectionModel().getSelectedItem() != null) {
             Alert deleteBookAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            deleteBookAlert.setTitle("Delete a cours");
+            deleteBookAlert.setTitle("Delete ");
             deleteBookAlert.setHeaderText(null);
-            deleteBookAlert.setContentText("Are you sure that you want to delete this cours?");
+            deleteBookAlert.setContentText("Are you sure that you want to delete it?");
             Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
             if (optionDeleteBookAlert.get() == ButtonType.OK) {
 
@@ -518,9 +518,9 @@ public class DashbordClassController implements Initializable {
 
                 //Alert Delete Blog :
                 Alert succDeleteBookAlert = new Alert(Alert.AlertType.INFORMATION);
-                succDeleteBookAlert.setTitle("Delete Blog");
+                succDeleteBookAlert.setTitle("Delete ");
                 succDeleteBookAlert.setHeaderText("Results:");
-                succDeleteBookAlert.setContentText("cours deleted successfully!");
+                succDeleteBookAlert.setContentText(" deleted successfully!");
 
                 succDeleteBookAlert.showAndWait();
             } else if (optionDeleteBookAlert.get() == ButtonType.CANCEL) {
@@ -531,9 +531,9 @@ public class DashbordClassController implements Initializable {
 
             //Alert Select BOOK :
             Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
-            selectBookAlert.setTitle("Select a cours");
+            selectBookAlert.setTitle("Select ");
             selectBookAlert.setHeaderText(null);
-            selectBookAlert.setContentText("You need to select a cours first!");
+            selectBookAlert.setContentText("You need to select  first!");
             selectBookAlert.showAndWait();
             //Alert Select Book !
 

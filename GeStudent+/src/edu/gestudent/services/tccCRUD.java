@@ -50,10 +50,11 @@ public class tccCRUD {
     public List<tcc> rechercheclass(int idclass) throws SQLException {
         {
             List<tcc> arr = new ArrayList<>();
-            PreparedStatement pre = con.prepareStatement("SELECT C.name,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idclass=? ");
+            PreparedStatement pre = con.prepareStatement("SELECT C.name,u.id ,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idclass=? ");
             pre.setInt(1, idclass);
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
+                int idteacher=rs.getInt("id");
                 String name = rs.getString("name");
                 String nameC = rs.getString("nameC");
 
@@ -61,6 +62,7 @@ public class tccCRUD {
                 String firstname = rs.getString("firstname");
 
                 tcc t = new tcc(name, nameC, duration, firstname);
+                t.setIdteacher(idteacher);
                 arr.add(t);
             }
             return arr;

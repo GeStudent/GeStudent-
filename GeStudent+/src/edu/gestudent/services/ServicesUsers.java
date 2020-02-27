@@ -31,6 +31,39 @@ public class ServicesUsers {
         con = DataBase.getInstance().getConnection();
 
     }
+    
+     public String getName(int id) {
+        String role = "";
+        String role1 = "";
+        try {
+            PreparedStatement pre = con.prepareStatement("select firstname,lastname from user where id=?");
+            pre.setInt(1, id);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                role = rs.getString(1);
+                role1 = rs.getString(2);
+            }
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return role+" "+role1;
+    }
+    
+      public String getMail(int id) {
+        String role = "";
+        try {
+            PreparedStatement pre = con.prepareStatement("select email from user where id=?");
+            pre.setInt(1, id);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                role = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return role;
+    }
+
 
     public String getRole(String username) {
         String role = "";

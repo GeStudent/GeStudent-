@@ -111,5 +111,21 @@ public class classEtudiantCRUD {
         return false;
 
     }
+    
+    public int getclass(int idEtudiant ) {
+       int idclass=0;
+
+        try {
+            PreparedStatement pre = con.prepareStatement("select idclass from classEtudiant where idEtudiant=?");
+            pre.setInt(1, idEtudiant);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+               idclass = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return idclass;
+    }
 
 }

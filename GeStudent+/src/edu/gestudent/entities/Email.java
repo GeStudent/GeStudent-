@@ -25,8 +25,8 @@ public class Email {
 
     public static void sendEmail(String address, String subject, HashMap<String, String> message) throws Exception {
 
-        String from = "amin.bencheikh@esprit.tn";
-        String pass = "197382465";
+        String from = "yassine.ayadi@esprit.tn";
+        String pass ="yassinecss1928";
         String[] to = {address};
         String host = "smtp.gmail.com";
 
@@ -136,16 +136,14 @@ public class Email {
                 + "<body>\n"
                 + "\n"
                 + "<div class=\"header\">\n"
-                + "  <h2>FIXIT</h2>\n"
+                + "  <h2>GEstudent+</h2>\n"
                 + "</div>\n"
                 + "\n"
                 + "<div class=\"row\">\n"
                 + "  <div class=\"\">\n"
                 + "    <div class=\"card\">\n"
                 + "      <h2>" + message.get("Title") + "</h2>\n"
-                + "      <h5>" + message.get("CreatedAt") + "</h5>\n"
                 + "      \n"
-                + "      <p>" + message.get("Description") + "</p>\n"
                 + "      <p>" + message.get("Content") + "</p>\n"
                 + "    </div>\n"
                 + "    \n"

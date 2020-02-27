@@ -118,6 +118,7 @@ public class FrontStudentController implements Initializable {
 
     @FXML
     private void ClassAction(ActionEvent event) {
+        loadUi("frontEtudiant");
     }
 
     @FXML
