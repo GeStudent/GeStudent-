@@ -511,6 +511,15 @@ INSERT INTO `user` (`id`, `username`, `username_canonical`, `lastname`, `firstna
 (30, 'admin', NULL, 'Ayadi', 'Yassine', 'f_5e55073ba9de7.png', NULL, NULL, 0, NULL, 'cuajHuOtewq1w/3Hd3SHjA==', NULL, NULL, NULL, 'admin', '1998-08-27', 29025104, NULL, NULL, NULL, NULL, NULL, NULL),
 (20, NULL, NULL, 'Ben Chiekh', 'Amin', NULL, 'amin.becnchiekh', NULL, 0, NULL, NULL, NULL, NULL, NULL, 'teacher', '1997-02-15', 25123654, 'Camroun', 'younde', 'male', NULL, '176GEM4273', 0);
 COMMIT;
+DROP TABLE IF EXISTS `tc`;
+CREATE TABLE IF NOT EXISTS `tc` (
+  `idtea` int(11) NOT NULL,
+  `idclas` int(11) NOT NULL,
+  `idexa` int(11) NOT NULL,
+  PRIMARY KEY (`idtea`,`idclas`,`idexa`),
+  KEY `fk_class` (`idclas`),
+  KEY `fk_exam` (`idexa`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
