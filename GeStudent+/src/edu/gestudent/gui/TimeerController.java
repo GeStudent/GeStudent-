@@ -5,22 +5,16 @@
  */
 package edu.gestudent.gui;
 
-import com.jfoenix.controls.JFXSpinner;
-import static edu.gestudent.gui.Timer6.state;
 import java.io.File;
-import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -31,11 +25,9 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author Asus
+ * @author Ayadi
  */
-public class TimerController implements Initializable {
-
-    @FXML
+public class TimeerController implements Initializable {
     private Label label;
     @FXML
     private Spinner<Integer> shour;
@@ -69,8 +61,7 @@ public class TimerController implements Initializable {
         this.sminute.setValueFactory(minvalue);
 
     }
-        final File file = new File("C:\\Users\\Ayadi\\Documents\\NetBeansProjects\\integration\\GeStudent-\\GeStudent+\\src\\resources\\Alarm Sound Effect.mp3");
- 
+        final File file = new File("C:\\Users\\Asus\\Desktop\\Gestudent+\\GeStudent-\\GeStudent+\\src\\resources\\Alarm Sound Effect.mp3"); 
         final Media media = new Media(file.toURI().toString()); 
         final MediaPlayer mediaPlayer = new MediaPlayer(media); 
     @FXML
@@ -128,4 +119,5 @@ public class TimerController implements Initializable {
 
     }
 
+    
 }

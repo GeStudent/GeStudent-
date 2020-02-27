@@ -91,15 +91,15 @@ public class SignUpController implements Initializable {
     @FXML
     private void Signup(ActionEvent event) {
 
-        String date = comboDate.getValue().format(DateTimeFormatter.ISO_DATE);
         if (combotype.getSelectionModel().isEmpty() || txtlastname.getText().equals("")
                 || txtFirstname.getText().equals("") || txtemail.getText().equals("")
                 || txtphone.getText().equals("") || txtCountry.getText().equals("")
-                || txtCity.getText().equals("") || txtgender.getSelectionModel().isEmpty()) {
+                || txtCity.getText().equals("") ) {
             AlertMaker.showErrorMessage("Failed", "Please Fill out ALL");
 
             return;
         }
+        String date = comboDate.getValue().format(DateTimeFormatter.ISO_DATE);
 
         if ("student".equals(combotype.getValue())) {
             Student s = new Student(txtlastname.getText(), txtFirstname.getText(), txtemail.getText(), date, Integer.parseInt(txtphone.getText()), txtCountry.getText(), txtCity.getText(), txtgender.getValue());

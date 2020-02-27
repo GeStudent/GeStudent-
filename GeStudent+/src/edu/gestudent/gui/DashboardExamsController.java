@@ -347,6 +347,7 @@ public class DashboardExamsController implements Initializable {
 
     @FXML
     private void addex(ActionEvent event) {
+        
         Alert alertl = new Alert(Alert.AlertType.ERROR);
         if (datetxt.getValue().isBefore(LocalDate.now())) {
 //            alertl.setTitle("Date Failed");
