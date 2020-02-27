@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -13,8 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="edu.gestudent.gui.DashbordFrontClubController">
+<AnchorPane id="AnchorPane" prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordFrontClubController">
    <children>
       <TabPane prefHeight="476.0" prefWidth="949.0">
          <tabs>
@@ -63,7 +63,7 @@
                               <JFXTextField fx:id="txtplace" prefHeight="37.0" prefWidth="118.0" promptText="Place" />
                               <JFXTextField fx:id="txtid_club" prefHeight="30.0" prefWidth="118.0" promptText="id_club" />
                               <JFXTextField fx:id="txtnb_place" prefHeight="37.0" prefWidth="118.0" promptText="Nombre place" />
-                              <JFXDatePicker fx:id="datetxt" />
+                              <DatePicker fx:id="datetxt" />
                            </children>
                         </VBox>
                      </children>
