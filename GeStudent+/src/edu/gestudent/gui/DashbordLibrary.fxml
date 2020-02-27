@@ -43,7 +43,7 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <TableView fx:id="librarytv" prefHeight="312.0" prefWidth="524.0">
+                              <TableView fx:id="librarytv" prefHeight="244.0" prefWidth="449.0">
                                  <columns>
                                     <TableColumn fx:id="name" minWidth="4.0" prefWidth="71.0" text="Name" />
                                     <TableColumn fx:id="author" onEditCommit="#changeAuthorCellEvent" text="Author" />
@@ -95,7 +95,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0">
                      <children>
-                        <TableView fx:id="empruntadmin" layoutX="246.0" layoutY="83.0" prefHeight="200.0" prefWidth="425.0">
+                        <TableView fx:id="empruntadmin" layoutX="48.0" layoutY="97.0" prefHeight="200.0" prefWidth="425.0">
                            <columns>
                               <TableColumn fx:id="firstnameE" prefWidth="101.0" text="First Name" />
                               <TableColumn fx:id="lastnameE" prefWidth="91.0" text="Last Name" />
@@ -106,9 +106,9 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Button layoutX="364.0" layoutY="341.0" mnemonicParsing="false" onAction="#selectemprunt" text="Select" />
-                        <JFXTextField fx:id="searchTF2" layoutX="390.0" layoutY="32.0" onKeyTyped="#filter2" promptText="search" AnchorPane.rightAnchor="376.0" AnchorPane.topAnchor="32.0" />
-                        <Button fx:id="sendmail" layoutX="459.0" layoutY="341.0" mnemonicParsing="false" onAction="#Sendmail" text="Send mail" />
+                        <Button layoutX="487.0" layoutY="258.0" mnemonicParsing="false" onAction="#selectemprunt" text="Select" />
+                        <JFXTextField fx:id="searchTF2" layoutX="48.0" layoutY="40.0" onKeyTyped="#filter2" promptText="search" AnchorPane.rightAnchor="718.0" AnchorPane.topAnchor="40.0" />
+                        <Button fx:id="sendmail" layoutX="585.0" layoutY="258.0" mnemonicParsing="false" onAction="#Sendmail" text="Send mail" />
                      </children>
                   </AnchorPane>
                </content>
