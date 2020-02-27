@@ -122,7 +122,7 @@ public class DashbordFrontClubController implements Initializable {
     @FXML
     private TextField txtid_event;
     @FXML
-    private TableColumn<?, ?> email;
+    private TableColumn<Club, String> email;
     @FXML
     private TableColumn<?, ?> id_event;
     @FXML
@@ -454,9 +454,7 @@ public class DashbordFrontClubController implements Initializable {
     private void SearchClub(ActionEvent event) {
     }
 
-    @FXML
-    private void EmailClub(ActionEvent event) {
-    }
+
 
     @FXML
     private void Return1(ActionEvent event) {
