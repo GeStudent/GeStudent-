@@ -135,7 +135,7 @@ public class FrontEtudiantController implements Initializable {
         this.classe.setCellValueFactory(new PropertyValueFactory<>("nameC"));
         this.cours.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.tabfront.setItems(data);
-
+        if (!data.isEmpty())
         Labelclass.setText(data.get(0).getNameC());
     }
 
@@ -163,14 +163,14 @@ public class FrontEtudiantController implements Initializable {
 
         tcc c = tabfront.getSelectionModel().getSelectedItem();
         ServicesUsers su = new ServicesUsers();
-        System.out.println("id"+c.getidteacher());
+        System.out.println("id" + c.getidteacher());
         String mailprof = su.getMail(c.getidteacher());
 
         Email email = new Email();
         HashMap<String, String> message = new HashMap<String, String>();
         System.out.println(su.getName(idetudiant));
         System.out.println(mailprof);
-        message.put("Title", "Claim from " +su.getName(idetudiant));
+        message.put("Title", "Claim from " + su.getName(idetudiant));
 //         message.put("UpdatedAt","");
 //        message.put("Description", "hh");
         message.put("Content", MailBody.getText());
@@ -178,7 +178,7 @@ public class FrontEtudiantController implements Initializable {
             email.sendEmail(mailprof, "Claim", message);
 
         } catch (Exception ex) {
-            Logger.getLogger(FrontEtudiantController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.getMessage();
         }
 
     }

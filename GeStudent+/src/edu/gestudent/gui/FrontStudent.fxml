@@ -20,19 +20,48 @@
                      <children>
                         <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <tabs>
-                              <Tab text="Untitled Tab">
+                              <Tab text="Home">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="625.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="0.0">
+                                       <children>
+                                          <ImageView fx:id="newimage" fitHeight="142.0" fitWidth="164.0" layoutX="334.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="356.0" AnchorPane.rightAnchor="434.0" />
+                                          <VBox layoutX="234.0" layoutY="162.0" prefHeight="285.0" prefWidth="434.0" spacing="25.0" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.0">
+                                             <children>
+                                                <JFXTextField fx:id="txtusername" prefHeight="3.0" prefWidth="450.0" promptText="username" />
+                                                <JFXTextField fx:id="txtfirstname1" promptText="First Name" />
+                                                <JFXTextField fx:id="txtlastname1" promptText="LastName" />
+                                                <JFXTextField fx:id="txtphone" promptText="Phone" />
+                                                <DatePicker fx:id="txtdate" prefHeight="37.0" prefWidth="511.0" styleClass="menu-bar" />
+                                             </children>
+                                          </VBox>
+                                          <JFXButton layoutX="544.0" layoutY="119.0" onAction="#upload" prefHeight="39.0" prefWidth="62.0" text=". . ." />
+                                          <JFXTextField fx:id="txtimage" layoutX="72.0" layoutY="324.0" opacity="0.0" prefHeight="37.0" prefWidth="131.0" />
+                                          <Button layoutX="733.0" layoutY="401.0" mnemonicParsing="false" onAction="#updateInformation" prefHeight="30.0" prefWidth="130.0" text="Update">
+                                             <graphic>
+                                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                          </Button>
+                                          <Label fx:id="txtstatus" layoutX="533.0" layoutY="51.0" prefHeight="46.0" prefWidth="188.0" text="Status" textFill="#ffff8d">
+                                             <font>
+                                                <Font size="31.0" />
+                                             </font>
+                                          </Label>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="new">
+                              <Tab text="Chane password">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0" />
-                                 </content>
-                              </Tab>
-                              <Tab text="new">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="577.0">
+                                       <children>
+                                          <VBox layoutX="192.0" layoutY="84.0" spacing="40.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="248.0">
+                                             <children>
+                                                <JFXPasswordField fx:id="currentpassword" promptText="Current password" />
+                                                <JFXPasswordField fx:id="newpassword" promptText="New password" />
+                                                <JFXPasswordField fx:id="confirmepassword" promptText="Confirme password" />
+                                                <JFXButton onAction="#ApplyChanepassword" prefHeight="54.0" prefWidth="562.0" text="Apply" />
+                                             </children>
+                                          </VBox>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
                            </tabs>
@@ -46,11 +75,6 @@
                         <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#profileAction" prefHeight="55.0" prefWidth="154.0" styleClass="toolbar-button" text="Profile" textAlignment="CENTER">
                            <graphic>
                               <FontAwesomeIconView glyphName="USER" size="25" />
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#UsersAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Users" textAlignment="CENTER">
-                           <graphic>
-                              <FontAwesomeIconView glyphName="BOOK" size="25" />
                            </graphic>
                         </JFXButton>
                         <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#ClassAction" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Class" textAlignment="CENTER">

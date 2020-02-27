@@ -7,11 +7,13 @@ package edu.gestudent.gui;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import edu.gestudent.entities.Email;
 import edu.gestudent.entities.Emprunt;
 import edu.gestudent.entities.Livre;
 import edu.gestudent.entities.teacher;
 import edu.gestudent.services.EmpruntCrud;
 import edu.gestudent.services.LivreCrud;
+import edu.gestudent.services.ServicesUsers;
 import edu.gestudent.services.UploadServices;
 import edu.gestudent.utils.DataBase;
 import java.io.File;
@@ -21,6 +23,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -337,12 +340,7 @@ public class DashbordLibraryController implements Initializable {
         }
     }
 
-    @FXML
-    private void selectemprunt(ActionEvent event) {
-        Emprunt E = empruntadmin.getSelectionModel().getSelectedItem();
-        System.out.println(E.getId());
-    }
-
+ 
     @FXML
     private void filter(KeyEvent event) {
         data.clear();
@@ -367,5 +365,27 @@ public class DashbordLibraryController implements Initializable {
 
     @FXML
     private void Sendmail(ActionEvent event) {
+                Emprunt E = empruntadmin.getSelectionModel().getSelectedItem();
+                int id=E.getId();
+                ServicesUsers us =new ServicesUsers();
+                
+                String mail=us.getMail(id);
+                
+                     Email email = new Email();
+        HashMap<String, String> message = new HashMap<String, String>();
+        message.put("Title", "Library Administration " );
+//         message.put("UpdatedAt","");
+//        message.put("Description", "hh");
+        message.put("Content","please return the book "+ E.getName() + "! You have passed the dead line");
+        try {
+            email.sendEmail(mail, "Library Administration", message);
+
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+                
+                
+                
+
     }
 }

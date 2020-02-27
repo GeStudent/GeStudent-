@@ -113,7 +113,7 @@ public class QrcodeController implements Initializable {
                 appStage.setScene(scene);
                 appStage.show();
             } catch (IOException ex) {
-                ex.getMessage();
+                ex.printStackTrace();
             }
 
         } else {

@@ -5,14 +5,20 @@
  */
 package edu.gestudent.gui;
 
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import edu.gestudent.entities.Session;
 import edu.gestudent.entities.user;
+import edu.gestudent.services.CryptServices;
 import edu.gestudent.services.ServicesUsers;
 import edu.gestudent.services.UploadServices;
 import edu.gestudent.services.inscriRestCrud;
 import edu.gestudent.utils.gestudentAssistantUtil;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,11 +29,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -51,6 +59,29 @@ public class FrontStudentController implements Initializable {
     int iduser = Session.getCurrentSession();
     UploadServices uploadservices = new UploadServices();
     ServicesUsers ServiceUser = new ServicesUsers();
+    @FXML
+    private ImageView newimage;
+    @FXML
+    private JFXTextField txtusername;
+    private JFXTextField txtfirstname;
+    @FXML
+    private JFXTextField txtlastname1;
+    @FXML
+    private JFXTextField txtphone;
+    @FXML
+    private DatePicker txtdate;
+    @FXML
+    private JFXTextField txtimage;
+    @FXML
+    private Label txtstatus;
+    @FXML
+    private JFXPasswordField currentpassword;
+    @FXML
+    private JFXPasswordField newpassword;
+    @FXML
+    private JFXPasswordField confirmepassword;
+    @FXML
+    private JFXTextField txtfirstname1;
 
     /**
      * Initializes the controller class.
@@ -68,6 +99,26 @@ public class FrontStudentController implements Initializable {
         Image image = new Image("http://localhost/images/uploads/" + imagename);
 
         profileimage.setImage(image);
+        
+        
+
+        txtusername.setText(u.getUsername());
+        txtfirstname1.setText(u.getFirstname());
+        txtlastname1.setText(u.getLastname());
+        txtphone.setText(String.valueOf(u.getPhone()));
+
+        // profileimage.setImage(image);
+        newimage.setImage(image);
+
+        LocalDate parse = LocalDate.parse(u.getBirthDay());
+        parse.getYear();
+        parse.getMonthValue();
+        parse.getDayOfMonth();
+        LocalDate of = LocalDate.of(parse.getYear(), parse.getMonthValue(), parse.getDayOfMonth());
+        txtdate.setValue(of);
+        txtstatus.setText(u.getRoles());
+        
+        
         //merlt
     }
 
@@ -112,9 +163,6 @@ public class FrontStudentController implements Initializable {
 
     }
 
-    @FXML
-    private void UsersAction(ActionEvent event) {
-    }
 
     @FXML
     private void ClassAction(ActionEvent event) {
@@ -178,4 +226,65 @@ public class FrontStudentController implements Initializable {
         DashbordPane.getScene().setRoot(root);
     }
 
-}
+    @FXML
+    private void upload(ActionEvent event) {
+          FileChooser fc = new FileChooser();
+        String imageFile = "";
+        File f = fc.showOpenDialog(null);
+
+        if (f != null) {
+            imageFile = f.getAbsolutePath();
+            System.out.println("image file : " + imageFile);
+            txtimage.setText(imageFile);
+        }
+    }
+
+    @FXML
+    private void updateInformation(ActionEvent event) {
+        
+         if (!txtimage.getText().equals("")) {
+
+            String oldname = ServiceUser.getImage(iduser);
+            uploadservices.delete(oldname);
+
+            String FilenameInserver = uploadservices.upload(txtimage.getText());
+            ServiceUser.updateimage(iduser, FilenameInserver);
+        }
+        String imagename = ServiceUser.getImage(iduser);
+        Image image = new Image("http://localhost/images/uploads/" + imagename);
+        // profileimage.setImage(image);
+        newimage.setImage(image);
+        //get image name
+
+        String date = txtdate.getValue().format(DateTimeFormatter.ISO_DATE);
+        System.out.println(date);
+
+        ServiceUser.updateInfo(iduser, txtusername.getText(), txtfirstname1.getText(), txtlastname1.getText(), Integer.parseInt(txtphone.getText()), date);
+
+    }
+
+    @FXML
+    private void ApplyChanepassword(ActionEvent event) {
+        
+        if (!newpassword.getText().equals(confirmepassword.getText()) || newpassword.getText().equals("")) {
+
+            AlertMaker.showwarningMessage("Failed Password", "password not matched");
+            return;
+
+        }
+        String passwordCrypted = CryptServices.encrypt(currentpassword.getText(), CryptServices.getSecretKey());
+        if (!ServiceUser.checkUser(ServiceUser.getUsername(iduser), passwordCrypted)) {
+            AlertMaker.showwarningMessage("Failed Password", "Verfiy ur password");
+            return;
+        }
+
+        if (ServiceUser.updatepassword(iduser, CryptServices.encrypt(newpassword.getText(), CryptServices.getSecretKey()))) {
+            AlertMaker.showSimpleAlert("Password", "Password Update");
+        } else {
+            AlertMaker.showwarningMessage("Failed Password", "Something went wrong");
+
+        }
+    }
+    }
+
+

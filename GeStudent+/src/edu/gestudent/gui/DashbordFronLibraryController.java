@@ -7,6 +7,7 @@ package edu.gestudent.gui;
 
 import edu.gestudent.entities.Emprunt;
 import edu.gestudent.entities.Livre;
+import edu.gestudent.entities.Session;
 import edu.gestudent.services.EmpruntCrud;
 import edu.gestudent.services.LivreCrud;
 import java.net.URL;
@@ -69,6 +70,9 @@ public class DashbordFronLibraryController implements Initializable {
     private TableColumn<Emprunt, String> name1;
     @FXML
     private TableColumn<Emprunt, String> date;
+    
+        int iduser = Session.getCurrentSession();
+
 
     /**
      * Initializes the controller class.
@@ -76,7 +80,7 @@ public class DashbordFronLibraryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         data.addAll(lcr.afficherlivre());
-        dataemp.addAll(ecr.afficherlivreemprunte(1));
+        dataemp.addAll(ecr.afficherlivreemprunte(iduser));
 
         this.author.setCellValueFactory(new PropertyValueFactory<>("author"));
         this.categiries.setCellValueFactory(new PropertyValueFactory<>("categorie"));
@@ -104,7 +108,7 @@ public class DashbordFronLibraryController implements Initializable {
     private void emprunterlivre(ActionEvent event) {
         Livre L = librarytv.getSelectionModel().getSelectedItem();
 
-        Emprunt E = new Emprunt(String.valueOf(txtdateE.getValue()), 1, L.getId_livre());
+        Emprunt E = new Emprunt(String.valueOf(txtdateE.getValue()),iduser, L.getId_livre());
         if (txtdateE.getValue().isBefore(LocalDate.now())) {
             AlertMaker.showErrorMessage("Date Failed !", "The Date can't be in the Past !");
             return;
@@ -121,7 +125,7 @@ public class DashbordFronLibraryController implements Initializable {
         ecr.ajouterEmprunt(E);
 
         dataemp.clear();
-        dataemp.addAll(ecr.afficherlivreemprunte(1));
+        dataemp.addAll(ecr.afficherlivreemprunte(iduser));
         data.clear();
         data.addAll(lcr.afficherlivre());
 
@@ -147,7 +151,7 @@ public class DashbordFronLibraryController implements Initializable {
                 // System.out.println(lcr.getidliv(E.getName()));
 
                 dataemp.clear();
-                dataemp.addAll(ecr.afficherlivreemprunte(1));
+                dataemp.addAll(ecr.afficherlivreemprunte(iduser));
                 data.clear();
                 data.addAll(lcr.afficherlivre());
                 //Alert Delete Blog :

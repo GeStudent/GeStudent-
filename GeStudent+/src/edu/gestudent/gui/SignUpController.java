@@ -104,7 +104,7 @@ public class SignUpController implements Initializable {
         if ("student".equals(combotype.getValue())) {
             Student s = new Student(txtlastname.getText(), txtFirstname.getText(), txtemail.getText(), date, Integer.parseInt(txtphone.getText()), txtCountry.getText(), txtCity.getText(), txtgender.getValue());
             ServiceStudent.ajouterStudent(s);
-            AlertMaker.showSimpleAlert("GeStudent", "Account created successfully! "
+            AlertMaker.showSimpleAlert("GeStudent", "Account student created successfully! "
                     + "Please wait for confirmation email");
 
         } else if ("teacher".equals(combotype.getValue())) {
