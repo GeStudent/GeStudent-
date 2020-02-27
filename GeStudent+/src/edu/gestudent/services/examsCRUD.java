@@ -100,6 +100,32 @@ try{
         }
         return per;
     }
+     
+     
+     public List<exams> afficherexClass(int idclass){
+        ArrayList<exams> per =new ArrayList();
+
+        try {
+                    String requete3 = "SELECT exams.idexa, exams.nomex,exams.dateex,exams.duree,class.idclass,tc.idtea from exams,class,user,tc where exams.idexa=tc.idexa and class.idclass=tc.idclas and tc.idtea=user.id and class.idclass=?";
+            PreparedStatement pst2 = con.prepareStatement(requete3);
+            pst2.setInt(1, idclass);
+            ResultSet rs = pst2.executeQuery();
+            
+            while(rs.next()){
+              exams e = new exams();
+              e.setIdexa(rs.getInt("idexa"));
+              e.setNomex(rs.getString("nomex"));
+              e.setDateex(rs.getString("dateex"));
+               e.setDuree(rs.getString("duree"));
+
+            
+              per.add(e);
+            }
+        } catch (SQLException ex) {
+                  System.out.println(ex.getMessage());
+        }
+        return per;
+    }
      public List<exams> RechercheReclamation(String rech) {
 
         ArrayList<exams> list = new ArrayList<>();

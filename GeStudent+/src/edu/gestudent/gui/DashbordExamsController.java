@@ -113,7 +113,6 @@ public class DashbordExamsController implements Initializable {
     private TableColumn<exams, String> duree;
 
     public ObservableList<exams> data = FXCollections.observableArrayList();
-
     @FXML
     private TableView<exams> examtv;
     @FXML

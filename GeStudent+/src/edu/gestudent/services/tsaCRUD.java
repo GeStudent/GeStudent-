@@ -86,4 +86,30 @@ public class tsaCRUD {
         }
         return per;
     }
+    
+    
+    
+    public List<Behaviour> afficherBehaviourstu(int idstu) {
+        ArrayList<Behaviour> per = new ArrayList();
+
+        try {
+            String requete3 = "SELECT DISTINCT b.idbeh,b.nombeh,b.award , t.idstu ,t.idtea FROM behaviour b,user u ,tsa t WHERE   t.idstu=u.id and u.id=?";
+            PreparedStatement pst2 = con.prepareStatement(requete3);
+            pst2.setInt(1, idstu);
+
+            ResultSet rs = pst2.executeQuery();
+
+            while (rs.next()) {
+                Behaviour b = new Behaviour();
+                b.setIdbeh(rs.getInt(1));
+                b.setNombeh(rs.getString(2));
+                b.setAward(rs.getInt(3));
+
+                per.add(b);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return per;
+    }
 }
