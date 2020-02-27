@@ -110,7 +110,7 @@ public class DashbordFronLibraryController implements Initializable {
 
         Emprunt E = new Emprunt(String.valueOf(txtdateE.getValue()),iduser, L.getId_livre());
         if (txtdateE.getValue().isBefore(LocalDate.now())) {
-            AlertMaker.showErrorMessage("Date Failed !", "The Date can't be in the Past !");
+            AlertMaker.showErrorMessage("Wrong date !", "The Date can't be in the Past !");
             return;
         }
         if (ecr.checkLivre(E.getId(), E.getId_livre())) {
@@ -120,7 +120,7 @@ public class DashbordFronLibraryController implements Initializable {
         Alert succemprunterlivreAlert = new Alert(Alert.AlertType.INFORMATION);
         succemprunterlivreAlert.setTitle("Add book");
         succemprunterlivreAlert.setHeaderText("Results:");
-        succemprunterlivreAlert.setContentText("Book added successfully!");
+        succemprunterlivreAlert.setContentText("You borrowed the book !");
         succemprunterlivreAlert.showAndWait();
         ecr.ajouterEmprunt(E);
 

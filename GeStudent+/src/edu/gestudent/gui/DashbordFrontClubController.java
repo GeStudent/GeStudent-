@@ -541,4 +541,8 @@ public class DashbordFrontClubController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+
+    @FXML
+    private void EmailClub(ActionEvent event) {
+    }
 }

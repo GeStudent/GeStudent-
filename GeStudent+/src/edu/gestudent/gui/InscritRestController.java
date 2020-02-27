@@ -104,7 +104,7 @@ public class InscritRestController implements Initializable {
     @FXML
     private void addinscri(ActionEvent event) {
         inscriRest l;
-        l = new inscriRest(getIdentifiant(), duration.getValue(), getAmount());
+        l = new inscriRest(iduser, duration.getValue(), getAmount());
         in.ajouterinscri(l);
         Alert succAddMealAlert = new Alert(Alert.AlertType.INFORMATION);
         succAddMealAlert.setTitle("Add inscri");
