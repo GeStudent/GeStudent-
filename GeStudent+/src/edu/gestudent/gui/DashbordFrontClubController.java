@@ -122,8 +122,6 @@ public class DashbordFrontClubController implements Initializable {
     @FXML
     private TextField txtid_event;
     @FXML
-    private Label evenement;
-    @FXML
     private TableColumn<?, ?> email;
     @FXML
     private TableColumn<?, ?> id_event;
@@ -138,8 +136,6 @@ public class DashbordFrontClubController implements Initializable {
     @FXML
     private TextField txtemail;
     @FXML
-    private Label club;
-    @FXML
     private Button AddButton1;
     @FXML
     private Button EditButton1;
@@ -151,8 +147,6 @@ public class DashbordFrontClubController implements Initializable {
     private Button EmailButton1;
     @FXML
     private TextField txtnom1;
-    @FXML
-    private Button ReturnButton1;
     @FXML
     private TableView<Club> clubtv;
     @FXML
