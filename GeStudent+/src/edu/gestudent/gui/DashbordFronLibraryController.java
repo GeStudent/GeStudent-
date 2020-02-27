@@ -61,8 +61,8 @@ public class DashbordFronLibraryController implements Initializable {
     private TableColumn<Livre, Integer> quantity;
     @FXML
     private TableView<Emprunt> livreeemprunter;
-//    @FXML
-//    private TextField searchTF;
+    @FXML
+    private TextField searchTF;
     @FXML
     private Button ReturnB;
     @FXML
@@ -127,18 +127,7 @@ public class DashbordFronLibraryController implements Initializable {
 
     }
 
-    @FXML
-    private void ReturnAction(ActionEvent event) {
 
-        /*try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
-            Parent root = loader.load();
-            HomepageController spc = loader.getController();
-            ReturnB.getScene().setRoot(root);
-        } catch (IOException ex) {
-            Logger.getLogger(LibrarypageController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    }
 
     @FXML
     private void retournerlivre(ActionEvent event) {
@@ -185,15 +174,15 @@ public class DashbordFronLibraryController implements Initializable {
         }
     }
 
-//    @FXML
-//    private void filter(KeyEvent event) {
-//        data.clear();
-//        // System.out.println("heyy yuuu");
-//        data.addAll(lcr.afficherlivre().stream().filter((art)
-//                -> art.getName().toLowerCase().contains(searchTF.getText().toLowerCase())
-//                || art.getAuthor().toLowerCase().contains(searchTF.getText().toLowerCase())
-//                || art.getCategorie().toLowerCase().contains(searchTF.getText().toLowerCase())
-//        ).collect(Collectors.toList()));
-//    }
+    @FXML
+    private void filter(KeyEvent event) {
+        data.clear();
+        // System.out.println("heyy yuuu");
+        data.addAll(lcr.afficherlivre().stream().filter((art)
+                -> art.getName().toLowerCase().contains(searchTF.getText().toLowerCase())
+                || art.getAuthor().toLowerCase().contains(searchTF.getText().toLowerCase())
+                || art.getCategorie().toLowerCase().contains(searchTF.getText().toLowerCase())
+        ).collect(Collectors.toList()));
+    }
 
 }

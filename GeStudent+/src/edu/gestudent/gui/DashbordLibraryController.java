@@ -58,44 +58,7 @@ import javafx.util.converter.IntegerStringConverter;
  */
 public class DashbordLibraryController implements Initializable {
 
-//    @FXML
-//    private JFXTextField txtname;
-//    @FXML
-//    private JFXTextField txtimage;
-//    @FXML
-//    private JFXTextField txtauthor;
-//    @FXML
-//    private JFXTextField txturl;
-//    @FXML
-//    private JFXComboBox<?> combocategorie;
-//    @FXML
-//    private JFXTextField txtquantity;
-//    @FXML
-//    private TableView<?> librarytv;
-//    @FXML
-//    private TableColumn<?, ?> name;
-//    @FXML
-//    private TableColumn<?, ?> image;
-//    @FXML
-//    private TableColumn<?, ?> author;
-//    @FXML
-//    private TableColumn<?, ?> url;
-//    @FXML
-//    private TableColumn<?, ?> categiries;
-//    @FXML
-//    private TableColumn<?, ?> quantity;
-//    @FXML
-//    private JFXTextField searchTF;
-//    @FXML
-//    private TableView<?> empruntadmin;
-//    @FXML
-//    private TableColumn<?, ?> firstnameE;
-//    @FXML
-//    private TableColumn<?, ?> lastnameE;
-//    @FXML
-//    private TableColumn<?, ?> booknameE;
-//    @FXML
-//    private TableColumn<?, ?> dateretourE;
+
     @FXML
     PieChart piechart;
     Connection con;
@@ -154,6 +117,8 @@ public class DashbordLibraryController implements Initializable {
     private ImageView bookImage;
     @FXML
     private JFXTextField searchTF2;
+    @FXML
+    private Button sendmail;
 
     public int getTxtquantity() {
         return Integer.parseInt(txtquantity.getText());
@@ -197,7 +162,7 @@ public class DashbordLibraryController implements Initializable {
 
         //this for edit
         this.librarytv.setEditable(true);
-        this.categiries.setCellFactory(TextFieldTableCell.forTableColumn());
+        
         this.quantity.setCellFactory(TextFieldTableCell.<Livre, Integer>forTableColumn(new IntegerStringConverter()));
         this.url.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -398,5 +363,9 @@ public class DashbordLibraryController implements Initializable {
                 || art.getFirstname().toLowerCase().contains(searchTF2.getText().toLowerCase())
                 || art.getLastname().toLowerCase().contains(searchTF2.getText().toLowerCase())
         ).collect(Collectors.toList()));
+    }
+
+    @FXML
+    private void Sendmail(ActionEvent event) {
     }
 }
