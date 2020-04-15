@@ -208,7 +208,7 @@ public class EmpruntCrud {
     public List<Emprunt> afficherempruntadmin() {
         ArrayList<Emprunt> livresemprunt = new ArrayList<>();
 
-        String requete4 = "SELECT u.id,u.firstname,u.lastname,l.id_livre,l.name,e.id_emprunt,e.date_retour from user u, livres l , emprunt e where u.id=e.id and l.id_livre=e.id_livre;";
+        String requete4 = "SELECT u.id,u.firstname,u.lastname,l.id_livre,l.name,e.id_emprunt,e.date_retour from fos_user u, livres l , emprunt e where u.id=e.id and l.id_livre=e.id_livre;";
         PreparedStatement pst;
         try {
             pst = cn2.prepareStatement(requete4);

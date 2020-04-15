@@ -178,7 +178,7 @@ public class ServiceEventClub {
         ArrayList<EventClient> evenementreserve = new ArrayList<>();
         String nom = "ha", dateret = "";
 
-        String requete4 = "select e.nom,ec.date_reservation,ec.id_event from evenement e , EventClient ec , user u where u.id=ec.id_event_client and ec.id_event=e.id_event and u.id=?;";
+        String requete4 = "select e.nom,ec.date_reservation,ec.id_event from evenement e , EventClient ec , fos_user u where u.id=ec.id_event_client and ec.id_event=e.id_event and u.id=?;";
         PreparedStatement pst;
         try {
             pst = cn2.prepareStatement(requete4);

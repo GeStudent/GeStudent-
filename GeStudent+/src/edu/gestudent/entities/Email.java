@@ -159,6 +159,7 @@ public class Email {
         msg.setSubject(subject);
         msg.setContent(messageBody, "test/html ; charset=utf-8");
         msg.setText(messageBody, null, "html");
+      
         msg.saveChanges();
         Transport transport = session.getTransport("smtp");
         transport.connect(host, from, pass);

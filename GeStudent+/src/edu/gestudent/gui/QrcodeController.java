@@ -103,7 +103,7 @@ public class QrcodeController implements Initializable {
             return;
         }
 
-        if (ServiceUsers.ajouterAccount(txtusername.getText(), FilenameInserver, CryptServices.encrypt(txtpassword.getText(), CryptServices.getSecretKey()), txtQrCode.getText())) {
+        if (ServiceUsers.ajouterAccount(txtusername.getText(), FilenameInserver, txtpassword.getText(), txtQrCode.getText())) {
 
             AlertMaker.showSimpleAlert("GeStudent", "Account created successfully!");
             try {

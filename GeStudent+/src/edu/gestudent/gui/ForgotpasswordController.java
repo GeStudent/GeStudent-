@@ -17,6 +17,7 @@ import static edu.gestudent.entities.SmsSender.ACCOUNT_SID;
 //import static edu.gestudent.entities.SmsSender.API_PHONE;
 import static edu.gestudent.entities.SmsSender.AUTH_TOKEN;
 import edu.gestudent.entities.user;
+import edu.gestudent.services.BCrypt;
 import edu.gestudent.services.CryptServices;
 import edu.gestudent.services.ServicesUsers;
 import java.io.IOException;
@@ -145,8 +146,9 @@ public class ForgotpasswordController implements Initializable {
             user u = new user();
             ServicesUsers us = new ServicesUsers();
             u.setUsername(forgotPwdLabel.getText());
-            String newpassword = CryptServices.encrypt(newPassField.getText(), CryptServices.getSecretKey());
-            u.setPassword(newpassword);
+            String hashed2 = BCrypt.hashpw(newPassField.getText(), BCrypt.gensalt(13));
+            hashed2 = "$2y$" + hashed2.substring(4);
+            u.setPassword(hashed2);
             if (us.changePwd(u) == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");

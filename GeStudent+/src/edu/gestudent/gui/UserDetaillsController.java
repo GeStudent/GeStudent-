@@ -89,15 +89,21 @@ public class UserDetaillsController extends DashbordUsersController implements I
         List<Student> arr = new ArrayList<>();
         u = se.findUsertbyid(i);
         System.out.println(u);
-        CountryLabel.setText(u.getPays());
+      CountryLabel.setText(u.getPays());
         EmailLabel.setText(u.getEmail());
         GenderLabel.setText(u.getGender());
         LastnameLabel.setText(u.getLastname());
-        Rolelabel.setText(u.getRoles());
+          if (u.getRoles().contains("STUDENT")) {
+            Rolelabel.setText("student");
+        } else if (u.getRoles().contains("ADMIN")) {
+            Rolelabel.setText("admin");
+        } else {
+            Rolelabel.setText("teacher");
+        }
         StateLabel.setText(u.getAdress());
         firstnameLabel.setText(u.getFirstname());
         phoneLabel.setText(String.valueOf(u.getPhone()));
-        dateLabel.setText(u.getBirthDay());
+          dateLabel.setText(u.getBirthDay());
         Image image = new Image("http://localhost/images/uploads/" + u.getImage());
 
         DetailImage.setImage(image);

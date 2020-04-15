@@ -89,7 +89,7 @@ public class FrontStudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+System.out.println("idddd"+iduser);
         user u = ServiceUser.findbyid(iduser);
         txtFirstname.setText(u.getFirstname());
         txtlastname.setText(u.getLastname());
@@ -116,7 +116,13 @@ public class FrontStudentController implements Initializable {
         parse.getDayOfMonth();
         LocalDate of = LocalDate.of(parse.getYear(), parse.getMonthValue(), parse.getDayOfMonth());
         txtdate.setValue(of);
-        txtstatus.setText(u.getRoles());
+             if (u.getRoles().contains("STUDENT")) {
+            txtstatus.setText("student");
+        } else if (u.getRoles().contains("ADMIN")) {
+            txtstatus.setText("admin");
+        } else {
+            txtstatus.setText("teacher");
+        }
         
         
         //merlt
@@ -272,13 +278,12 @@ public class FrontStudentController implements Initializable {
             return;
 
         }
-        String passwordCrypted = CryptServices.encrypt(currentpassword.getText(), CryptServices.getSecretKey());
-        if (!ServiceUser.checkUser(ServiceUser.getUsername(iduser), passwordCrypted)) {
+        if (!ServiceUser.checkUser(ServiceUser.getUsername(iduser), currentpassword.getText())) {
             AlertMaker.showwarningMessage("Failed Password", "Verfiy ur password");
             return;
         }
 
-        if (ServiceUser.updatepassword(iduser, CryptServices.encrypt(newpassword.getText(), CryptServices.getSecretKey()))) {
+        if (ServiceUser.updatepassword(iduser, newpassword.getText())) {
             AlertMaker.showSimpleAlert("Password", "Password Update");
         } else {
             AlertMaker.showwarningMessage("Failed Password", "Something went wrong");

@@ -106,7 +106,7 @@ try{
         ArrayList<exams> per =new ArrayList();
 
         try {
-                    String requete3 = "SELECT exams.idexa, exams.nomex,exams.dateex,exams.duree,class.idclass,tc.idtea from exams,class,user,tc where exams.idexa=tc.idexa and class.idclass=tc.idclas and tc.idtea=user.id and class.idclass=?";
+                    String requete3 = "SELECT exams.idexa, exams.nomex,exams.dateex,exams.duree,class.idclass,tc.idtea from exams,class,fos_user,tc where exams.idexa=tc.idexa and class.idclass=tc.idclas and tc.idtea=fos_user.id and class.idclass=?";
             PreparedStatement pst2 = con.prepareStatement(requete3);
             pst2.setInt(1, idclass);
             ResultSet rs = pst2.executeQuery();

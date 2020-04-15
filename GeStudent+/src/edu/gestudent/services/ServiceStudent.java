@@ -30,7 +30,7 @@ public class ServiceStudent extends ServicesUsers {
         PreparedStatement pre;
         try {
             super.ajouter(s);
-            pre = con.prepareStatement("update user set roles='student' where idcode= ?");
+            pre = con.prepareStatement("update fos_user set roles='a:1:{i:0;s:12:\"ROLE_STUDENT\";}' where idcode= ?");
             pre.setString(1, super.getQRcode(s.getEmail()));
             pre.executeUpdate();
 
@@ -44,13 +44,13 @@ public class ServiceStudent extends ServicesUsers {
         List<Student> lu = new ArrayList<>();
         try {
             ste = con.createStatement();
-            ResultSet rs = ste.executeQuery("select id,firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='student' and enabled=1 ");
+            ResultSet rs = ste.executeQuery("select id,firstname,lastname,email,birth_Day,phone,pays,adress,gender from fos_user where roles like '%student%' and enabled=1 ");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String firstname = rs.getString("firstname");
                 String lastname = rs.getString("lastname");
                 String email = rs.getString("email");
-                String birthDay = rs.getString("birthDay");
+                String birthDay = rs.getString("birth_Day");
                 int phone = rs.getInt("phone");
                 String pays = rs.getString("pays");
                 String adress = rs.getString("adress");
@@ -69,14 +69,14 @@ public class ServiceStudent extends ServicesUsers {
         List<Student> lu = new ArrayList<>();
         try {
             ste = con.createStatement();
-            ResultSet rs = ste.executeQuery("select id,firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='student' and enabled=0 ");
+            ResultSet rs = ste.executeQuery("select id,firstname,lastname,email,birth_Day,phone,pays,adress,gender from fos_user where roles like '%student%' and enabled=0 ");
             while (rs.next()) {
                 int id = rs.getInt("id");
 
                 String firstname = rs.getString("firstname");
                 String lastname = rs.getString("lastname");
                 String email = rs.getString("email");
-                String birthDay = rs.getString("birthDay");
+                String birthDay = rs.getString("birth_Day");
                 int phone = rs.getInt("phone");
                 String pays = rs.getString("pays");
                 String adress = rs.getString("adress");

@@ -66,7 +66,7 @@ public class tsaCRUD {
         ArrayList<Behaviour> per = new ArrayList();
 
         try {
-            String requete3 = "SELECT b.idbeh,b.nombeh,b.award FROM behaviour b,user u ,tsa t WHERE b.idbeh =t.idbeh AND t.idstu =u.id AND t.idtea = ? AND t.idstu=? ;";
+            String requete3 = "SELECT b.idbeh,b.nombeh,b.award FROM behaviour b,fos_user u ,tsa t WHERE b.idbeh =t.idbeh AND t.idstu =u.id AND t.idtea = ? AND t.idstu=? ;";
             PreparedStatement pst2 = con.prepareStatement(requete3);
             pst2.setInt(1, idtea);
              pst2.setInt(2, idstu);
@@ -93,7 +93,7 @@ public class tsaCRUD {
         ArrayList<Behaviour> per = new ArrayList();
 
         try {
-            String requete3 = "SELECT DISTINCT b.idbeh,b.nombeh,b.award , t.idstu ,t.idtea FROM behaviour b,user u ,tsa t WHERE   t.idstu=u.id and u.id=?";
+            String requete3 = "SELECT DISTINCT b.idbeh,b.nombeh,b.award , t.idstu ,t.idtea FROM behaviour b,fos_user u ,tsa t WHERE   t.idstu=u.id and u.id=?";
             PreparedStatement pst2 = con.prepareStatement(requete3);
             pst2.setInt(1, idstu);
 

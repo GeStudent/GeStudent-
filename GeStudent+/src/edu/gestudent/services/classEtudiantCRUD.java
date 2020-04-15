@@ -48,7 +48,7 @@ public class classEtudiantCRUD {
             List<classEtudiant> arr = new ArrayList<>();
 
             try {
-                PreparedStatement pre = con.prepareStatement("SELECT  u.id,Cl.idclass,Cl.nameC, u.firstname  FROM  class cl ,user u, classEtudiant ce WHERE ce.idclass = cl.idclass AND ce.idEtudiant = u.id and ce.idclass=? ");
+                PreparedStatement pre = con.prepareStatement("SELECT  u.id,Cl.idclass,Cl.nameC, u.firstname  FROM  class cl ,fos_user u, classEtudiant ce WHERE ce.idclass = cl.idclass AND ce.idEtudiant = u.id and ce.idclass=? ");
                 pre.setInt(1, idclass);
                 ResultSet rs = pre.executeQuery();
 
@@ -74,7 +74,7 @@ public class classEtudiantCRUD {
     public List<classEtudiant> rechercheetudiant(int idetudiant) throws SQLException {
         {
             List<classEtudiant> arr = new ArrayList<>();
-            PreparedStatement pre = con.prepareStatement("SELECT  cl.idclass,u.id,Cl.nameC ,u.firstname FROM  class cl ,user u, classEtudiant ce WHERE ce.idclass = cl.idclass AND ce.idEtudiant = u.id and ce.idEtudiant=? ");
+            PreparedStatement pre = con.prepareStatement("SELECT  cl.idclass,u.id,Cl.nameC ,u.firstname FROM  class cl ,fos_user u, classEtudiant ce WHERE ce.idclass = cl.idclass AND ce.idEtudiant = u.id and ce.idEtudiant=? ");
             pre.setInt(1, idetudiant);
             ResultSet rs = pre.executeQuery();
 

@@ -54,8 +54,8 @@ public class UploadServices {
 
     public static void main(String[] args) {
         UploadServices us = new UploadServices();
-        System.out.println(us.upload("C:/Users/Ayadi/Desktop/pi/yassine.jpg"));
-
+        System.out.println(us.upload("C:/wamp64/www/GeStudent/web/Back/images/img.jpg"));
+        System.out.println("dddd");
     }
 
 }

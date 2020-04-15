@@ -76,6 +76,9 @@ public class DashboardAdminController implements Initializable {
         Image image = new Image("http://localhost/images/uploads/" + imagename);
 
         profileimage.setImage(image);
+        String images=profileimage.getImage().impl_getUrl();
+        
+        System.out.println("imagename:"+images.substring(32));
         // TODO
        loadUi("DashbordProfile");
     }

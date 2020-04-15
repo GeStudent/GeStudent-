@@ -60,14 +60,15 @@ public class LoginpageController implements Initializable {
         user u = new user();
         u.setUsername(txtusername.getText());
         u.setPassword(txtpassword.getText());
-        System.out.println(txtpassword.getText());
-        System.out.println(u);
+    
         count = us.login(u);
 
         if (count == 1) {
             role = us.getRole(txtusername.getText());
-            System.out.println(role);
-            if ("student".equals(role)) {
+           
+         
+             if(role.contains("STUDENT")) {
+                 u.setRoles("student");
                 try {
                     System.out.println("user id is : " + u.getUsername());
                     Session.start(u.getId());
@@ -86,7 +87,9 @@ public class LoginpageController implements Initializable {
                 }
 
             }
-            if ("teacher".equals(role)) {
+             if(role.contains("TEACHER")) {
+                                  u.setRoles("teacher");
+
                 try {
                     System.out.println("user id is : " + u.getUsername());
                     Session.start(u.getId());
@@ -102,7 +105,9 @@ public class LoginpageController implements Initializable {
                     Logger.getLogger(LoginpageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            if ("admin".equals(role)) {
+             if(role.contains("ADMIN")) {
+                                  u.setRoles("admin");
+
                 try {
                     System.out.println("user id is : admin" + u.getId());
                     Session.start(u.getId());

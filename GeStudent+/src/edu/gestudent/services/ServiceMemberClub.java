@@ -186,7 +186,7 @@ public class ServiceMemberClub {
         ArrayList<MemberClub> memberclub = new ArrayList<>();
         String nom = ""; int id_club=0;
 
-        String requete4 = "select c.nom from club c, memberclub m,user u where c.id_club=m.id_club and u.id=m.id and u.id=?;";
+        String requete4 = "select c.nom from club c, memberclub m,fos_user u where c.id_club=m.id_club and u.id=m.id and u.id=?;";
         PreparedStatement pst;
         try {
             pst = cn2.prepareStatement(requete4);

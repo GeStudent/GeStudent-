@@ -50,7 +50,7 @@ public class tccCRUD {
     public List<tcc> rechercheclass(int idclass) throws SQLException {
         {
             List<tcc> arr = new ArrayList<>();
-            PreparedStatement pre = con.prepareStatement("SELECT C.name,u.id ,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idclass=? ");
+            PreparedStatement pre = con.prepareStatement("SELECT C.name,u.id ,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, fos_user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idclass=? ");
             pre.setInt(1, idclass);
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
@@ -73,7 +73,7 @@ public class tccCRUD {
         {
             List<tcc> arr = new ArrayList<>();
 
-            PreparedStatement pre = con.prepareStatement("SELECT C.name,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idcours= ? ");
+            PreparedStatement pre = con.prepareStatement("SELECT C.name,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, fos_user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idcours= ? ");
 
             pre.setInt(1, idcours);
             ResultSet rs = pre.executeQuery();
@@ -100,7 +100,7 @@ public class tccCRUD {
 
         try {
 
-            PreparedStatement pre = con.prepareStatement("SELECT  C.idcour,u.id,cl.idclass, C.name , C.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and u.id= ? ");
+            PreparedStatement pre = con.prepareStatement("SELECT  C.idcour,u.id,cl.idclass, C.name , C.duration, Cl.nameC, u.firstname FROM cours C, class cl, fos_user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and u.id= ? ");
 
             pre.setInt(1, idteacher);
 
@@ -135,7 +135,7 @@ public class tccCRUD {
 
         try {
 
-            PreparedStatement pre = con.prepareStatement("SELECT C.name , C.duration, Cl.nameC, cl.idclass , u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and u.id= ? ");
+            PreparedStatement pre = con.prepareStatement("SELECT C.name , C.duration, Cl.nameC, cl.idclass , u.firstname FROM cours C, class cl, fos_user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and u.id= ? ");
 
             pre.setInt(1, idteacher);
 
