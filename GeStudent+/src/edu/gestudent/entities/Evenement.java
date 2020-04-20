@@ -6,48 +6,64 @@
 package edu.gestudent.entities;
 
 import java.util.Date;
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 /**
  *
  * @author user
  */
 public class Evenement {
-    private int id_event;
+
+    private int id;
     private String nom;
     private String description;
-    private String date;
-    private String place;
-    private int id_club;
-    private int nb_place;
+    private String photo;
+
+    private Date datedebut;
+    private int nombreplaces;
+    private int etat;
+    private String decision;
+    
 
     public Evenement() {
     }
-    
 
-    public Evenement(int id_event, String nom, String description, String date, String place, int id_club,int nb_place) {
-        this.id_event = id_event;
+    public Evenement(int id, String nom, String photo, String description, int nombreplaces, Date datedebut, int etat, String decision) {
+        this.id = id;
         this.nom = nom;
+        this.photo = photo;
         this.description = description;
-        this.date = date;
-        this.place = place;
-        this.id_club = id_club;
-        this.nb_place=nb_place;
-    }    
-    public Evenement(String nom, String description, String date, String place, int id_club,int nb_place) {
-       
-        this.nom = nom;
-        this.description = description;
-        this.date = date;
-        this.place = place;
-        this.id_club = id_club;
-        this.nb_place=nb_place;
+
+        this.nombreplaces = nombreplaces;
+        this.datedebut = datedebut;
+
+        this.etat = etat;
+        this.decision = decision;
     }
 
-    public int getId_evenement() {
-        return id_event;
+    public Evenement(String nom, String photo, String description, int nombreplaces, Date datedebut, int etat, String decision) {
+
+        this.nom = nom;
+        this.photo = photo;
+        this.description = description;
+        this.nombreplaces = nombreplaces;
+        this.datedebut = datedebut;
+        this.etat = etat;
+        this.decision = decision;
+
     }
-  public int getNb_place() {
-        return nb_place;
+
+    public int getId() {
+        return id;
+    }
+
+    public int getNombreplaces() {
+        return nombreplaces;
+    }
+
+   
+     public String getPhoto() {
+        return photo;
     }
 
     public String getNom() {
@@ -58,48 +74,58 @@ public class Evenement {
         return description;
     }
 
-    public String getDate() {
-        return date;
+    public Date getDatedebut() {
+        return datedebut;
     }
 
-    public String getPlace() {
-        return place;
+    public int getEtat() {
+        return etat;
     }
 
-    public int getId_club() {
-        return id_club;
+    public String getDecision() {
+        return decision;
     }
 
-    public void setId_evenement(int id_event) {
-        this.id_event = id_event;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDatedebut(Date datedebut) {
+        this.datedebut = datedebut;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setNombreplaces(int nombreplaces) {
+        this.nombreplaces = nombreplaces;
     }
 
-    public void setId_club(int id_club) {
-        this.id_club = id_club;
+    public void setEtat(int etat) {
+        this.etat = etat;
     }
-public void setNb_place(int nb_place) {
-        this.nb_place = nb_place;
+
+    public void setDecision(String decision) {
+        this.decision = decision;
     }
+
     @Override
     public String toString() {
-        return "Evenement{" + "id_event=" + id_event + ", nom=" + nom + ", description=" + description + ", date=" + date + ", place=" + place + ", id_club=" + id_club + ",nb_place=" + nb_place +'}';
+
+    
+   return "Evenement{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", nombreplaces=" + nombreplaces + ", datedebut=" + datedebut + ", etat=" + etat + ",decision=" + decision + '}';
     }
 
-   
 }
+
+
+
+

@@ -9,6 +9,7 @@ import edu.gestudent.entities.Club;
 import edu.gestudent.entities.Evenement;
 import edu.gestudent.utils.DataBase;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,15 +37,17 @@ public class ServiceEvenement {
         try {
 
             ste = con.createStatement();
-            String requeteInsert = "INSERT INTO Evenement (nom,description,date,place,id_club,nb_place) VALUES (?,?,?,?,?,?)";
+            String requeteInsert = "INSERT INTO Evenement (nom,photo,description,nombreplaces,datedebut,etat,decision) VALUES (?,?,?,?,?,?;?)";
 
             PreparedStatement pst = con.prepareStatement(requeteInsert);
             pst.setString(1, e.getNom());
+            pst.setString(1, e.getPhoto());
+
             pst.setString(2, e.getDescription());
-            pst.setString(3, e.getDate());
-            pst.setString(4, e.getPlace());
-            pst.setInt(5, e.getId_club());
-            pst.setInt(6, e.getNb_place());
+            pst.setInt(2, e.getNombreplaces());
+            pst.setDate(3, (Date) e.getDatedebut());
+            pst.setInt(4, e.getEtat());
+            pst.setString(5, e.getDecision());
 
 //  String requeteInsert = "INSERT INTO evenement (`id_event`, `nom`, `description`, `date`,`place`,`id_club`,`nb_place`) VALUES (NULL, '" + e.getNom() + "', '" + e.getDescription() + "', '" + e.getDate() + "','" + e.getPlace() + "','" + e.getId_club() + "','" + e.getNb_place() + "'  ;";
             //            String requeteInsert = "INSERT INTO `evenement` (`id_event`, `nom`, `description`, `date`,`place`,`id_club`/*,`nb_place`*/) VALUES (NULL, '" + e.getNom() + "', '" + e.getDescription() + "', '" + e.getDate() + "','" + e.getPlace() + "','" + e.getId_club() + "' ;";
@@ -94,37 +97,38 @@ public class ServiceEvenement {
             ResultSet rs = ste.executeQuery("select * from Evenement");
             while (rs.next()) {
                 //int id=rs.getInt(1);
-                int id_event = rs.getInt("id_event");
+                int id = rs.getInt("id");
+                int etat = rs.getInt("etat");
 
                 String nom = rs.getString("nom");
 
                 String description = rs.getString("description");
 
-                String date = rs.getString("date");
+                Date datedebut = rs.getDate("datedebut");
 
-                String place = rs.getString("place");
-                int id_club = rs.getInt("id_club");
-                int nb_place = rs.getInt("nb_place");
+                int nombreplaces = rs.getInt("nombreplaces");
+                String photo = rs.getString("photo");
+                String decision = rs.getString("decision");
 
-                Evenement e = new Evenement(id_event, nom, description, date, place, id_club, nb_place);
+                Evenement e = new Evenement(id, nom, photo, description, nombreplaces, datedebut, etat, decision);
                 arr.add(e);
-
+//ahouka yaffchi
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceEvenement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return arr;
     }
 
-    public boolean Update(String nom, String date) {
+    public boolean Update(String nom, String datedebut) {
 
-        String requete = "UPDATE Evenement SET  date= ? where nom = ? ;";
+        String requete = "UPDATE Evenement SET  datedebut= ? where nom = ? ;";
         try {
             PreparedStatement pst = con.prepareStatement(requete);
 //            pst.setInt(1, m.getId());
 
             pst.setString(1, nom);
-            pst.setString(2, date);
+            pst.setString(2, datedebut);
             if (pst.executeUpdate() != 0) {
                 System.out.println("Evenement Updated");
             } else {
@@ -138,11 +142,10 @@ public class ServiceEvenement {
         return false;
     }
 
-   
-       public int getnb_place(int name) {
+    public int getnb_place(int name) {
         int nb = 0;
 
-        String requete4 = "select nb_place from evenement where id_evenement=?;";
+        String requete4 = "select nombreplaces from evenement where id=?;";
         PreparedStatement pst;
         try {
             pst = con.prepareStatement(requete4);
@@ -156,7 +159,7 @@ public class ServiceEvenement {
         return nb;
     }
 
- /* public void decrementqte(int id_event) {
+    /* public void decrementqte(int id_event) {
         int nb = getnb_place(id_event);
         nb--;
         String requete4 = "update evenement SET nb_place=? where id_event=?;";
@@ -171,5 +174,5 @@ public class ServiceEvenement {
         } catch (SQLException ex) {
         }
     }
-    */
+     */
 }
