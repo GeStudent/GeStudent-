@@ -15,7 +15,7 @@ import rest.file.uploader.tn.FileUploader;
  */
 public class UploadServices {
 
-    public String upload(String Path) {
+    public String uploadImage(String Path) {
         String fileNameInServer = "";
 
         FileUploader fu = new FileUploader("localhost/images");
@@ -35,7 +35,7 @@ public class UploadServices {
 
     public static void main(String[] args) {
         UploadServices us = new UploadServices();
-        System.out.println(us.upload("C:/Users/Ayadi/Desktop/load.png"));
+        System.out.println(us.uploadImage("C:/Users/Ayadi/Desktop/load.png"));
 
     }
 

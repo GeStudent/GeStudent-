@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * @author Ayadi
@@ -176,7 +175,6 @@ public class ServicesClub {
                 } catch (IOException ex) {
                     ex.getMessage();
                 }
-                
 
                 resultOK = result.equals("true");
                 req.removeResponseListener(this);
@@ -186,8 +184,8 @@ public class ServicesClub {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
-    
-       public ArrayList<user> parseMembers(String jsonText) {
+
+    public ArrayList<user> parseMembers(String jsonText) {
         try {
             ClubMembers = new ArrayList<>();
             JSONParser j = new JSONParser();
@@ -204,7 +202,6 @@ public class ServicesClub {
                 u.setLastname(obj.get("lastname").toString());
                 u.setImage(obj.get("image").toString());
                 u.setEmail(obj.get("email").toString());
-              
 
                 ClubMembers.add(u);
             }
@@ -215,10 +212,9 @@ public class ServicesClub {
 
         return ClubMembers;
     }
-       
-       
-          public ArrayList<user> getAllMembers(Club c) {
-        String url = Statics.BASE_URL + "Club/ClubMembersMobile/"+c.getId();
+
+    public ArrayList<user> getAllMembers(Club c) {
+        String url = Statics.BASE_URL + "Club/ClubMembersMobile/" + c.getId();
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -231,7 +227,21 @@ public class ServicesClub {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return ClubMembers;
     }
-          
-    
+
+    public boolean JoinClub(Club c, user u) {
+        String url = Statics.BASE_URL + "Club/JoinClubMobile/?idClub=" + c.getId() + "&iduser=" + u.getId(); //création de l'URL
+        System.out.println(url);
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
 
 }

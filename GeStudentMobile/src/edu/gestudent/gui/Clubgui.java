@@ -160,7 +160,7 @@ public class Clubgui extends Form {
                     System.out.println("pathhhh:" + file);
                     String path = file.substring(7);
                     System.out.println(path);
-                    FilenameInserver = uploadservices.upload(path);
+                    FilenameInserver = uploadservices.uploadImage(path);
                 }
             }, Display.GALLERY_IMAGE);
 
@@ -185,6 +185,7 @@ public class Clubgui extends Form {
         URLImage imgurl = URLImage.createToStorage(placeHolder, url, url);
 
         ImageViewer img = new ImageViewer(imgurl.scaled(imgurl.getWidth() * 1, imgurl.getHeight() * 1));
+        Button Join = new Button("Join");
 
         Label ClubName = new Label("Name:");
         Label Email = new Label("Email:");
@@ -210,7 +211,9 @@ public class Clubgui extends Form {
 
         Container Container = new Container(new FlowLayout());
         Container.addAll(ClubName, ClubNameField, Email, EmailField, phone, phoneField, Description, DescriptionField, Message);
+
         ClubDetail.add(img);
+        ClubDetail.add(Join);
         ClubDetail.add(Container);
 
         Container ButtonsContainer = new Container(new FlowLayout());
@@ -222,17 +225,23 @@ public class Clubgui extends Form {
         ClubDetail.add(ButtonsContainer);
         ClubDetail.revalidate();
         Delete.addActionListener(ev -> {
-            if (c.getId_president() != User.getId()) {
-                Dialog.show("ERROR", "Permission denied! You must be club leader to edit or delete", new Command("OK"));
-            } else {
-                String result = ServicesClub.getInstance().DeleteClub(c);
-                if (!result.equals("Error")) {
-                    Dialog.show("Success", result, new Command("OK"));
-                    new Clubgui(student.current, theme).show();
+
+            if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+                if (c.getId_president() != User.getId()) {
+                    Dialog.show("ERROR", "Permission denied! You must be club leader to edit or delete", new Command("OK"));
                 } else {
-                    Dialog.show("ERROR", "Server error", new Command("OK"));
+                    String result = ServicesClub.getInstance().DeleteClub(c);
+                    if (!result.equals("Error")) {
+                        Dialog.show("Success", result, new Command("OK"));
+                        new Clubgui(student.current, theme).show();
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
                 }
+            } else {
+
             }
+
         });
 
         Edit.addActionListener(ev -> {
@@ -250,6 +259,20 @@ public class Clubgui extends Form {
                     Dialog.show("ERROR", "Server error", new Command("OK"));
                 }
             }
+        });
+        Join.addActionListener(ev -> {
+            if (Dialog.show("Confirmation", "Do you want to join " + c.getNom() + " ? ", "OK", "Cancel")) {
+                if (ServicesClub.getInstance().JoinClub(c,User)) {
+                    Dialog.show("Success", "You should get a reply Soon by the admins !", new Command("OK"));
+                   
+                } else {
+                    Dialog.show("ERROR", "Server error", new Command("OK"));
+                }
+
+            } else {
+              
+            }
+
         });
 
         ClubDetail.getToolbar().addMaterialCommandToLeftBar("back", FontImage.MATERIAL_ARROW_BACK, ev -> {
