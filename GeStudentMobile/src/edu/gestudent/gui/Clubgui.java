@@ -44,6 +44,7 @@ public class Clubgui extends Form {
     private EncodedImage placeHolder;
     String FilenameInserver = "";
     user User = Session.getCurrentSession();
+    
     UploadServices uploadservices = new UploadServices();
 
     public Clubgui(Form previous, Resources theme) {
@@ -189,6 +190,7 @@ public class Clubgui extends Form {
 
         Label ClubName = new Label("Name:");
         Label Email = new Label("Email:");
+
         Label phone = new Label("phone:");
         Label Description = new Label("Description:");
 
@@ -262,15 +264,15 @@ public class Clubgui extends Form {
         });
         Join.addActionListener(ev -> {
             if (Dialog.show("Confirmation", "Do you want to join " + c.getNom() + " ? ", "OK", "Cancel")) {
-                if (ServicesClub.getInstance().JoinClub(c,User)) {
+                if (ServicesClub.getInstance().JoinClub(c, User)) {
                     Dialog.show("Success", "You should get a reply Soon by the admins !", new Command("OK"));
-                   
+
                 } else {
                     Dialog.show("ERROR", "Server error", new Command("OK"));
                 }
 
             } else {
-              
+
             }
 
         });
@@ -309,6 +311,18 @@ public class Clubgui extends Form {
             ListMembers.add(Container);
 
         }
+        ListMembers.getToolbar().addCommandToOverflowMenu("Requestes", null, ev -> {
+            ServicesClub.getInstance().getAllInvitations(c);
+            if (c.getId_president() != User.getId()) {
+                Dialog.show("ERROR", "Permission denied! You must be club leader ", new Command("OK"));
+            } else if (ServicesClub.getInstance().getAllInvitations(c) == null) {
+
+                Dialog.show("ERROR", "ACUNE INVITAIONS ", new Command("OK"));
+
+            } else {
+                Invitations(c, theme).show();
+            }
+        });
 
         ListMembers.getToolbar().addMaterialCommandToLeftBar("back", FontImage.MATERIAL_ARROW_BACK, ev -> {
             new Clubgui(student.current, theme).show();
@@ -326,6 +340,73 @@ public class Clubgui extends Form {
         });
 
         return stats_Form;
+    }
+
+    public Form Invitations(Club c, Resources theme) {
+
+        Form ListInvitations = new Form(c.getNom(), BoxLayout.y());
+
+        for (user u : ServicesClub.getInstance().getAllInvitations(c)) {
+            Container InfoContainer = new Container(BoxLayout.y());
+            Label name = new Label(u.getFirstname() + " " + u.getLastname());
+            Label email = new Label(u.getEmail());
+            Label post = new Label(u.getPostClub());
+            InfoContainer.add(name);
+            InfoContainer.add(email);
+            InfoContainer.add(post);
+            Container Container = new Container(BoxLayout.x());
+
+            placeHolder = EncodedImage.createFromImage(theme.getImage("load.png"), false);
+            String url = "http://localhost/Images/uploads/" + u.getImage();
+            ConnectionRequest connection = new ConnectionRequest();
+            connection.setUrl(url);
+            URLImage imgurl = URLImage.createToStorage(placeHolder, url, url);
+            int width = (int) (imgurl.getWidth() / 2);
+            int Height = (int) (imgurl.getHeight() / 2);
+            ImageViewer img = new ImageViewer(imgurl.scaled(width, Height));
+            Container.add(img);
+            Container.add(InfoContainer);
+            Image icon = FontImage.createMaterial(FontImage.MATERIAL_CHECK, UIManager.getInstance().getComponentStyle("Label"));
+            Button accpet = new Button(icon);
+            Image icon2 = FontImage.createMaterial(FontImage.MATERIAL_CLOSE, UIManager.getInstance().getComponentStyle("Label"));
+            Button remove = new Button(icon2);
+            Container ButtonContainer = new Container(BoxLayout.y());
+            ButtonContainer.addAll(accpet, remove);
+            Container.add(ButtonContainer);
+            ListInvitations.add(Container);
+            accpet.addActionListener(ev -> {
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+                    if (ServicesClub.getInstance().AccpetInviteClub(c, u)) {
+                        Dialog.show("Success", "Invitation Accpted", new Command("OK"));
+                        ListMembersClub(c, theme).show();
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
+                }
+
+            });
+            remove.addActionListener(ev -> {
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+                    if (ServicesClub.getInstance().DeclineInviteClub(c, u)) {
+                        Dialog.show("Success", "Invitation Deleted", new Command("OK"));
+                        ListMembersClub(c, theme).show();
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
+                }
+            });
+
+        }
+        ListInvitations.getToolbar().addCommandToOverflowMenu("Members", null, ev -> {
+            ListMembersClub(c, theme).show();
+        });
+
+        ListInvitations.getToolbar().addMaterialCommandToLeftBar("back", FontImage.MATERIAL_ARROW_BACK, ev -> {
+            new Clubgui(student.current, theme).show();
+        });
+
+        return ListInvitations;
+
     }
 
 }

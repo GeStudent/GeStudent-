@@ -27,6 +27,7 @@ public class ServicesClub {
 
     public ArrayList<Club> Clubs;
     public ArrayList<user> ClubMembers;
+    public ArrayList<user> ClubInvitations;
 
     public static ServicesClub instance = null;
     public boolean resultOK = false;
@@ -213,6 +214,38 @@ public class ServicesClub {
         return ClubMembers;
     }
 
+    public ArrayList<user> parseInvitaions(String jsonText) {
+
+        try {
+            ClubInvitations = new ArrayList<>();
+            CharArrayReader charArrayReader = new CharArrayReader(jsonText.toCharArray());
+            JSONParser j = new JSONParser();
+            Map<String, Object> tasksListJson = j.parseJSON(charArrayReader);
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+
+            if (list != null) {
+                for (Map<String, Object> obj : list) {
+                    //Création des tâches et récupération de leurs données
+                    user u = new user();
+                    float id = Float.parseFloat(obj.get("id").toString());
+                    u.setId((int) id);
+                    u.setPostClub(obj.get("post").toString());
+                    u.setFirstname(obj.get("firstname").toString());
+                    u.setLastname(obj.get("lastname").toString());
+                    u.setImage(obj.get("image").toString());
+                    u.setEmail(obj.get("email").toString());
+
+                    ClubInvitations.add(u);
+                }
+            }
+
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+
+        return ClubInvitations;
+    }
+
     public ArrayList<user> getAllMembers(Club c) {
         String url = Statics.BASE_URL + "Club/ClubMembersMobile/" + c.getId();
         req.setUrl(url);
@@ -243,5 +276,56 @@ public class ServicesClub {
         return resultOK;
     }
 
+    public boolean AccpetInviteClub(Club c, user u) {
+        String url = Statics.BASE_URL + "Club/AccpetInviteMobile/?idClub=" + c.getId() + "&id=" + u.getId(); //création de l'URL
+        System.out.println(url);
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+    public ArrayList<user> getAllInvitations(Club c) {
+        String url = Statics.BASE_URL + "Club/ClubInvitationsMobile/?idClub=" + c.getId();
+        req.setUrl(url);
+        req.setPost(false);
+        String name = new String(req.getResponseData());
+        if (name.contains("Liste Vide")) 
+            return null;
+      
+
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                if (name.contains("Liste Vide")) 
+                     return ;
+                ClubInvitations = parseInvitaions(name);
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return ClubInvitations;
+    }
+    
+        public boolean DeclineInviteClub(Club c, user u) {
+        String url = Statics.BASE_URL + "Club/DeleteInviteMobile/?idClub=" + c.getId() + "&id=" + u.getId(); //création de l'URL
+        System.out.println(url);
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
 
 }
