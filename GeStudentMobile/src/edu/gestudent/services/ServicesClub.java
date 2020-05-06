@@ -203,6 +203,7 @@ public class ServicesClub {
                 u.setLastname(obj.get("lastname").toString());
                 u.setImage(obj.get("image").toString());
                 u.setEmail(obj.get("email").toString());
+                u.setQrCodeClub(obj.get("qrcode").toString());
 
                 ClubMembers.add(u);
             }
@@ -326,6 +327,33 @@ public class ServicesClub {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
+    }
+        
+        
+        public String ClubPost(Club c,user User) {
+        String url = Statics.BASE_URL + "Club/ClubuserPostMobile/?idClub="+c.getId()+"&id=" + User.getId(); //création de l'URL
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+
+                String data = new String(req.getResponseData());
+                JSONParser j = new JSONParser();
+                Map<String, Object> tasksListJson;
+                try {
+                    tasksListJson = j.parseJSON(new CharArrayReader(data.toCharArray()));
+                    result = (String) tasksListJson.get("post");
+                    System.out.println(result);
+                } catch (IOException ex) {
+                    ex.getMessage();
+                }
+
+                req.removeResponseListener(this);
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return result;
     }
 
 }

@@ -25,6 +25,16 @@ public class user {
     protected String adress;
     protected String gender;
     protected String postClub;
+    protected String QrCodeClub;
+
+    public String getQrCodeClub() {
+        return QrCodeClub;
+    }
+
+    public void setQrCodeClub(String QrCodeClub) {
+        this.QrCodeClub = QrCodeClub;
+    }
+    
     public user(){
         
     }

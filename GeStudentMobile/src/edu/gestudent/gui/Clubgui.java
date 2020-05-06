@@ -44,7 +44,8 @@ public class Clubgui extends Form {
     private EncodedImage placeHolder;
     String FilenameInserver = "";
     user User = Session.getCurrentSession();
-    
+    static String ClubPost = "";
+
     UploadServices uploadservices = new UploadServices();
 
     public Clubgui(Form previous, Resources theme) {
@@ -215,7 +216,10 @@ public class Clubgui extends Form {
         Container.addAll(ClubName, ClubNameField, Email, EmailField, phone, phoneField, Description, DescriptionField, Message);
 
         ClubDetail.add(img);
-        ClubDetail.add(Join);
+        ClubPost = ServicesClub.getInstance().ClubPost(c, User);
+        if (ClubPost.equals("null")) {
+            ClubDetail.add(Join);
+        }
         ClubDetail.add(Container);
 
         Container ButtonsContainer = new Container(new FlowLayout());
@@ -263,15 +267,22 @@ public class Clubgui extends Form {
             }
         });
         Join.addActionListener(ev -> {
-            if (Dialog.show("Confirmation", "Do you want to join " + c.getNom() + " ? ", "OK", "Cancel")) {
-                if (ServicesClub.getInstance().JoinClub(c, User)) {
-                    Dialog.show("Success", "You should get a reply Soon by the admins !", new Command("OK"));
+            String reqPosst = ServicesClub.getInstance().ClubPost(c, User);
 
-                } else {
-                    Dialog.show("ERROR", "Server error", new Command("OK"));
+            if (reqPosst.equals("null")) {
+                if (Dialog.show("Confirmation", "Do you want to join " + c.getNom() + " ? ", "OK", "Cancel")) {
+                    if (ServicesClub.getInstance().JoinClub(c, User)) {
+                        ClubPost = ServicesClub.getInstance().ClubPost(c, User);
+                        Dialog.show("Success", "You should get a reply Soon by the admins !", new Command("OK"));
+
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
                 }
 
             } else {
+                Dialog.show("ERROR", "you have already sent request !\n"
+                        + "you should get a reply soon!!", new Command("OK"));
 
             }
 
@@ -309,6 +320,11 @@ public class Clubgui extends Form {
             Container.add(img);
             Container.add(InfoContainer);
             ListMembers.add(Container);
+
+            img.addPointerReleasedListener(ev -> {
+
+                StudentProfile(u, c, theme).show();
+            });
 
         }
         ListMembers.getToolbar().addCommandToOverflowMenu("Requestes", null, ev -> {
@@ -407,6 +423,43 @@ public class Clubgui extends Form {
 
         return ListInvitations;
 
+    }
+
+    public Form StudentProfile(user u, Club c, Resources theme) {
+
+        Form StudentProfile = new Form(u.getFirstname().toUpperCase(), BoxLayout.y());
+
+        StudentProfile.getToolbar().addMaterialCommandToLeftBar("back", FontImage.MATERIAL_ARROW_BACK, ev -> {
+            ListMembersClub(c, theme).show();
+        });
+        placeHolder = EncodedImage.createFromImage(theme.getImage("load.png"), false);
+        String url = "http://localhost/Images/uploads/" + u.getImage();
+        ConnectionRequest connection = new ConnectionRequest();
+        connection.setUrl(url);
+        URLImage imgurl = URLImage.createToStorage(placeHolder, url, url);
+
+        ImageViewer img = new ImageViewer(imgurl.scaled(imgurl.getWidth() * 1, imgurl.getHeight() * 1));
+
+        Label Name = new Label("Name: " + u.getFirstname().toUpperCase() + " " + u.getLastname().toUpperCase());
+        Label Email = new Label("Email: " + u.getEmail());
+        Label Club = new Label("Club:" + c.getNom());
+        Label Post = new Label("Post:" + u.getPostClub());
+
+        String url2 = "http://localhost/Images/uploads/" + u.getQrCodeClub();
+        System.out.println(url);
+        System.out.println(url2);
+        ConnectionRequest connection2 = new ConnectionRequest();
+        connection2.setUrl(url2);
+        URLImage imgurl2 = URLImage.createToStorage(placeHolder, url2, url2);
+
+        ImageViewer img2 = new ImageViewer(imgurl2.scaled(imgurl2.getWidth() * 1, imgurl2.getHeight() * 1));
+        TextField tt = new TextField();
+        tt.setEditable(false); 
+        tt.setEnabled(false);
+        tt.setVisible(false);
+        StudentProfile.addAll(img, Name, Email, Club, Post,tt,img2);
+
+        return StudentProfile;
     }
 
 }
