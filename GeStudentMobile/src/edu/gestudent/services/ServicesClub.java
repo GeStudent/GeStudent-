@@ -329,6 +329,36 @@ public class ServicesClub {
         return resultOK;
     }
         
+        public boolean PromoteMemberClub(Club c, user u,String post) {
+        String url = Statics.BASE_URL + "Club/PromoteMobile/?idClub=" + c.getId() + "&id=" + u.getId()+"&post="+post; //création de l'URL
+        System.out.println(url);
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+        
+        public boolean KickMemberClub(Club c, user u) {
+        String url = Statics.BASE_URL + "Club/KickMemberMobile/?idClub=" + c.getId() + "&id=" + u.getId(); //création de l'URL
+        System.out.println(url);
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+        
         
         public String ClubPost(Club c,user User) {
         String url = Statics.BASE_URL + "Club/ClubuserPostMobile/?idClub="+c.getId()+"&id=" + User.getId(); //création de l'URL

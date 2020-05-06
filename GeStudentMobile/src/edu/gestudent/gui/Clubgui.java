@@ -20,10 +20,13 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.URLImage;
+import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
@@ -232,7 +235,7 @@ public class Clubgui extends Form {
         ClubDetail.revalidate();
         Delete.addActionListener(ev -> {
 
-            if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+            if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
                 if (c.getId_president() != User.getId()) {
                     Dialog.show("ERROR", "Permission denied! You must be club leader to edit or delete", new Command("OK"));
                 } else {
@@ -251,9 +254,9 @@ public class Clubgui extends Form {
         });
 
         Edit.addActionListener(ev -> {
-            if (c.getId_president() != User.getId()) {
-                Dialog.show("ERROR", "Permission denied! You must be club leader to edit or delete", new Command("OK"));
-            } else {
+                    ClubPost = ServicesClub.getInstance().ClubPost(c, User);
+            if (ClubPost.equals("leader") || ClubPost.equals("co_leader") || ClubPost.equals("treasurer") || ClubPost.equals("secretary")) {
+           
                 c.setEmail(EmailField.getText());
                 c.setNom(ClubNameField.getText());
                 c.setTel(Integer.parseInt(phoneField.getText()));
@@ -264,6 +267,10 @@ public class Clubgui extends Form {
                 } else {
                     Dialog.show("ERROR", "Server error", new Command("OK"));
                 }
+            
+            } else {
+                Dialog.show("ERROR", "Permission denied! You must be club leader to edit or delete", new Command("OK"));
+
             }
         });
         Join.addActionListener(ev -> {
@@ -322,7 +329,6 @@ public class Clubgui extends Form {
             ListMembers.add(Container);
 
             img.addPointerReleasedListener(ev -> {
-
                 StudentProfile(u, c, theme).show();
             });
 
@@ -333,7 +339,7 @@ public class Clubgui extends Form {
                 Dialog.show("ERROR", "Permission denied! You must be club leader ", new Command("OK"));
             } else if (ServicesClub.getInstance().getAllInvitations(c) == null) {
 
-                Dialog.show("ERROR", "ACUNE INVITAIONS ", new Command("OK"));
+                Dialog.show("ERROR", "NO INVITATIONS ", new Command("OK"));
 
             } else {
                 Invitations(c, theme).show();
@@ -391,7 +397,7 @@ public class Clubgui extends Form {
             Container.add(ButtonContainer);
             ListInvitations.add(Container);
             accpet.addActionListener(ev -> {
-                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
                     if (ServicesClub.getInstance().AccpetInviteClub(c, u)) {
                         Dialog.show("Success", "Invitation Accpted", new Command("OK"));
                         ListMembersClub(c, theme).show();
@@ -402,7 +408,7 @@ public class Clubgui extends Form {
 
             });
             remove.addActionListener(ev -> {
-                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
                     if (ServicesClub.getInstance().DeclineInviteClub(c, u)) {
                         Dialog.show("Success", "Invitation Deleted", new Command("OK"));
                         ListMembersClub(c, theme).show();
@@ -453,11 +459,136 @@ public class Clubgui extends Form {
         URLImage imgurl2 = URLImage.createToStorage(placeHolder, url2, url2);
 
         ImageViewer img2 = new ImageViewer(imgurl2.scaled(imgurl2.getWidth() * 1, imgurl2.getHeight() * 1));
+
         TextField tt = new TextField();
-        tt.setEditable(false); 
+        tt.setEditable(false);
         tt.setEnabled(false);
         tt.setVisible(false);
-        StudentProfile.addAll(img, Name, Email, Club, Post,tt,img2);
+
+        Button promote = new Button("promote");
+        Button Kick = new Button("Kick");
+        Container ButtonCnt = new Container(BoxLayout.x());
+        ButtonCnt.addAll(promote, Kick);
+        Button co_leader = new Button("co_leader");
+        Button treasurer = new Button("treasurer");
+        Button secretary = new Button("secretary");
+        Button member = new Button("member");
+        Dialog d = new Dialog("Promote");
+        d.setLayout(BoxLayout.y());
+        d.addAll(co_leader, treasurer, secretary, member);
+        promote.addActionListener(ev -> {
+
+            ClubPost = ServicesClub.getInstance().ClubPost(c, User);
+            System.out.println("ConnectPost:" + ClubPost);
+            if (ClubPost.equals("leader") || ClubPost.equals("co_leader") || ClubPost.equals("treasurer") || ClubPost.equals("secretary")) {
+                d.showPopupDialog(promote);
+            } else {
+                Dialog.show("ERROR", "Permission denied! You must be club Adminstrator ", new Command("OK"));
+            }
+
+        });
+        String MemberPost = ServicesClub.getInstance().ClubPost(c, u);
+
+        co_leader.addActionListener(evt -> {
+            if (MemberPost.equals("leader")) {
+                Dialog.show("ERROR", "Permission denied! You can't do this action on club leader ", new Command("OK"));
+            } else if (ClubPost.equals("leader") || MemberPost.equals("member")) {
+
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
+                    if (ServicesClub.getInstance().PromoteMemberClub(c, u, "co_leader")) {
+                        Dialog.show("Success", "Action Completed", new Command("OK"));
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
+
+                }
+
+            } else {
+                Dialog.show("ERROR", "Permission denied! You must be a club Leader  ", new Command("OK"));
+            }
+
+        });
+        treasurer.addActionListener(evt -> {
+
+            if (MemberPost.equals("leader")) {
+                Dialog.show("ERROR", "Permission denied! You can't do this action on club leader ", new Command("OK"));
+            } else if (ClubPost.equals("leader") || MemberPost.equals("member")) {
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
+                    if (ServicesClub.getInstance().PromoteMemberClub(c, u, "treasurer")) {
+                        Dialog.show("Success", "Action Completed", new Command("OK"));
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
+
+                }
+            } else {
+                Dialog.show("ERROR", "Permission denied! You must be a club Leader  ", new Command("OK"));
+            }
+
+        });
+
+        secretary.addActionListener(evt -> {
+            if (MemberPost.equals("leader")) {
+                Dialog.show("ERROR", "Permission denied! You can't do this action on club leader ", new Command("OK"));
+            } else if (ClubPost.equals("leader") || MemberPost.equals("member")) {
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
+                    if (ServicesClub.getInstance().PromoteMemberClub(c, u, "secretary")) {
+                        Dialog.show("Success", "Action Completed", new Command("OK"));
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
+
+                }
+            } else {
+                Dialog.show("ERROR", "Permission denied! You must be a club Leader  ", new Command("OK"));
+            }
+        });
+
+        member.addActionListener(evt -> {
+
+            if (MemberPost.equals("leader")) {
+                Dialog.show("ERROR", "Permission denied! You can't do this action on club leader ", new Command("OK"));
+            } else if (ClubPost.equals("leader") || MemberPost.equals("member")) {
+                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
+                    if (ServicesClub.getInstance().PromoteMemberClub(c, u, "member")) {
+                        Dialog.show("Success", "Action Completed", new Command("OK"));
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
+
+                }
+            } else {
+                Dialog.show("ERROR", "Permission denied! You must be a club Leader  ", new Command("OK"));
+            }
+
+        });
+        Kick.addActionListener(ev -> {
+            if (ClubPost.equals("leader") || ClubPost.equals("co_leader") || ClubPost.equals("treasurer") || ClubPost.equals("secretary")) {
+
+                if (MemberPost.equals("leader")) {
+                    Dialog.show("ERROR", "Permission denied! You can't do this action on club leader ", new Command("OK"));
+                } else if (ClubPost.equals("leader") || MemberPost.equals("member")) {
+
+                    if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "CANCEL")) {
+                        if (ServicesClub.getInstance().KickMemberClub(c, u)) {
+                            Dialog.show("Success", "Member Kicked", new Command("OK"));
+                            ListMembersClub(c, theme).show();
+                        } else {
+                            Dialog.show("ERROR", "Server error", new Command("OK"));
+                        }
+
+                    }
+                } else {
+                    Dialog.show("ERROR", "Permission denied! You must be a club Leader  ", new Command("OK"));
+                }
+
+            } else {
+                Dialog.show("ERROR", "Permission denied! You must be club Adminstrator ", new Command("OK"));
+            }
+
+        });
+
+        StudentProfile.addAll(img, ButtonCnt, Name, Email, Club, Post, tt, img2);
 
         return StudentProfile;
     }
