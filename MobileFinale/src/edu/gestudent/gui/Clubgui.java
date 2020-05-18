@@ -61,7 +61,7 @@ public class Clubgui extends Form {
             Label emailClub = new Label(c.getEmail());
             Label tel = new Label(String.valueOf(c.getTel()));
             Label Date = new Label(c.getDate());
-            Button ListMembers = new Button("List Members");
+            Button ListMembers = new Button("List Members ");
             InfoContainer.add(nomClub);
             InfoContainer.add(emailClub);
             InfoContainer.add(tel);
