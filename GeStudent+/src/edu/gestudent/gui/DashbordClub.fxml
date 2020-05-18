@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Button?>
@@ -11,7 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordClubController">
+<AnchorPane prefHeight="483.0" prefWidth="946.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.DashbordClubController">
    <children>
       <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
@@ -19,14 +24,8 @@
                <content>
                   <AnchorPane minHeight="0.0" prefHeight="180.0" prefWidth="625.0">
                      <children>
-                        <HBox layoutX="389.0" layoutY="350.0" spacing="20.0" AnchorPane.bottomAnchor="62.0" AnchorPane.rightAnchor="97.0">
-                           <children>
-                              <Button fx:id="AddButton" mnemonicParsing="false" onAction="#AddClub" prefHeight="30.0" prefWidth="100.0" text="Add" />
-                              <Button fx:id="EditButton" mnemonicParsing="false" onAction="#EditClub" prefHeight="30.0" prefWidth="100.0" text="Edit" />
-                              <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#DeleteClub" prefHeight="30.0" prefWidth="100.0" text="Delete" />
-                           </children>
-                        </HBox>
-                        <TableView fx:id="clubtv" layoutX="296.0" layoutY="16.0" prefHeight="279.0" prefWidth="642.0" AnchorPane.rightAnchor="20.0">
+                        <HBox layoutX="389.0" layoutY="350.0" spacing="20.0" AnchorPane.bottomAnchor="62.0" AnchorPane.rightAnchor="97.0" />
+                        <TableView fx:id="clubtv" layoutX="37.0" layoutY="28.0" prefHeight="348.0" prefWidth="685.0" AnchorPane.rightAnchor="248.0">
                            <columns>
                               <TableColumn fx:id="nom" prefWidth="57.0" text="Name" />
                               <TableColumn fx:id="date" prefWidth="57.0" text="Date" />
@@ -40,17 +39,8 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <VBox layoutX="35.0" layoutY="36.0" prefHeight="349.0" prefWidth="233.0" spacing="15.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="20.0">
-                           <children>
-                              <JFXTextField fx:id="txtnumero" promptText="Number" />
-                              <JFXTextField fx:id="txtnom" promptText="Name" />
-                              <JFXTextField fx:id="txtdescription" promptText="Description" />
-                              <DatePicker fx:id="datetxt" blendMode="COLOR_BURN" prefHeight="37.0" prefWidth="286.0" />
-                              <JFXTextField fx:id="txtetat" promptText="state" />
-                              <JFXTextField fx:id="txtid_president" promptText="President id" />
-                              <JFXTextField fx:id="txtemail" promptText="Email" />
-                           </children>
-                        </VBox>
+                        <Button fx:id="DeleteButton" layoutX="779.0" layoutY="329.0" mnemonicParsing="false" onAction="#DeleteClub" prefHeight="30.0" prefWidth="100.0" text="Delete" />
+                        <ImageView fx:id="imageClub" fitHeight="245.0" fitWidth="200.0" layoutX="714.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </AnchorPane>
                </content>

@@ -32,7 +32,7 @@ public class EmpruntCrud {
     }
 
     public void ajouterEmprunt(Emprunt e) {
-        String requete2 = "INSERT INTO emprunt (date_emprunt,date_retour,id,id_livre) VALUES (now(),?,?,?)";
+        String requete2 = "INSERT INTO emprunt_livre (d_emprunt,d_retour,id_user,id_livre) VALUES (now(),?,?,?)";
         try {
             PreparedStatement pst = cn2.prepareStatement(requete2);
 
@@ -50,7 +50,7 @@ public class EmpruntCrud {
 
     public boolean supprimeremprunt(Emprunt e, int id_emprunt) {
 
-        String reqeute = "delete from emprunt  where (id_emprunt = ?);";
+        String reqeute = "delete from emprunt_livre  where (id_emprunt = ?);";
         try {
             PreparedStatement pst = cn2.prepareStatement(reqeute);
             System.out.println("id : " + e.getId_livre());
@@ -71,7 +71,7 @@ public class EmpruntCrud {
 
     public boolean UpdateE(int id_emprunt, String date_emprunt) throws SQLException {
 
-        String reqeute = "UPDATE emprunt SET  date_emprunt= ?  where id_emprunt = ? ;";
+        String reqeute = "UPDATE emprunt_livre SET  d_emprunt= ?  where id_emprunt = ? ;";
         try {
             PreparedStatement pst = cn2.prepareStatement(reqeute);
 
@@ -92,16 +92,16 @@ public class EmpruntCrud {
     public List<Emprunt> afficherEmprunt() {
         ArrayList<Emprunt> emp = new ArrayList<>();
         try {
-            String requete3 = "SELECT *FROM emprunt";
+            String requete3 = "SELECT *FROM emprunt_livre";
             PreparedStatement pst2 = cn2.prepareStatement(requete3);
             ResultSet rs = pst2.executeQuery();
             while (rs.next()) {
                 Emprunt e = new Emprunt();
                 e.setId_emprunt(rs.getInt("id_emprunt"));
                 System.out.println("idemprunt: " + e.getId_emprunt());
-                e.setDate_emprunt(rs.getString("date_emprunt"));
-                e.setDate_retour(rs.getString("datee_retour"));
-                e.setId(rs.getInt("id"));
+                e.setDate_emprunt(rs.getString("d_emprunt"));
+                e.setDate_retour(rs.getString("d_retour"));
+                e.setId(rs.getInt("id_user"));
                 e.setId_livre(rs.getInt("id_livre"));
                 emp.add(e);
             }
@@ -164,7 +164,7 @@ public class EmpruntCrud {
         ArrayList<Emprunt> livresemprunt = new ArrayList<>();
         String nom = "", dateret = "";
 
-        String requete4 = "select l.name,e.date_retour,e.id_emprunt from livres l join emprunt e on l.id_livre=e.id_livre where id=?;";
+        String requete4 = "select l.name,e.d_retour,e.id_emprunt from livres l join emprunt_livre e on l.id_livre=e.id_livre where id_user=?;";
         PreparedStatement pst;
         try {
             pst = cn2.prepareStatement(requete4);
@@ -190,7 +190,7 @@ public class EmpruntCrud {
     public int getidemp(int id, int idl) {
         int q = 0;
 
-        String requete4 = "select id_emprunt from emprunt where id=? and id_livre=? ;";
+        String requete4 = "select id_emprunt from emprunt_livre where id_user=? and id_livre=? ;";
         PreparedStatement pst;
         try {
             pst = cn2.prepareStatement(requete4);
@@ -208,7 +208,7 @@ public class EmpruntCrud {
     public List<Emprunt> afficherempruntadmin() {
         ArrayList<Emprunt> livresemprunt = new ArrayList<>();
 
-        String requete4 = "SELECT u.id,u.firstname,u.lastname,l.id_livre,l.name,e.id_emprunt,e.date_retour from fos_user u, livres l , emprunt e where u.id=e.id and l.id_livre=e.id_livre;";
+        String requete4 = "SELECT u.id,u.firstname,u.lastname,l.id_livre,l.name,e.id_emprunt,e.d_retour from fos_user u, livres l , emprunt_livre e where u.id=e.id_user and l.id_livre=e.id_livre;";
         PreparedStatement pst;
         try {
             pst = cn2.prepareStatement(requete4);
@@ -238,7 +238,7 @@ public class EmpruntCrud {
         boolean verif = false;
 
         try {
-            PreparedStatement pt = cn2.prepareStatement("SELECT id_livre FROM emprunt where id=?");
+            PreparedStatement pt = cn2.prepareStatement("SELECT id_livre FROM emprunt_livre where id_user=?");
             pt.setInt(1, id);
             ResultSet rs = pt.executeQuery();
             while (rs.next()) {

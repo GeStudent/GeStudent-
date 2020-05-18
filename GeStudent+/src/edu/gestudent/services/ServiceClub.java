@@ -111,14 +111,14 @@ public class ServiceClub {
             while (rs.next()) {
 
                 //int id=rs.getInt(1);
-                int id_club = rs.getInt("id_club");
+                int id_club = rs.getInt("id");
                 String nom = rs.getString("nom");
 
                 String date = rs.getString("date");
 
                 String email = rs.getString("email");
 
-                int numero = rs.getInt("numero");
+                int numero = rs.getInt("tel");
 
                 String description = rs.getString("description");
 
@@ -131,7 +131,7 @@ public class ServiceClub {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceClub.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return arr;
     }
@@ -159,6 +159,22 @@ public class ServiceClub {
             arr.add(c);
         }
         return arr;
+    }
+     public String getImageClub(int id) {
+        String q = "";
+
+        String requete4 = "select image from club where id=?;";
+        PreparedStatement pst;
+        try {
+            pst = con.prepareStatement(requete4);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                q = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+        }
+        return q;
     }
 
     /*String tri = " ORDER BY nbreplace " ;

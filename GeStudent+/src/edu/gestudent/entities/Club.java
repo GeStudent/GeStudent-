@@ -114,7 +114,7 @@ public class Club {
 
     @Override
     public String toString() {
-        return "Club{" + "id_club=" + id_club + ", nom=" + nom + ", date=" + date + ", email=" + email + ", numero=" + numero + ", description=" + description + ", etat=" + etat + ", id_president=" + id_president + '}';
+        return id_club + ", nom=" + nom + ", date=" + date + ", email=" + email + ", numero=" + numero + ", description=" + description + ", etat=" + etat + ", id_president=" + id_president + '}';
     }
     
 }

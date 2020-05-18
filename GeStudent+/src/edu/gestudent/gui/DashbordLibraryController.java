@@ -150,7 +150,7 @@ public class DashbordLibraryController implements Initializable {
                 String Id_Livre = selectedItems.toString().split(",")[0].substring(0);
                 System.out.println(Id_Livre);
                 String imagename = lcr.getImageLivre(Integer.parseInt(Id_Livre));
-                Image image = new Image("http://localhost/images/uploads/" + imagename);
+                Image image = new Image("http://localhost/GeStudent/web/Uploads/Library/photo/" + imagename);
                 bookImage.setImage(image);
             });
             return row;
@@ -207,7 +207,7 @@ public class DashbordLibraryController implements Initializable {
         lcr.ajouterLivre(l);
 //        getImageLivre 
         String imagename = lcr.getImageLivre(l.getId_livre());
-        Image image = new Image("http://localhost/images/uploads/" + imagename);
+        Image image = new Image("http://localhost/GeStudent/web/Uploads/Library/photo/" + imagename);
         bookImage.setImage(image);
         AlertMaker.showSimpleAlert("Add book", "Book added successfully!");
         data.clear();
@@ -239,6 +239,7 @@ public class DashbordLibraryController implements Initializable {
             Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
             if (optionDeleteBookAlert.get() == ButtonType.OK) {
                 Livre L = librarytv.getSelectionModel().getSelectedItem();
+                lcr.supprimerlivre(L);
                 data.clear();
                 data.addAll(lcr.afficherlivre());
 

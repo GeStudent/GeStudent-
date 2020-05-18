@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -100,7 +101,7 @@ public class DashbordFrontClubController implements Initializable {
     @FXML
     private TableColumn<Evenement, String> description;
     @FXML
-    private TableColumn<Evenement, String> date;
+    private TableColumn<Evenement, Date> date;
     @FXML
     private TableColumn<Evenement, String> place;
 
@@ -218,17 +219,17 @@ public class DashbordFrontClubController implements Initializable {
         data.addAll(Se.readAll());
         this.nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         this.description.setCellValueFactory(new PropertyValueFactory<>("description"));
-        this.date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        this.place.setCellValueFactory(new PropertyValueFactory<>("place"));
-        this.id_club.setCellValueFactory(new PropertyValueFactory<>("id_club"));
-        this.nb_place.setCellValueFactory(new PropertyValueFactory<>("nb_place"));
+        this.date.setCellValueFactory(new PropertyValueFactory<>("datedebut"));
+        this.place.setCellValueFactory(new PropertyValueFactory<>("nombreplaces"));
+        this.id_club.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        this.nb_place.setCellValueFactory(new PropertyValueFactory<>("nombreplaces"));
  comboetat.setItems(etatt);
         this.evenementtv.setItems(data);
         //this for edit
         this.evenementtv.setEditable(true);
         this.id_club.setCellFactory(TextFieldTableCell.<Evenement, Integer>forTableColumn(new IntegerStringConverter()));
 
-        this.date.setCellFactory(TextFieldTableCell.forTableColumn());
+     //   this.date.setCellFactory(TextFieldTableCell.forTableColumn());
         // TODO
         data2.addAll(Sc.readAll());
         this.id_club1.setCellValueFactory(new PropertyValueFactory<>("id_club"));
@@ -257,12 +258,12 @@ public class DashbordFrontClubController implements Initializable {
     private void Add1(ActionEvent event) {
         String date = datetxt.getValue().format(DateTimeFormatter.ISO_DATE);
         Evenement e;
-        e = new Evenement(getTxtid_event(), txtnom.getText(), txtdescription.getText(), date, txtplace.getText(), getTxtid_club(), getTxtnb_place());
+      //  e = new Evenement(getTxtid_event(), txtnom.getText(), txtdescription.getText(), date, txtplace.getText(), getTxtid_club(), getTxtnb_place());
   if(datetxt.getValue().isBefore(LocalDate.now())){
         AlertMaker.showErrorMessage("Date Failed","The date can't be in the past");
         return;
   }
-        Se.ajouter(e);
+     //   Se.ajouter(e);
         Alert succAddBookAlert = new Alert(Alert.AlertType.INFORMATION);
         succAddBookAlert.setTitle("Add Evenement");
         succAddBookAlert.setHeaderText("Results:");
@@ -298,7 +299,7 @@ public class DashbordFrontClubController implements Initializable {
 
             Evenement e = evenementtv.getSelectionModel().getSelectedItem();
             //Se.Update(e.getNom(), e.getDate());
-            Se.Update(e.getDate(), e.getNom());
+     //       Se.Update(e.getDate(), e.getNom());
 
             Alert clubAlert = new Alert(Alert.AlertType.INFORMATION);
             clubAlert.setTitle("edit");
@@ -463,7 +464,7 @@ public class DashbordFrontClubController implements Initializable {
     @FXML
     public void changeDateCellEvent(TableColumn.CellEditEvent edittedCell) {
         Evenement e = evenementtv.getSelectionModel().getSelectedItem();
-        e.setDate(edittedCell.getNewValue().toString());
+     //   e.setDate(edittedCell.getNewValue().toString());
     }
 
     @FXML

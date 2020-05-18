@@ -7,6 +7,8 @@ package edu.gestudent.gui;
 
 import com.jfoenix.controls.JFXTextField;
 import edu.gestudent.entities.Club;
+import edu.gestudent.entities.Student;
+import static edu.gestudent.gui.DashbordUsersController.holdId;
 import edu.gestudent.services.ServiceClub;
 import java.io.IOException;
 import java.net.URL;
@@ -23,16 +25,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -86,17 +93,8 @@ public class DashbordClubController implements Initializable {
      */
     ServiceClub Sc = new ServiceClub();
 
-    @FXML
-    private TextField txtnom;
-    @FXML
-    private TextField txtemail;
-    @FXML
     private TextField txtnumero;
-    @FXML
-    private TextField txtdescription;
-    @FXML
     private TextField txtetat;
-    @FXML
     private TextField txtid_president;
 
  
@@ -124,15 +122,9 @@ public class DashbordClubController implements Initializable {
     @FXML
     private TableView<Club> clubtv;
     @FXML
-    private Button AddButton;
-    @FXML
-    private Button EditButton;
-    @FXML
     private Button DeleteButton;
     @FXML
-    private Button EmailButton;
-    @FXML
-    private DatePicker datetxt;
+    private ImageView imageClub;
 
     public int getTxtnumero() {
         return Integer.parseInt(txtnumero.getText());
@@ -160,6 +152,23 @@ public class DashbordClubController implements Initializable {
         this.etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
         this.id_president.setCellValueFactory(new PropertyValueFactory<>("id_president"));
         this.clubtv.setItems(data);
+        
+        
+        clubtv.setRowFactory(tv -> {
+            TableRow<Club> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+
+                Object selectedItems = clubtv.getSelectionModel().getSelectedItems().get(0);
+                String data1 = selectedItems.toString().split(",")[0].substring(0);
+                String data2 = selectedItems.toString().split(",")[0].substring(1);
+                System.out.println(data1);
+                holdId.value = data1;
+                String imagename = Sc.getImageClub(Integer.parseInt(data1));
+                Image image = new Image("http://localhost/images/uploads/" + imagename);
+                imageClub.setImage(image);
+            });
+            return row;
+        });
 
         //this for edit
         this.clubtv.setEditable(true);
@@ -168,48 +177,48 @@ public class DashbordClubController implements Initializable {
         // TODO
     }
 
-    @FXML
-    private void AddClub(ActionEvent event) throws SQLException {
-        String date = datetxt.getValue().format(DateTimeFormatter.ISO_DATE);
-        //System.out.println(date); chbik
-        Club c;
-        c = new Club(txtnom.getText(), date, txtemail.getText(), getTxtnumero(), txtdescription.getText(), getTxtetat(), getTxtid_president());
-        Sc.ajouterClub(c);
-        Alert succAddBookAlert = new Alert(Alert.AlertType.INFORMATION);
-        succAddBookAlert.setTitle("Add Club");
-        succAddBookAlert.setHeaderText("Results:");
-        succAddBookAlert.setContentText("Club addeeed successfully!");
-        succAddBookAlert.showAndWait();
+//    @FXML
+//    private void AddClub(ActionEvent event) throws SQLException {
+//        String date = datetxt.getValue().format(DateTimeFormatter.ISO_DATE);
+//        //System.out.println(date); chbik
+//        Club c;
+//        c = new Club(txtnom.getText(), date, txtemail.getText(), getTxtnumero(), txtdescription.getText(), getTxtetat(), getTxtid_president());
+//        Sc.ajouterClub(c);
+//        Alert succAddBookAlert = new Alert(Alert.AlertType.INFORMATION);
+//        succAddBookAlert.setTitle("Add Club");
+//        succAddBookAlert.setHeaderText("Results:");
+//        succAddBookAlert.setContentText("Club addeeed successfully!");
+//        succAddBookAlert.showAndWait();
+//
+//        data.clear();
+//        data.addAll(Sc.readAll());
+//    }
 
-        data.clear();
-        data.addAll(Sc.readAll());
-    }
 
-
-    @FXML
-    private void EditClub(ActionEvent event) {
-        
-         if (clubtv.getSelectionModel().getSelectedItem() != null) {
-
-            Club l = clubtv.getSelectionModel().getSelectedItem();
-
-            Sc.Update(l.getEtat(), l.getNom());
-            Alert clubAlert = new Alert(Alert.AlertType.INFORMATION);
-            clubAlert.setTitle("edit");
-            clubAlert.setHeaderText(null);
-            clubAlert.setContentText("club was succfuly edit");
-            clubAlert.showAndWait();
-
-        } else {
-            //Alert Select BOOK :
-            Alert clubAlert = new Alert(Alert.AlertType.WARNING);
-            clubAlert.setTitle("Select a CLub");
-            clubAlert.setHeaderText(null);
-            clubAlert.setContentText("You need to select club first!");
-            clubAlert.showAndWait();
-            //Alert Select Book !
-        }
-    }
+//    @FXML
+//    private void EditClub(ActionEvent event) {
+//        
+//         if (clubtv.getSelectionModel().getSelectedItem() != null) {
+//
+//            Club l = clubtv.getSelectionModel().getSelectedItem();
+//
+//            Sc.Update(l.getEtat(), l.getNom());
+//            Alert clubAlert = new Alert(Alert.AlertType.INFORMATION);
+//            clubAlert.setTitle("edit");
+//            clubAlert.setHeaderText(null);
+//            clubAlert.setContentText("club was succfuly edit");
+//            clubAlert.showAndWait();
+//
+//        } else {
+//            //Alert Select BOOK :
+//            Alert clubAlert = new Alert(Alert.AlertType.WARNING);
+//            clubAlert.setTitle("Select a CLub");
+//            clubAlert.setHeaderText(null);
+//            clubAlert.setContentText("You need to select club first!");
+//            clubAlert.showAndWait();
+//            //Alert Select Book !
+//        }
+//    }
 
     @FXML
     private void DeleteClub(ActionEvent event) {
@@ -254,8 +263,8 @@ public class DashbordClubController implements Initializable {
         c.setEtat(Integer.parseInt(edittedCell.getNewValue().toString()));
     }
 
-    @FXML
-    private void EmailClub(ActionEvent event) {
-    }
+//    @FXML
+//    private void EmailClub(ActionEvent event) {
+//    }
     
 }
