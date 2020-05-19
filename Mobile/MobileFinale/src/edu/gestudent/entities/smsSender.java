@@ -17,5 +17,6 @@ public class smsSender {
             = "AC94fb481765db4aa04a60c50681708fdf";
     
     public static final String AUTH_TOKEN
-            = "6e9e656e2106509caaf8efe35150a2a2";
+            
+            = "d9db73c3bdbb3b41739673ee409a17d6";
 }

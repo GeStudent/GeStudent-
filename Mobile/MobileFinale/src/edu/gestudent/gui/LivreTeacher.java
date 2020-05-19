@@ -146,7 +146,7 @@ public class LivreTeacher extends Form {
                     l.setQuantite(Integer.parseInt(QuantiteField.getText()));
 
                     if (ServicesLivres.getInstance().AddLivre(l)) {
-                        Dialog.show("Success", "Livre Added", new Command("OK"));
+                        Dialog.show("Success", "Book Added", new Command("OK"));
                         new LivreTeacher(LivreTeacher.currentForm, theme).show();
                     } else {
                         Dialog.show("ERROR", "Server error", new Command("OK"));
