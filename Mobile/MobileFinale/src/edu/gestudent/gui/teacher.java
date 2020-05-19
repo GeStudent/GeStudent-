@@ -54,7 +54,7 @@ public class teacher extends Form {
         }
         );
         
-         getToolbar().addCommandToSideMenu("Book", null, ev -> {
+         getToolbar().addCommandToSideMenu("Library", null, ev -> {
             new LivreTeacher(current, com.codename1.ui.util.Resources.getGlobalResources()).showBack();
 
         });

@@ -55,7 +55,7 @@ public class student extends Form {
             new Clubgui(current, com.codename1.ui.util.Resources.getGlobalResources()).show();
 
         });
-        getToolbar().addCommandToSideMenu("Book", null, ev -> {
+        getToolbar().addCommandToSideMenu("Library", null, ev -> {
             new LivreStudent(current, com.codename1.ui.util.Resources.getGlobalResources()).showBack();
 
         });

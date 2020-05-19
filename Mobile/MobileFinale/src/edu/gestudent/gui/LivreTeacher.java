@@ -57,7 +57,7 @@ public class LivreTeacher extends Form {
     public LivreTeacher(Form previous, Resources theme) {
 
         currentForm = this;
-        currentForm.setTitle("Book");
+        currentForm.setTitle("Book List");
         currentForm.setLayout(BoxLayout.y());
 
         for (Livre l : ServicesLivres.getInstance().getAllLivres()) {
@@ -152,7 +152,7 @@ public class LivreTeacher extends Form {
                         Dialog.show("ERROR", "Server error", new Command("OK"));
                     }
                 } catch (NumberFormatException e) {
-                    Dialog.show("ERROR", "quantite must be a number", new Command("OK"));
+                    Dialog.show("ERROR", "quantity must be a number", new Command("OK"));
                 }
             }
 
@@ -221,7 +221,7 @@ public class LivreTeacher extends Form {
             ListEmprunt.add(Container);
             sms.addActionListener(ev -> {
 
-                if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+                if (Dialog.show("Confirmation", "Are you Sure ? ", "OK", "CANCEL")) {
 
                     System.out.println("phone: +216" + e.getPhone());
                     Twilio.setUsername(ACCOUNT_SID);
@@ -229,7 +229,7 @@ public class LivreTeacher extends Form {
                     Message mressage = Message
                             .creator(new PhoneNumber("+216" + e.getPhone()), // to
                                     new PhoneNumber("+17575058027"), // from
-                                    "Please return the book " + e.getBookName() + "! You have passed the dead line of " + e.getD_retour())
+                                    "Please return the book '" + e.getBookName() + "'! You have passed the dead line of " + e.getD_retour())
                             .create();
                     Dialog.show("Success", "sms sent succesfully", "OK", null);
 
@@ -263,7 +263,7 @@ public class LivreTeacher extends Form {
         Label Description = new Label("Description:");
         Label Categorie = new Label("Categorie:");
 
-        Label Quantite = new Label("Quantite:");
+        Label Quantite = new Label("Quantity:");
         TextField NameField = new TextField(null, "Name");
         NameField.setText(l.getName());
         TextField AuthorField = new TextField(null, "Author");
@@ -277,7 +277,7 @@ public class LivreTeacher extends Form {
         CategorieField.addItem("Art");
         CategorieField.addItem("Thriller");
         CategorieField.setSelectedItem(l.getCategorie());
-        TextField QuantiteField = new TextField(null, "Quantite");
+        TextField QuantiteField = new TextField(null, "Quantity");
         QuantiteField.setText(String.valueOf(l.getQuantite()));
 
         Container Container = new Container(BoxLayout.y());
@@ -295,7 +295,7 @@ public class LivreTeacher extends Form {
         LivreDetail.revalidate();
         Delete.addActionListener(ev -> {
 
-            if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+            if (Dialog.show("Confirmation", "Are you Sure ? ", "OK", "CANCEL")) {
 
                 String result = ServicesLivres.getInstance().DeleteLivre(l);
                 if (!result.equals("Error")) {

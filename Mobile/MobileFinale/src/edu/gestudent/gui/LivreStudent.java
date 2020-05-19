@@ -52,7 +52,7 @@ public class LivreStudent extends Form {
 
     public LivreStudent(Form previous, Resources theme) {
         currentForm = this;
-        currentForm.setTitle("Book");
+        currentForm.setTitle("Book List");
 
         currentForm.setLayout(BoxLayout.y());
 
@@ -121,7 +121,7 @@ public class LivreStudent extends Form {
 
         ImageViewer img = new ImageViewer(imgurl.scaled(imgurl.getWidth() * 1, imgurl.getHeight() * 1));
 
-        SpanLabel Description = new SpanLabel("Name: " + l.getName() + "\n" + "Author: " + l.getAuthor() + "\n" + "Descriptions: " + l.getUrl() + "\n" + "Quantite: " + l.getQuantite() + "\n");
+        SpanLabel Description = new SpanLabel("Name: " + l.getName() + "\n" + "Author: " + l.getAuthor() + "\n" + "Description: " + l.getUrl() + "\n" + "Quantity: " + l.getQuantite() + "\n");
 
         Label DateEmprunt = new Label("Borrow Date:");
         Label DateRetour = new Label("Return Date:");
@@ -140,7 +140,7 @@ public class LivreStudent extends Form {
             d_emprunt = dateformat.format(DateE.getDate());
             d_retour = dateformat.format(Dater.getDate());
 
-            if (Dialog.show("Confirmation", "Are u Sure ? ", "OK", "ANNULER")) {
+            if (Dialog.show("Confirmation", "Are you Sure ? ", "OK", "CANCEL")) {
                 Date date = new Date();
 
                 e.setD_emprunt(d_emprunt);
