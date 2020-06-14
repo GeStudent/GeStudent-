@@ -59,8 +59,13 @@ public class student extends Form {
             new LivreStudent(current, com.codename1.ui.util.Resources.getGlobalResources()).showBack();
 
         });
+        getToolbar().addCommandToSideMenu("Event", null, ev -> {
+            new EventStudent(current, com.codename1.ui.util.Resources.getGlobalResources()).showBack();
 
- 
+        });
+        getToolbar().addCommandToSideMenu("Restaurant", null, ev -> {
+            new Restaurant(current, com.codename1.ui.util.Resources.getGlobalResources()).showBack();
+        });
 
         getToolbar().addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, ev -> {
             try {
